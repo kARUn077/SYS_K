@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirtan | MISSIONS & LOADOUT</title>
+    <meta name="description" content="Tactical Loadout and Mission Briefings">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Orbitron:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=TacticalUpdate">
+</head>
+
+<body class="crt">
+    <div class="scanlines"></div>
+    <div class="cursor-crosshair"></div>
+
+    <div class="hud-wrapper">
+        <header class="hud-header">
+            <div class="hud-logo">
+                <img src="logo.png" alt="Logo" class="hud-logo-img">
+                <span class="glitch" data-text="SYS_K">SYS_K</span>
+            </div>
+            <nav class="hud-nav">
+                <!-- Transition links via loading screen -->
+                <a href="index.html">[DOSSIER]</a>
+                <a href="level_select.html" class="text-green">[LOADOUT & MISSIONS]</a>
+                <a href="comms.html">[COMMS]</a>
+            </nav>
+            <div class="hud-status">STATUS: <span class="text-green blink">ACTIVE</span></div>
+        </header>
+
+        <main class="hud-main">
+            <h1 class="sector-title">> SELECT DEPLOYMENT ZONE <span class="blink">_</span></h1>
+
+            <div class="map-grid">
+                <!-- Loadout / Skills Section (reused from previous index but framed as a level stage) -->
+                <section id="loadout" class="sector active">
+                    <h2 class="sub-sector-title">>> STAGE 1: WEAPON CACHE (SKILLS)</h2>
+                    <div class="loadout-grid">
+                        <div class="weapon-card">
+                            <div class="w-header">PRIMARY: C++</div>
+                            <div class="w-img"><img
+                                    src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&auto=format&fit=crop"
+                                    alt="Tactical Circuitboard"></div>
+                            <div class="w-stats"><span>DAMAGE: MAX</span><span>RELIABILITY: 99%</span></div>
+                            <div class="w-desc">High-velocity logic execution. Used for algorithmic takedowns.</div>
+                        </div>
+                        <div class="weapon-card">
+                            <div class="w-header">SECONDARY: REACT.JS</div>
+                            <div class="w-img"><img
+                                    src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&auto=format&fit=crop"
+                                    alt="Laptop screen UI"></div>
+                            <div class="w-stats"><span>FIRE RATE: RAPID</span><span>UI DEPLOYMENT: FAST</span></div>
+                            <div class="w-desc">Component-based rapid fire framework for dynamic interfaces.</div>
+                        </div>
+                        <div class="weapon-card">
+                            <div class="w-header">EXPLOSIVE: NODE.JS</div>
+                            <div class="w-img"><img
+                                    src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=500&auto=format&fit=crop"
+                                    alt="Servers"></div>
+                            <div class="w-stats"><span>IMPACT: AOE</span><span>RUNTIME: ASYNC</span></div>
+                            <div class="w-desc">Heavy ordnance server-side runtime capable of handling massive
+                                operations concurrently.</div>
+                        </div>
+                        <div class="weapon-card">
+                            <div class="w-header">INTEL: MONGODB</div>
+                            <div class="w-img"><img
+                                    src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=500&auto=format&fit=crop"
+                                    alt="Database tech"></div>
+                            <div class="w-stats"><span>CAPACITY: VAST</span><span>FLEXIBILITY: HIGH</span></div>
+                            <div class="w-desc">NoSQL secure data vault for storing mission critical assets.</div>
+                        </div>
+                    </div>
+                </section>
+
+                <hr style="border-color: var(--term-dark-green); margin: 4rem 0; border-style: dashed;">
+
+                <!-- Projects Section (Framed as mission zones) -->
+                <section id="operations" class="sector active">
+                    <h2 class="sub-sector-title">>> STAGE 2: ACTIVE THEATERS (PROJECTS)</h2>
+
+                    <div class="missions-list terminal-box">
+                        <div class="mission-row">
+                            <div class="m-status text-green">[SUCCESS]</div>
+                            <div class="m-details">
+                                <h3>OP: HIRELY (JOB PORTAL)</h3>
+                                <p>A specialized nexus connecting seekers with destined opportunities across the
+                                    corporate sector.</p>
+                                <span class="m-tech">TECH: MongoDB, Express, React, Node.js, Tailwind</span>
+                            </div>
+                            <a href="https://github.com/kARUn077/" target="_blank" class="btn tactical-btn small-btn">>
+                                VIEW_INTEL</a>
+                        </div>
+                        <div class="mission-row">
+                            <div class="m-status text-green">[SUCCESS]</div>
+                            <div class="m-details">
+                                <h3>OP: TECHFINITY (E-COMMERCE)</h3>
+                                <p>Established a secure, scalable digital marketplace for high-end electronic tech.</p>
+                                <span class="m-tech">TECH: React, Stripe, Redux, Node.js</span>
+                            </div>
+                            <a href="https://github.com/kARUn077/" target="_blank" class="btn tactical-btn small-btn">>
+                                VIEW_INTEL</a>
+                        </div>
+                        <div class="mission-row">
+                            <div class="m-status text-green">[SUCCESS]</div>
+                            <div class="m-details">
+                                <h3>OP: WALLETIQ (FINANCE MANAGER)</h3>
+                                <p>A classified ledger tracking asset flows and financial resources in real-time.</p>
+                                <span class="m-tech">TECH: MERN Stack, Chart.js</span>
+                            </div>
+                            <a href="https://github.com/kARUn077/" target="_blank" class="btn tactical-btn small-btn">>
+                                VIEW_INTEL</a>
+                        </div>
+                        <div class="mission-row">
+                            <div class="m-status text-yellow">[IN_PROGRESS]</div>
+                            <div class="m-details">
+                                <h3>OP: EAGLE EYE (OBJECT DETECTOR)</h3>
+                                <p>Developing an AI surveillance software capable of tracking moving targets via visual
+                                    feeds.</p>
+                                <span class="m-tech">TECH: Python, TensorFlow, OpenCV</span>
+                            </div>
+                            <a href="https://github.com/kARUn077/" target="_blank" class="btn tactical-btn small-btn">>
+                                VIEW_INTEL</a>
+                        </div>
+                    </div>
+
+                    <h3 class="sub-sector-title">>> COMBAT RECOGNITION</h3>
+                    <div class="ribbons-grid">
+                        <a href="https://codeforces.com/profile/k.run007" target="_blank"
+                            class="ribbon text-center ribbon-link">
+                            <div class="ribbon-bar cb-1"></div>
+                            <p>CODEFORCES</p>
+                        </a>
+                        <a href="https://leetcode.com/u/Kkirtan321/" target="_blank"
+                            class="ribbon text-center ribbon-link">
+                            <div class="ribbon-bar cb-2"></div>
+                            <p>LEETCODE</p>
+                        </a>
+                        <a href="https://www.codechef.com/users/k_logic" target="_blank"
+                            class="ribbon text-center ribbon-link">
+                            <div class="ribbon-bar cb-3"></div>
+                            <p>CODECHEF</p>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer class="hud-footer">
+            <div class="footer-links" style="display:flex; gap:1.5rem;">
+                <a href="https://github.com/kARUn077" target="_blank"
+                    style="color:var(--term-green); text-decoration:none;">[GITHUB]</a>
+                <a href="https://www.linkedin.com/in/karun-poddar-515b23264/" target="_blank"
+                    style="color:var(--term-green); text-decoration:none;">[LINKEDIN]</a>
+                <a href="https://www.instagram.com/me_kirtan_17/" target="_blank"
+                    style="color:var(--term-green); text-decoration:none;">[INSTAGRAM]</a>
+                <a href="mailto:karunpoddar0@gmail.com"
+                    style="color:var(--term-green); text-decoration:none;">[EMAIL]</a>
+            </div>
+            <div style="display:flex; gap:1.5rem; align-items: center;">
+                <span>SYS_VERSION: 1.0.4</span>
+                <span id="audio-toggle" class="text-green" style="cursor: pointer; transition: all 0.2s;">[AUDIO:
+                    OFF]</span>
+                <span>CONNECTION: VERIFIED</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Interface Audio -->
+    <audio id="sndBgTrack" src="bgm.mp3" loop preload="auto"></audio>
+
+    <audio id="sndHover" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
+    <audio id="sndClick" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
+
+    <script src="script.js?v=update1"></script>
+</body>
+
+</html>

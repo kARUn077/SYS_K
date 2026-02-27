@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM LOADING...</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=TacticalUpdate">
+    <style>
+        .loading-screen {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(0, 255, 65, 0.2);
+            border-top-color: var(--term-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 2rem;
+        }
+
+        .loading-bar-container {
+            width: 400px;
+            height: 20px;
+            border: 2px solid var(--term-green);
+            padding: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .loading-bar {
+            height: 100%;
+            background: var(--term-green);
+            width: 0%;
+            box-shadow: 0 0 10px var(--term-green);
+            animation: loadProgress 2s ease-out forwards;
+        }
+
+        .loading-text {
+            font-family: var(--font-mono);
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        .loading-subtext {
+            color: #888;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes loadProgress {
+            0% {
+                width: 0%;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body class="crt">
+    <div class="scanlines"></div>
+    <div class="cursor-crosshair"></div>
+
+    <!-- Moving IGI Style Grid for Loading -->
+    <div class="video-bg-container" style="background: 
+        radial-gradient(circle at 50% 50%, rgba(0, 50, 0, 0.4) 0%, #000 100%),
+        linear-gradient(rgba(0, 255, 65, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 65, 0.05) 1px, transparent 1px);
+        background-size: 100% 100%, 40px 40px, 40px 40px;
+        animation: bgMoveSmall 10s linear infinite;">
+    </div>
+
+    <div class="loading-screen">
+        <div class="spinner"></div>
+        <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+        </div>
+        <div class="loading-text blink text-green">DECRYPTING CLASSIFIED FILES...</div>
+        <div class="loading-subtext" id="loadStatus"> Establishing Secure Uplink...</div>
+    </div>
+
+    <!-- Audio Effects -->
+    <audio id="sndClick" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+    <script>
+        // Loading sequence simulation
+        const statusEl = document.getElementById('loadStatus');
+        const tasks = [
+            "Bypassing Firewall...",
+            "Loading Operative Data...",
+            "Mounting Level Assets...",
+            "Access Granted."
+        ];
+
+        // Change text every 400ms
+        tasks.forEach((task, index) => {
+            setTimeout(() => {
+                statusEl.innerText = task;
+            }, index * 500);
+        });
+
+        // Redirect logic using URL parameters
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const targetPage = urlParams.get('target') || 'index.html';
+
+            setTimeout(() => {
+                window.location.href = targetPage;
+            }, 2000); // 2 second fake load
+        };
+    </script>
+</body>
+
+</html>

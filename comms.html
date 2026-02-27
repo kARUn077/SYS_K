@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirtan | SECURE COMMS</title>
+    <meta name="description" content="Secure Communication Channel">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Orbitron:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=TacticalUpdate">
+</head>
+
+<body class="crt">
+    <div class="scanlines"></div>
+    <div class="cursor-crosshair"></div>
+
+    <div class="hud-wrapper">
+        <header class="hud-header">
+            <div class="hud-logo">
+                <img src="logo.png" alt="Logo" class="hud-logo-img">
+                <span class="glitch" data-text="SYS_K">SYS_K</span>
+            </div>
+            <nav class="hud-nav">
+                <!-- Transition links via loading screen -->
+                <a href="index.html">[DOSSIER]</a>
+                <a href="level_select.html">[LOADOUT & MISSIONS]</a>
+                <a href="comms.html" class="text-green">[COMMS]</a>
+            </nav>
+            <div class="hud-status">STATUS: <span class="text-green blink">ACTIVE</span></div>
+        </header>
+
+        <main class="hud-main" style="display:flex; align-items:center; justify-content:center; flex-grow:1;">
+            <!-- Contact Section -->
+            <section id="comms" class="sector active" style="width:100%; max-width:600px; margin:0;">
+                <h2 class="sector-title">> ESTABLISH UPLINK <span class="blink">_</span></h2>
+                <div class="comms-terminal terminal-box">
+                    <div class="term-header"><span>TRANSMISSION_UPLINK</span></div>
+                    <div class="term-body">
+                        <!-- FormSubmit Email API -->
+                        <form id="intelForm" action="https://formsubmit.co/karunpoddar0@gmail.com" method="POST">
+                            <!-- Hidden config for formsubmit -->
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_subject" value="New Transmission from Portfolio!">
+
+                            <div class="input-group">
+                                <label>> IDENTIFIER:</label>
+                                <input type="text" name="name" placeholder="Enter Callsign..." required>
+                            </div>
+                            <div class="input-group">
+                                <label>> SECURE FREQUENCY (EMAIL):</label>
+                                <input type="email" name="email" placeholder="Enter Address..." required>
+                            </div>
+                            <div class="input-group">
+                                <label>> ENCRYPTED MESSAGE:</label>
+                                <textarea name="message" rows="4" placeholder="Input target intel..."
+                                    required></textarea>
+                            </div>
+                            <button type="submit" class="btn tactical-btn">> TRANSMIT</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="hud-footer">
+            <div class="footer-links" style="display:flex; gap:1.5rem;">
+                <a href="https://github.com/kARUn077" target="_blank"
+                    style="color:var(--term-green); text-decoration:none;">[GITHUB]</a>
+                <a href="https://www.linkedin.com/in/karun-poddar-515b23264/" target="_blank"
+                    style="color:var(--term-green); text-decoration:none;">[LINKEDIN]</a>
+                <a href="https://www.instagram.com/me_kirtan_17/" target="_blank"
+                    style="color:var(--term-green); text-decoration:none;">[INSTAGRAM]</a>
+                <a href="mailto:karunpoddar0@gmail.com"
+                    style="color:var(--term-green); text-decoration:none;">[EMAIL]</a>
+            </div>
+            <div style="display:flex; gap:1.5rem; align-items: center;">
+                <span>SYS_VERSION: 1.0.4</span>
+                <span id="audio-toggle" class="text-green" style="cursor: pointer; transition: all 0.2s;">[AUDIO:
+                    OFF]</span>
+                <span>CONNECTION: VERIFIED</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Interface Audio -->
+    <audio id="sndBgTrack" src="bgm.mp3" loop preload="auto"></audio>
+
+    <audio id="sndHover" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
+    <audio id="sndClick" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
+
+    <script src="script.js?v=update1"></script>
+</body>
+
+</html>
