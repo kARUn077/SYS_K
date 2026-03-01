@@ -1,219 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kirtan | CLASSIFIED DOSSIER</title>
-    <meta name="description" content="Tactical Portfolio of Kirtan - MERN Stack Operative">
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Orbitron:wght@400;700;900&display=swap"
-        rel="stylesheet">
-
-    <link rel="stylesheet" href="styles.css">
+    <meta http-equiv="refresh" content="0; url=igi-intro.html">
+    <title>Redirecting to Mission Briefing...</title>
+    <script>window.location.replace('igi-intro.html');</script>
     <style>
-        /* NIGHT VISION OVERLAY */
-        .nv-overlay{
-            position:fixed;
-            inset:0;
-            background:radial-gradient(circle at center, rgba(0,255,102,0.3) 0%, rgba(0,255,102,0.15) 50%, rgba(0,10,3,0.8) 100%);
-            opacity:0;
-            pointer-events:none;
-            z-index:60;
-            transition:opacity 0.3s ease;
+        body {
+            margin: 0;
+            background: #000a03;
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
         }
-
-        body.night-vision .nv-overlay{
-            opacity:1;
+        .redirect-msg {
+            font-size: 1.2rem;
+            animation: blink 1s infinite;
         }
-
-        body.night-vision .nv-overlay::before{
-            content:"";
-            position:absolute;
-            inset:0;
-            background:repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px);
-            animation:nvFlicker 0.15s infinite;
-            pointer-events:none;
-        }
-
-        @keyframes nvFlicker{
-            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100%{opacity:1;}
-            20%, 24%, 55%{opacity:0.5;}
-        }
-
-        .nv-toggle{
-            position:fixed;
-            bottom:20px;
-            right:20px;
-            padding:8px 12px;
-            background:rgba(0,255,102,0.1);
-            border:1px solid rgba(0,255,102,0.5);
-            color:var(--term-green);
-            font-family:'Share Tech Mono', monospace;
-            font-size:0.75rem;
-            cursor:pointer;
-            z-index:50;
-            transition:all 0.25s ease;
-            letter-spacing:0.05rem;
-        }
-
-        .nv-toggle:hover{
-            background:rgba(0,255,102,0.25);
-            box-shadow:0 0 12px rgba(0,255,102,0.4);
-        }
-
-        .nv-toggle.active{
-            background:rgba(0,255,102,0.3);
-            box-shadow:0 0 15px rgba(0,255,102,0.6);
-            border-color:var(--term-green);
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
         }
     </style>
 </head>
-
-<body class="crt">
-
-    <!-- Screen Scanline Overlay -->
-    <div class="scanlines"></div>
-    <div class="nv-overlay"></div>
-    <button class="nv-toggle" id="nvToggle">[ NV MODE ]</button>
-
-    <!-- Background Atmospheric Video (Placeholder authentic stock) -->
-    <div class="video-bg-container">
-        <!-- Using a free stock video of spy/server/hacker thematic -->
-        <video autoplay muted loop id="bgVideo" class="covert-video">
-            <source src="https://cdn.pixabay.com/video/2020/07/04/43884-437508003_large.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay"></div>
-    </div>
-
-    <!-- Custom Crosshair Cursor -->
-    <div class="cursor-crosshair"></div>
-
-    <!-- Interface HUD Wrapper -->
-    <div class="hud-wrapper">
-
-        <!-- Header / Navigation -->
-        <header class="hud-header">
-            <a href="igi-intro.html" class="hud-logo" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
-                <img src="logo.png" alt="Logo" class="hud-logo-img">
-                <span class="glitch" data-text="SYS_K">SYS_K</span>
-            </a>
-            <nav class="hud-nav">
-                <a href="index.html" class="text-green">[DOSSIER]</a>
-                <a href="level_select.html">[LOADOUT & MISSIONS]</a>
-                <a href="artworks.html">[PAST OPERATIONS]</a>
-                <a href="comms.html">[COMMS]</a>
-            </nav>
-            <div class="hud-status">STATUS: <span class="text-green blink">ONLINE</span></div>
-        </header>
-
-        <!-- Main Content Area -->
-        <main class="hud-main">
-
-            <!-- Combined Hero & Dossier Dashboard -->
-            <section id="hero" class="sector active">
-                <h2 class="sector-title" style="margin-bottom: 1.5rem;">>> CLASSIFIED DOSSIER</h2>
-                <div class="intel-grid" style="grid-template-columns: 1.2fr 1fr; gap: 2rem; align-items: stretch;">
-
-                    <!-- Left Column: Target Info & Briefing -->
-                    <div class="terminal-box" style="margin-bottom: 0; display: flex; flex-direction: column;">
-                        <div class="term-header">
-                            <span>> root@kirtan:~/execute_briefing.sh</span>
-                            <span class="status-indicator"></span>
-                        </div>
-                        <div class="term-body" style="flex-grow: 1;">
-                            <p class="typewriter delay-1">ACCESS GRANTED. DECRYPTING PROFILE...</p>
-                            <h1 class="target-name delay-2 glitch" data-text="TARGET: KIRTAN"
-                                style="font-size: 2.8rem;">TARGET: KIRTAN</h1>
-                            <p class="role-designation delay-3">DESIGNATION: MERN STACK DEVELOPER // COMPETITIVE
-                                PROGRAMMER</p>
-
-                            <hr style="border:0; border-bottom:1px dashed var(--hud-border); margin: 1.5rem 0;">
-
-                            <p class="delay-4">> ORIGIN: RAJASTHAN, IN</p>
-                            <p class="delay-4">> SPECIALTIES: SCALABLE ARCHITECTURES, ALGO. WARFARE</p>
-
-                            <br>
-                            <p class="dossier-text delay-4">Operative acts with lethal precision in both front-end and
-                                back-end environments. Proven track record of eliminating bugs and optimizing load times
-                                under extreme pressure. Proficient in rapidly deploying full-stack web applications.</p>
-
-                            <div class="action-buttons delay-5"
-                                style="margin-top: 2.5rem; display: flex; flex-wrap: wrap; gap: 1rem;">
-                                <!-- <a href="level_select.html" class="btn tactical-btn">> VIEW_MISSIONS.EXE</a> -->
-                                <!-- <a href="comms.html" class="btn tactical-btn">[ESTABLISH_COMMS]</a> -->
-                                <a href="resume.pdf" class="btn tactical-btn"
-                                    download="Kirtan_Resume.pdf">[EXTRACT_CV.PDF]</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Right Column: Photo & Stats Bars -->
-                    <div style="display: flex; flex-direction: column; gap: 2rem;">
-                        <div class="intel-photo-frame">
-                            <img src="profile.jpg" alt="Operative Kirtan" class="intel-img glitch-photo"
-                                style="height: 280px; object-fit: cover;">
-                            <div class="frame-corners"><span></span></div>
-                        </div>
-
-                        <div class="terminal-box" style="margin-bottom: 0; flex-grow: 1;">
-                            <div class="term-header"><span>COMBAT_STATS</span></div>
-                            <div class="term-body" style="padding: 1.5rem;">
-                                <div class="stats-bar-container" style="margin-top: 0;">
-                                    <div class="stat-label">CQC (PROBLEM SOLVING)</div>
-                                    <div class="stat-bar">
-                                        <div class="fill" style="width: 95%;"></div>
-                                    </div>
-
-                                    <div class="stat-label">MARKSMANSHIP (DATA STRUCTURES)</div>
-                                    <div class="stat-bar">
-                                        <div class="fill" style="width: 90%;"></div>
-                                    </div>
-
-                                    <div class="stat-label">INFILTRATION (MERN STACK)</div>
-                                    <div class="stat-bar">
-                                        <div class="fill" style="width: 85%;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-
-        </main>
-
-        <footer class="hud-footer">
-            <div class="footer-links" style="display:flex; gap:1.5rem;">
-                <a href="https://github.com/kARUn077" target="_blank"
-                    style="color:var(--term-green); text-decoration:none;">[GITHUB]</a>
-                <a href="https://www.linkedin.com/in/karun-poddar-515b23264/" target="_blank"
-                    style="color:var(--term-green); text-decoration:none;">[LINKEDIN]</a>
-                <a href="https://www.instagram.com/me_kirtan_17/" target="_blank"
-                    style="color:var(--term-green); text-decoration:none;">[INSTAGRAM]</a>
-                <a href="mailto:karunpoddar0@gmail.com"
-                    style="color:var(--term-green); text-decoration:none;">[EMAIL]</a>
-            </div>
-            <div style="display:flex; gap:1.5rem; align-items: center;">
-                <span>SYS_VERSION: 1.0.4</span>
-                <span id="audio-toggle" class="text-green" style="cursor: pointer; transition: all 0.2s;">[AUDIO:
-                    OFF]</span>
-                <span>CONNECTION: VERIFIED</span>
-            </div>
-        </footer>
-    </div>
-
-    <!-- Interface Audio -->
-    <audio id="sndBgTrack" src="bgm.mp3" loop preload="auto"></audio>
-    <audio id="sndHover" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
-    <audio id="sndClick" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
-
-    <script src="script.js?v=update1"></script>
+<body>
+    <div class="redirect-msg">[ INITIATING MISSION BRIEFING... ]</div>
 </body>
-
 </html>
