@@ -15,12 +15,71 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* NIGHT VISION OVERLAY */
+        .nv-overlay{
+            position:fixed;
+            inset:0;
+            background:radial-gradient(circle at center, rgba(0,255,102,0.3) 0%, rgba(0,255,102,0.15) 50%, rgba(0,10,3,0.8) 100%);
+            opacity:0;
+            pointer-events:none;
+            z-index:60;
+            transition:opacity 0.3s ease;
+        }
+
+        body.night-vision .nv-overlay{
+            opacity:1;
+        }
+
+        body.night-vision .nv-overlay::before{
+            content:"";
+            position:absolute;
+            inset:0;
+            background:repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px);
+            animation:nvFlicker 0.15s infinite;
+            pointer-events:none;
+        }
+
+        @keyframes nvFlicker{
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100%{opacity:1;}
+            20%, 24%, 55%{opacity:0.5;}
+        }
+
+        .nv-toggle{
+            position:fixed;
+            bottom:20px;
+            right:20px;
+            padding:8px 12px;
+            background:rgba(0,255,102,0.1);
+            border:1px solid rgba(0,255,102,0.5);
+            color:var(--term-green);
+            font-family:'Share Tech Mono', monospace;
+            font-size:0.75rem;
+            cursor:pointer;
+            z-index:50;
+            transition:all 0.25s ease;
+            letter-spacing:0.05rem;
+        }
+
+        .nv-toggle:hover{
+            background:rgba(0,255,102,0.25);
+            box-shadow:0 0 12px rgba(0,255,102,0.4);
+        }
+
+        .nv-toggle.active{
+            background:rgba(0,255,102,0.3);
+            box-shadow:0 0 15px rgba(0,255,102,0.6);
+            border-color:var(--term-green);
+        }
+    </style>
 </head>
 
 <body class="crt">
 
     <!-- Screen Scanline Overlay -->
     <div class="scanlines"></div>
+    <div class="nv-overlay"></div>
+    <button class="nv-toggle" id="nvToggle">[ NV MODE ]</button>
 
     <!-- Background Atmospheric Video (Placeholder authentic stock) -->
     <div class="video-bg-container">
@@ -39,13 +98,14 @@
 
         <!-- Header / Navigation -->
         <header class="hud-header">
-            <div class="hud-logo">
+            <a href="igi-intro.html" class="hud-logo" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
                 <img src="logo.png" alt="Logo" class="hud-logo-img">
                 <span class="glitch" data-text="SYS_K">SYS_K</span>
-            </div>
+            </a>
             <nav class="hud-nav">
                 <a href="index.html" class="text-green">[DOSSIER]</a>
                 <a href="level_select.html">[LOADOUT & MISSIONS]</a>
+                <a href="artworks.html">[PAST OPERATIONS]</a>
                 <a href="comms.html">[COMMS]</a>
             </nav>
             <div class="hud-status">STATUS: <span class="text-green blink">ONLINE</span></div>
@@ -84,8 +144,8 @@
 
                             <div class="action-buttons delay-5"
                                 style="margin-top: 2.5rem; display: flex; flex-wrap: wrap; gap: 1rem;">
-                                <a href="level_select.html" class="btn tactical-btn">> VIEW_MISSIONS.EXE</a>
-                                <a href="comms.html" class="btn tactical-btn">[ESTABLISH_COMMS]</a>
+                                <!-- <a href="level_select.html" class="btn tactical-btn">> VIEW_MISSIONS.EXE</a> -->
+                                <!-- <a href="comms.html" class="btn tactical-btn">[ESTABLISH_COMMS]</a> -->
                                 <a href="resume.pdf" class="btn tactical-btn"
                                     download="Kirtan_Resume.pdf">[EXTRACT_CV.PDF]</a>
                             </div>

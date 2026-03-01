@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Objectives | KIRTAN</title>
+    <meta name="description" content="Future Mission Objectives and Goals">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Orbitron:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=TacticalUpdate">
+    <style>
+        /* NIGHT VISION OVERLAY */
+        .nv-overlay{
+            position:fixed;
+            inset:0;
+            background:radial-gradient(circle at center, rgba(0,255,102,0.3) 0%, rgba(0,255,102,0.15) 50%, rgba(0,10,3,0.8) 100%);
+            opacity:0;
+            pointer-events:none;
+            z-index:60;
+            transition:opacity 0.3s ease;
+        }
+
+        body.night-vision .nv-overlay{
+            opacity:1;
+        }
+
+        body.night-vision .nv-overlay::before{
+            content:"";
+            position:absolute;
+            inset:0;
+            background:repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px);
+            animation:nvFlicker 0.15s infinite;
+            pointer-events:none;
+        }
+
+        @keyframes nvFlicker{
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100%{opacity:1;}
+            20%, 24%, 55%{opacity:0.5;}
+        }
+
+        .nv-toggle{
+            position:fixed;
+            bottom:20px;
+            right:20px;
+            padding:8px 12px;
+            background:rgba(0,255,102,0.1);
+            border:1px solid rgba(0,255,102,0.5);
+            color:var(--term-green);
+            font-family:'Share Tech Mono', monospace;
+            font-size:0.75rem;
+            cursor:pointer;
+            z-index:50;
+            transition:all 0.25s ease;
+            letter-spacing:0.05rem;
+        }
+
+        .nv-toggle:hover{
+            background:rgba(0,255,102,0.25);
+            box-shadow:0 0 12px rgba(0,255,102,0.4);
+        }
+
+        .nv-toggle.active{
+            background:rgba(0,255,102,0.3);
+            box-shadow:0 0 15px rgba(0,255,102,0.6);
+            border-color:var(--term-green);
+        }
+    </style>
+</head>
+
+<body class="crt">
+    <div class="scanlines"></div>
+    <div class="nv-overlay"></div>
+    <div class="cursor-crosshair"></div>
+    <button class="nv-toggle" id="nvToggle">[ NV MODE ]</button>
+
+    <div class="hud-wrapper">
+        <main class="hud-main" style="padding-top: 3rem;">
+            <h1 class="sector-title">>> MISSION OBJECTIVES BRIEFING <span class="blink">_</span></h1>
+
+            <div class="map-grid">
+                <section id="objectives" class="sector active">
+                    <div class="terminal-box" style="margin-bottom: 2rem;">
+                        <div class="term-header"><span>CLASSIFIED_OBJECTIVES.LOG</span></div>
+                        <div class="term-body">
+                            <p style="margin-bottom: 1.5rem; color: rgba(0, 255, 65, 0.8);">High-priority deployment zones for future acquisition and mastery. Success rate dependent on strategic execution.</p>
+                            
+                            <div class="missions-list" style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 2rem;">
+                                <div class="mission-row" style="display: flex; gap: 2rem; align-items: flex-start;">
+                                    <div class="m-status text-yellow" style="min-width: 220px; max-width: 220px; flex-shrink: 0;">[PRIMARY_TARGET]</div>
+                                    <div class="m-details" style="flex: 1;">
+                                        <h3>INFILTRATE: TOP QUANT COMPANY</h3>
+                                        <p>Secure SDE position in elite quantitative trading firm. Deploy algorithmic warfare at institutional scale. Target institutions specializing in high-frequency trading systems.</p>
+                                        <span class="m-tech">STATUS: In Pursuit | TARGET: HFT/Quant Firms | ETA: 2026-2027 | PRIORITY: CRITICAL</span>
+                                    </div>
+                                </div>
+
+                                <div class="mission-row" style="display: flex; gap: 2rem; align-items: flex-start;">
+                                    <div class="m-status text-yellow" style="min-width: 220px; max-width: 220px; flex-shrink: 0;">[SECONDARY_TARGET]</div>
+                                    <div class="m-details" style="flex: 1;">
+                                        <h3>OPERATION WANDERLUST: WORLD TOUR</h3>
+                                        <p>Execute global reconnaissance mission. Map cultural territories across multiple continents. Document diverse geographical zones and establish international operational presence.</p>
+                                        <span class="m-tech">STATUS: Route Planning | SCOPE: International | PRIORITY: High | DURATION: 6-12 months</span>
+                                    </div>
+                                </div>
+
+                                <div class="mission-row" style="display: flex; gap: 2rem; align-items: flex-start;">
+                                    <div class="m-status text-yellow" style="min-width: 220px; max-width: 220px; flex-shrink: 0;">[TERTIARY_TARGET]</div>
+                                    <div class="m-details" style="flex: 1;">
+                                        <h3>RENDEZVOUS: MUSIC IDOL</h3>
+                                        <p>Establish direct contact with musical inspiration and creative influence. Mission critical for personal morale boost and creative alignment.</p>
+                                        <span class="m-tech">STATUS: Opportunity Tracking | OBJECTIVE: Face-to-Face Meeting | PRIORITY: Medium</span>
+                                    </div>
+                                </div>
+
+                                <div class="mission-row" style="display: flex; gap: 2rem; align-items: flex-start;">
+                                    <div class="m-status text-yellow" style="min-width: 220px; max-width: 220px; flex-shrink: 0;">[TECHNICAL_TARGET]</div>
+                                    <div class="m-details" style="flex: 1;">
+                                        <h3>AI SYSTEMS MASTERY</h3>
+                                        <p>Deep learning architecture development and advanced ML deployment. Master cutting-edge AI frameworks and neural network design patterns.</p>
+                                        <span class="m-tech">STATUS: Training Phase | TECH: TensorFlow, PyTorch, JAX | PRIORITY: Critical | DEADLINE: Ongoing</span>
+                                    </div>
+                                </div>
+
+                                <div class="mission-row" style="display: flex; gap: 2rem; align-items: flex-start;">
+                                    <div class="m-status text-yellow" style="min-width: 220px; max-width: 220px; flex-shrink: 0;">[COMMUNITY_TARGET]</div>
+                                    <div class="m-details" style="flex: 1;">
+                                        <h3>OPEN SOURCE CONTRIBUTION</h3>
+                                        <p>Contribute to major open-source repositories and become recognized community operative. Establish presence in high-impact projects.</p>
+                                        <span class="m-tech">STATUS: Initial Contact | PLATFORM: GitHub | PRIORITY: High | IMPACT: Global</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr style="border-color: var(--term-dark-green); margin: 2rem 0; border-style: dashed;">
+
+                            <p style="margin-top: 2rem; color: rgba(0, 255, 65, 0.7); font-size: 0.9rem;">OBJECTIVE COMPLETION SCHEDULE: Prioritized targets scheduled for sequential deployment. Concurrent parallel execution where resources allow. All objectives classified as long-term strategic initiatives.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Back Button -->
+            <div class="back-button" style="text-align: center; margin-top: 3rem;">
+                <a href="igi-intro.html" class="btn tactical-btn">>> BACK TO MAIN MENU</a>
+            </div>
+        </main>
+    </div>
+
+    <!-- Audio -->
+    <audio id="sndHover" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
+    <audio id="sndClick" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

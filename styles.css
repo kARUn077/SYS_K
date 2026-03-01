@@ -186,7 +186,7 @@ body.hover-target .cursor-crosshair::after {
 .hud-logo {
     display: flex;
     align-items: center;
-    gap: 0.2rem;
+    gap: 0.8rem;
     font-family: var(--font-heading);
     font-weight: 900;
     font-size: 1.8rem;
@@ -194,7 +194,7 @@ body.hover-target .cursor-crosshair::after {
 }
 
 .hud-logo-img {
-    height: 120px;
+    height: 60px;
     width: auto;
     /* Transformation to turn white-background logo into glowing green on black */
     filter: invert(1) brightness(1.8) hue-rotate(180deg) saturate(5);
@@ -685,8 +685,8 @@ body.hover-target .cursor-crosshair::after {
 /* Missions List */
 .mission-row {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    gap: 2rem;
+    align-items: flex-start;
     padding: 1.5rem 0;
     border-bottom: 1px solid var(--hud-border);
 }
@@ -697,7 +697,18 @@ body.hover-target .cursor-crosshair::after {
 
 .m-status {
     font-family: var(--font-heading);
-    width: 120px;
+    min-width: 220px;
+    max-width: 220px;
+    flex-shrink: 0;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    padding-top: 0.3rem;
+}
+
+.m-details {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .m-details h3 {
@@ -832,10 +843,14 @@ body.hover-target .cursor-crosshair::after {
     .mission-row {
         flex-direction: column;
         align-items: flex-start;
-        gap: 1rem;
+        gap: 0.5rem;
     }
 
     .m-status {
         width: auto;
+        min-width: auto;
+        max-width: 100%;
+        margin-bottom: 0.5rem;
+    }
     }
 }

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirtan | CREDITS</title>
+    <meta name="description" content="Project Credits and Acknowledgments">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Orbitron:wght@400;700;900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .credits-container {
+            background: rgba(0, 20, 0, 0.8);
+            border: 2px solid var(--term-green);
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+        }
+
+        .credit-section {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .credit-section h3 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--term-green);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 1px dashed var(--hud-border);
+            padding-bottom: 0.5rem;
+        }
+
+        .credit-item {
+            margin: 0.5rem 0;
+            color: var(--term-green);
+            font-size: 0.95rem;
+        }
+
+        .credit-item a {
+            color: var(--term-green);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .credit-item a:hover {
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.8);
+            text-decoration: underline;
+        }
+
+        /* NIGHT VISION OVERLAY */
+        .nv-overlay{
+            position:fixed;
+            inset:0;
+            background:radial-gradient(circle at center, rgba(0,255,102,0.3) 0%, rgba(0,255,102,0.15) 50%, rgba(0,10,3,0.8) 100%);
+            opacity:0;
+            pointer-events:none;
+            z-index:60;
+            transition:opacity 0.3s ease;
+        }
+
+        body.night-vision .nv-overlay{
+            opacity:1;
+        }
+
+        body.night-vision .nv-overlay::before{
+            content:"";
+            position:absolute;
+            inset:0;
+            background:repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px);
+            animation:nvFlicker 0.15s infinite;
+            pointer-events:none;
+        }
+
+        @keyframes nvFlicker{
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100%{opacity:1;}
+            20%, 24%, 55%{opacity:0.5;}
+        }
+
+        .nv-toggle{
+            position:fixed;
+            bottom:20px;
+            right:20px;
+            padding:8px 12px;
+            background:rgba(0,255,102,0.1);
+            border:1px solid rgba(0,255,102,0.5);
+            color:var(--term-green);
+            font-family:'Share Tech Mono', monospace;
+            font-size:0.75rem;
+            cursor:pointer;
+            z-index:50;
+            transition:all 0.25s ease;
+            letter-spacing:0.05rem;
+        }
+
+        .nv-toggle:hover{
+            background:rgba(0,255,102,0.25);
+            box-shadow:0 0 12px rgba(0,255,102,0.4);
+        }
+
+        .nv-toggle.active{
+            background:rgba(0,255,102,0.3);
+            box-shadow:0 0 15px rgba(0,255,102,0.6);
+            border-color:var(--term-green);
+        }
+
+        /* STATUS BAR */
+        .status-bar {
+            background: rgba(0, 20, 0, 0.6);
+            border: 1px solid var(--term-green);
+            padding: 0.75rem 1.5rem;
+            margin: 1.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--term-green);
+            letter-spacing: 0.05rem;
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.15);
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            background: var(--term-green);
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 5px var(--term-green); }
+            50% { opacity: 0.5; box-shadow: 0 0 10px var(--term-green); }
+        }
+
+        /* DECORATIVE BRACKETS */
+        .credits-container::before,
+        .credits-container::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--term-green);
+        }
+
+        .credits-container::before {
+            top: 0;
+            left: 0;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .credits-container::after {
+            bottom: 0;
+            right: 0;
+            border-left: none;
+            border-top: none;
+        }
+
+        .credits-container {
+            position: relative;
+        }
+
+        /* GLITCH EFFECT */
+        .credit-section h3.glitch {
+            position: relative;
+            animation: glitch 2s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { text-shadow: none; }
+            20% { text-shadow: -2px 0 #00ff66; }
+            40% { text-shadow: 2px 0 #00ff66; }
+            60% { text-shadow: -1px 0 #00ff66; }
+            80% { text-shadow: 1px 0 #00ff66; }
+        }
+
+        /* MISSION ACCOMPLISHED SECTION */
+        .mission-accomplished {
+            background: rgba(0, 20, 0, 0.7);
+            border: 2px solid var(--term-green);
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--term-green);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.25);
+            animation: missionPulse 2s infinite ease-in-out;
+        }
+
+        @keyframes missionPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 65, 0.25); }
+            50% { box-shadow: 0 0 30px rgba(0, 255, 65, 0.45); }
+        }
+
+        .mission-accomplished .mission-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            letter-spacing: 0.15rem;
+            text-transform: uppercase;
+        }
+
+        .mission-accomplished .mission-status {
+            font-size: 0.95rem;
+            margin: 0.5rem 0;
+            letter-spacing: 0.05rem;
+        }
+    </style>
+</head>
+
+<body class="crt">
+
+    <!-- Screen Scanline Overlay -->
+    <div class="scanlines"></div>
+    <div class="nv-overlay"></div>
+    <button class="nv-toggle" id="nvToggle">[ NV MODE ]</button>
+
+    <!-- Background Video -->
+    <div class="video-bg-container">
+        <video autoplay muted loop id="bgVideo" class="covert-video">
+            <source src="https://cdn.pixabay.com/video/2020/07/04/43884-437508003_large.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Custom Crosshair -->
+    <div class="cursor-crosshair"></div>
+
+    <!-- HUD Wrapper -->
+    <div class="hud-wrapper">
+        <!-- Main Content -->
+        <main class="hud-main" style="padding-top: 3rem;">
+            <section id="credits" class="sector active">
+                <h2 class="sector-title">>> PROJECT CREDITS & ACKNOWLEDGMENTS</h2>
+
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <div class="status-item">
+                        <span class="status-indicator"></span>
+                        <span>OPERATIONAL STATUS</span>
+                    </div>
+                    <div class="status-item">100% • DEPLOYMENT SUCCESSFUL</div>
+                </div>
+
+                <!-- Development Credits -->
+                <div class="credits-container">
+                    <div class="credit-section">
+                        <h3 class="glitch">► LEAD OPERATIVE</h3>
+                        <div class="credit-item">KARUN PODDAR - Designer & Developer</div>
+                        <div class="credit-item"><a href="https://github.com/kARUn077" target="_blank">[GITHUB: kARUn077]</a></div>
+                    </div>
+
+                    <div class="credit-section">
+                        <h3>► CORE TECHNOLOGIES</h3>
+                        <div class="credit-item">HTML5 • CSS3 • JavaScript (Vanilla)</div>
+                        <div class="credit-item"><a href="https://fonts.google.com/" target="_blank">Google Fonts</a> - Typography Arsenal</div>
+                        <div class="credit-item"><a href="https://formsubmit.co/" target="_blank">FormSubmit.co</a> - Email Transmission Protocol</div>
+                    </div>
+
+                    <div class="credit-section">
+                        <h3>► DESIGN INSPIRATION</h3>
+                        <div class="credit-item">Project I.G.I. - Game Aesthetic & UI Framework</div>
+                        <div class="credit-item">Cyberpunk/Hacker Theme - Terminal & HUD Design</div>
+                        <div class="credit-item">CRT Monitor Simulation - Visual Effects</div>
+                    </div>
+
+                    <div class="credit-section">
+                        <h3>► AUDIO ASSETS</h3>
+                        <div class="credit-item"><a href="https://mixkit.co/" target="_blank">Mixkit</a> - UI Sound Effects</div>
+                        <div class="credit-item">Custom BGM - Original Composition</div>
+                    </div>
+
+                    <div class="credit-section">
+                        <h3>► STOCK RESOURCES</h3>
+                        <div class="credit-item"><a href="https://unsplash.com/" target="_blank">Unsplash</a> - Background Videos & Images</div>
+                        <div class="credit-item"><a href="https://pixabay.com/" target="_blank">Pixabay</a> - Stock Media</div>
+                    </div>
+
+                    <div class="credit-section">
+                        <h3>► ACKNOWLEDGMENTS</h3>
+                        <div class="credit-item">GitHub Copilot - Code Generation & Assistance</div>
+                        <div class="credit-item">Web Development Community - Inspirations & Knowledge</div>
+                        <div class="credit-item">All visitors & supporters - For checking out this tactical portfolio</div>
+                    </div>
+
+                    <div class="credit-section">
+                        <h3>► SPECIAL THANKS</h3>
+                        <div class="credit-item">Family & Friends - For endless support</div>
+                        <div class="credit-item">Open Source Community - For amazing tools & libraries</div>
+                    </div>
+
+                    <div class="credit-section">
+                        <h3>► VERSION & LICENSE</h3>
+                        <div class="credit-item">Portfolio Version: 1.0.5</div>
+                        <div class="credit-item">Last Updated: March 2026</div>
+                        <div class="credit-item">License: Personal Use</div>
+                    </div>
+                </div>
+
+                <!-- Mission Accomplished -->
+                <div class="mission-accomplished">
+                    <div class="mission-title">[ OPERATION COMPLETE ]</div>
+                    <div class="mission-status">► PORTFOLIO DEPLOYMENT SUCCESSFUL</div>
+                    <div class="mission-status">► ALL SYSTEMS OPERATIONAL</div>
+                    <div class="mission-status">► STANDING BY FOR NEW MISSIONS</div>
+                </div>
+
+                <!-- Back Button -->
+                <div class="back-button" style="text-align: center; margin-top: 3rem;">
+                    <a href="igi-intro.html" class="btn tactical-btn">>> BACK TO MAIN MENU</a>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <!-- Audio -->
+    <audio id="sndBgTrack" src="bgm.mp3" loop preload="auto"></audio>
+    <audio id="sndHover" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
+    <audio id="sndClick" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
+
+    <script src="script.js?v=update1"></script>
+</body>
+
+</html>

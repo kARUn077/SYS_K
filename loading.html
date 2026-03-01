@@ -74,12 +74,70 @@
                 width: 100%;
             }
         }
+
+        /* NIGHT VISION OVERLAY */
+        .nv-overlay{
+            position:fixed;
+            inset:0;
+            background:radial-gradient(circle at center, rgba(0,255,102,0.3) 0%, rgba(0,255,102,0.15) 50%, rgba(0,10,3,0.8) 100%);
+            opacity:0;
+            pointer-events:none;
+            z-index:60;
+            transition:opacity 0.3s ease;
+        }
+
+        body.night-vision .nv-overlay{
+            opacity:1;
+        }
+
+        body.night-vision .nv-overlay::before{
+            content:"";
+            position:absolute;
+            inset:0;
+            background:repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px);
+            animation:nvFlicker 0.15s infinite;
+            pointer-events:none;
+        }
+
+        @keyframes nvFlicker{
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100%{opacity:1;}
+            20%, 24%, 55%{opacity:0.5;}
+        }
+
+        .nv-toggle{
+            position:fixed;
+            bottom:20px;
+            right:20px;
+            padding:8px 12px;
+            background:rgba(0,255,102,0.1);
+            border:1px solid rgba(0,255,102,0.5);
+            color:var(--term-green);
+            font-family:'Share Tech Mono', monospace;
+            font-size:0.75rem;
+            cursor:pointer;
+            z-index:50;
+            transition:all 0.25s ease;
+            letter-spacing:0.05rem;
+        }
+
+        .nv-toggle:hover{
+            background:rgba(0,255,102,0.25);
+            box-shadow:0 0 12px rgba(0,255,102,0.4);
+        }
+
+        .nv-toggle.active{
+            background:rgba(0,255,102,0.3);
+            box-shadow:0 0 15px rgba(0,255,102,0.6);
+            border-color:var(--term-green);
+        }
     </style>
 </head>
 
 <body class="crt">
     <div class="scanlines"></div>
+    <div class="nv-overlay"></div>
     <div class="cursor-crosshair"></div>
+    <button class="nv-toggle" id="nvToggle">[ NV MODE ]</button>
 
     <!-- Moving IGI Style Grid for Loading -->
     <div class="video-bg-container" style="background: 

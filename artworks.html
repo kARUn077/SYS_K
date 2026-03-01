@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirtan | PAST OPERATIONS - ARTWORKS</title>
+    <meta name="description" content="Archive of Kirtan's artistic operations and past projects">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Orbitron:wght@400;700;900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Artworks Gallery Specific Styles */
+        .artwork-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .artwork-card {
+            border: 2px solid var(--hud-border);
+            background: rgba(0, 20, 0, 0.6);
+            padding: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .artwork-card:hover {
+            border-color: var(--term-green);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+            background: rgba(0, 30, 0, 0.8);
+        }
+
+        .artwork-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 1px dashed var(--hud-border);
+        }
+
+        .artwork-title {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            color: var(--term-green);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .artwork-date {
+            font-size: 0.85rem;
+            color: var(--term-dark-green);
+            margin-bottom: 0.8rem;
+            font-family: var(--font-pixel);
+        }
+
+        .artwork-description {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: rgba(0, 255, 65, 0.8);
+            margin-bottom: 1rem;
+        }
+
+        .view-artwork-btn {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            border: 1px solid var(--term-green);
+            background: rgba(0, 255, 65, 0.1);
+            color: var(--term-green);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .view-artwork-btn:hover {
+            background: var(--term-green);
+            color: black;
+            box-shadow: 0 0 20px var(--term-green);
+            border-color: var(--term-green);
+            font-weight: bold;
+        }
+
+        .empty-gallery {
+            text-align: center;
+            padding: 3rem;
+            color: var(--term-dark-green);
+            font-style: italic;
+        }
+
+        /* NIGHT VISION OVERLAY */
+        .nv-overlay{
+            position:fixed;
+            inset:0;
+            background:radial-gradient(circle at center, rgba(0,255,102,0.3) 0%, rgba(0,255,102,0.15) 50%, rgba(0,10,3,0.8) 100%);
+            opacity:0;
+            pointer-events:none;
+            z-index:60;
+            transition:opacity 0.3s ease;
+        }
+
+        body.night-vision .nv-overlay{
+            opacity:1;
+        }
+
+        body.night-vision .nv-overlay::before{
+            content:"";
+            position:absolute;
+            inset:0;
+            background:repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px);
+            animation:nvFlicker 0.15s infinite;
+            pointer-events:none;
+        }
+
+        @keyframes nvFlicker{
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100%{opacity:1;}
+            20%, 24%, 55%{opacity:0.5;}
+        }
+
+        .nv-toggle{
+            position:fixed;
+            bottom:20px;
+            right:20px;
+            padding:8px 12px;
+            background:rgba(0,255,102,0.1);
+            border:1px solid rgba(0,255,102,0.5);
+            color:var(--term-green);
+            font-family:'Share Tech Mono', monospace;
+            font-size:0.75rem;
+            cursor:pointer;
+            z-index:50;
+            transition:all 0.25s ease;
+            letter-spacing:0.05rem;
+        }
+
+        .nv-toggle:hover{
+            background:rgba(0,255,102,0.25);
+            box-shadow:0 0 12px rgba(0,255,102,0.4);
+        }
+
+        .nv-toggle.active{
+            background:rgba(0,255,102,0.3);
+            box-shadow:0 0 15px rgba(0,255,102,0.6);
+            border-color:var(--term-green);
+        }
+    </style>
+</head>
+
+<body class="crt">
+
+    <!-- Screen Scanline Overlay -->
+    <div class="scanlines"></div>
+    <div class="nv-overlay"></div>
+    <button class="nv-toggle" id="nvToggle">[ NV MODE ]</button>
+
+    <!-- Background Atmospheric Video -->
+    <div class="video-bg-container">
+        <video autoplay muted loop id="bgVideo" class="covert-video">
+            <source src="https://cdn.pixabay.com/video/2020/07/04/43884-437508003_large.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Custom Crosshair Cursor -->
+    <div class="cursor-crosshair"></div>
+
+    <!-- Interface HUD Wrapper -->
+    <div class="hud-wrapper">
+
+        <!-- Header / Navigation -->
+        <header class="hud-header">
+            <a href="igi-intro.html" class="hud-logo" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+                <img src="logo.png" alt="Logo" class="hud-logo-img">
+                <span class="glitch" data-text="SYS_K">SYS_K</span>
+            </a>
+            <nav class="hud-nav">
+                <a href="index.html">[DOSSIER]</a>
+                <a href="level_select.html">[LOADOUT & MISSIONS]</a>
+                <a href="artworks.html" class="text-green">[PAST OPERATIONS]</a>
+                <a href="comms.html">[COMMS]</a>
+            </nav>
+            <div class="hud-status">STATUS: <span class="text-green blink">ONLINE</span></div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="hud-main">
+
+            <!-- Artworks Archive Section -->
+            <section id="artworks" class="sector active">
+                <h2 class="sector-title">>> PAST OPERATIONS ARCHIVE</h2>
+                
+                <div class="terminal-box" style="margin-bottom: 2rem;">
+                    <div class="term-header">
+                        <span>> root@kirtan:~/artworks_vault.sh</span>
+                        <span class="status-indicator"></span>
+                    </div>
+                    <div class="term-body">
+                        <p class="typewriter delay-1">ACCESSING ENCRYPTED ARTWORKS REPOSITORY...</p>
+                        <p class="typewriter delay-2">Historical creative operations from previous missions. These artifacts showcase the operative's artistic evolution and design warfare capabilities.</p>
+                    </div>
+                </div>
+
+                <!-- Gallery Grid -->
+                <div class="artwork-gallery" id="artworkGallery">
+                    <!-- Dynamically loaded gallery -->
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="hud-footer">
+            <div class="footer-links" style="display:flex; gap:1.5rem;">
+                <a href="https://github.com/kARUn077" target="_blank"
+                    style="color:var(--term-green); text-decoration:none;">[GITHUB]</a>
+                <a href="https://www.linkedin.com/in/karun-poddar-515b23264/" target="_blank"
+                    style="color:var(--term-green); text-decoration:none;">[LINKEDIN]</a>
+                <a href="https://www.instagram.com/me_kirtan_17/" target="_blank"
+                    style="color:var(--term-green); text-decoration:none;">[INSTAGRAM]</a>
+                <a href="mailto:karunpoddar0@gmail.com"
+                    style="color:var(--term-green); text-decoration:none;">[EMAIL]</a>
+            </div>
+            <div style="display:flex; gap:1.5rem; align-items: center;">
+                <span>SYS_VERSION: 1.0.4</span>
+                <span id="audio-toggle" class="text-green" style="cursor: pointer; transition: all 0.2s;">[AUDIO:
+                    OFF]</span>
+                <span>CONNECTION: VERIFIED</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Interface Audio -->
+    <audio id="sndBgTrack" src="bgm.mp3" loop preload="auto"></audio>
+    <audio id="sndHover" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
+    <audio id="sndClick" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
+
+    <script src="script.js?v=update1"></script>
+    
+    <!-- Artworks Gallery Loader -->
+    <script>
+        // Load and display artworks from JSON
+        async function loadArtworks() {
+            try {
+                const response = await fetch('artworks-data.json');
+                const data = await response.json();
+                const gallery = document.getElementById('artworkGallery');
+                
+                gallery.innerHTML = data.artworks.map(artwork => `
+                    <div class="artwork-card">
+                        <img src="my arts/${artwork.filename}" alt="${artwork.title}" class="artwork-image">
+                        <h3 class="artwork-title">> ${artwork.title}</h3>
+                        <div class="artwork-date">CLASSIFIED | ${artwork.date}</div>
+                        <p class="artwork-description">${artwork.description}</p>
+                        <a href="my arts/${artwork.filename}" target="_blank" class="view-artwork-btn">[VIEW_FULL]</a>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading artworks:', error);
+                document.getElementById('artworkGallery').innerHTML = 
+                    '<p style="color: var(--alert-red);">Error loading artworks. Please check files.</p>';
+            }
+        }
+        
+        // Load on page load
+        document.addEventListener('DOMContentLoaded', loadArtworks);
+        
+        // Hover sound for dynamically loaded artwork cards
+        function attachArtworkHoverSound() {
+            const artworkCards = document.querySelectorAll('.artwork-card');
+            artworkCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    document.body.classList.add('hover-target');
+                    const hoverSound = document.getElementById('sndHover');
+                    if (hoverSound) {
+                        hoverSound.currentTime = 0;
+                        hoverSound.volume = 0.2;
+                        hoverSound.play().catch(e => {
+                            console.log('Sound play error:', e);
+                        });
+                    }
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    document.body.classList.remove('hover-target');
+                });
+            });
+        }
+        
+        // Re-attach sound listeners after gallery loads
+        const originalFetch = window.fetch;
+        window.fetch = function(...args) {
+            return originalFetch.apply(this, args).then(response => {
+                if (args[0] === 'artworks-data.json') {
+                    setTimeout(attachArtworkHoverSound, 100);
+                }
+                return response;
+            });
+        };
+    </script>
+</body>
+
+</html>

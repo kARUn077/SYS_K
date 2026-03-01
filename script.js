@@ -7,7 +7,7 @@ document.addEventListener('mousemove', (e) => {
 });
 
 // Hover states for Crosshair (turn red on clickable elements)
-const interactables = document.querySelectorAll('a, button, input, textarea, .weapon-card, .mission-row, .intel-photo-frame');
+const interactables = document.querySelectorAll('a, button, input, textarea, .weapon-card, .mission-row, .intel-photo-frame, .contact-card, .artwork-card');
 
 interactables.forEach(el => {
     el.addEventListener('mouseenter', () => {
@@ -242,3 +242,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// Global Night Vision Mode (Persistent across all pages)
+const nvToggle = document.getElementById('nvToggle');
+if(nvToggle){
+    // Check localStorage on load
+    if(localStorage.getItem('nightVisionMode') === 'true'){
+        document.body.classList.add('night-vision');
+        nvToggle.classList.add('active');
+    }
+
+    nvToggle.addEventListener('click', () => {
+        document.body.classList.toggle('night-vision');
+        nvToggle.classList.toggle('active');
+        localStorage.setItem('nightVisionMode', document.body.classList.contains('night-vision'));
+    });
+
+    // Toggle NV with 'N' key
+    document.addEventListener('keydown', (e) => {
+        if(e.key.toLowerCase() === 'n'){
+            document.body.classList.toggle('night-vision');
+            nvToggle.classList.toggle('active');
+            localStorage.setItem('nightVisionMode', document.body.classList.contains('night-vision'));
+        }
+    });
+}

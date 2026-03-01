@@ -1,0 +1,193 @@
+{
+  "artworks": [
+    {
+      "id": 1,
+      "filename": "01..jfif",
+      "title": "OPERATION GENESIS",
+      "date": "2023",
+      "description": "Initial creative reconnaissance. Foundational visual framework established."
+    },
+    {
+      "id": 2,
+      "filename": "02..jpg",
+      "title": "PHASE TWO DEPLOYMENT",
+      "date": "2023",
+      "description": "Tactical expansion. Advanced color theory implementation."
+    },
+    {
+      "id": 3,
+      "filename": "03..jfif",
+      "title": "DEEP INFILTRATION",
+      "date": "2023",
+      "description": "Stealth phase. Minimalist extraction protocols engaged."
+    },
+    {
+      "id": 4,
+      "filename": "04..jpeg",
+      "title": "NEURAL SYNC",
+      "date": "2023",
+      "description": "Cognitive interface design. Pattern recognition algorithm."
+    },
+    {
+      "id": 5,
+      "filename": "05..jpeg",
+      "title": "CRYSTALLINE STRUCTURE",
+      "date": "2023",
+      "description": "Geometric warfare. Angular precision achieved."
+    },
+    {
+      "id": 6,
+      "filename": "06..jpeg",
+      "title": "CHROMATIC WARFARE",
+      "date": "2023",
+      "description": "Color spectrum domination. Vibrancy calibrated."
+    },
+    {
+      "id": 7,
+      "filename": "07..jpeg",
+      "title": "DIMENSIONAL BREACH",
+      "date": "2023",
+      "description": "Complex layering. Multi-dimensional perspective achieved."
+    },
+    {
+      "id": 8,
+      "filename": "08..jpeg",
+      "title": "SHADOW PROTOCOL",
+      "date": "2023",
+      "description": "Darkness manipulation. Contrast mastery demonstrated."
+    },
+    {
+      "id": 9,
+      "filename": "09..jpeg",
+      "title": "LUMINANCE SURGE",
+      "date": "2023",
+      "description": "Light projection. Brightness extraction complete."
+    },
+    {
+      "id": 10,
+      "filename": "10..jpeg",
+      "title": "ENTROPY CASCADE",
+      "date": "2023",
+      "description": "Chaotic elegance. Order from randomness principle."
+    },
+    {
+      "id": 11,
+      "filename": "11..jpeg",
+      "title": "FRACTAL EXPANSION",
+      "date": "2023",
+      "description": "Self-similar patterns. Recursive beauty encoded."
+    },
+    {
+      "id": 12,
+      "filename": "12..jfif",
+      "title": "ORGANIC SYNTHESIS",
+      "date": "2023",
+      "description": "Nature-inspired design. Biomimetic elements integrated."
+    },
+    {
+      "id": 13,
+      "filename": "13..jfif",
+      "title": "CELESTIAL MAPPING",
+      "date": "2023",
+      "description": "Cosmic visualization. Stellar navigation interface."
+    },
+    {
+      "id": 14,
+      "filename": "14..jfif",
+      "title": "DIGITAL ESSENCE",
+      "date": "2023",
+      "description": "Bytecode aesthetics. Digital consciousness visualization."
+    },
+    {
+      "id": 15,
+      "filename": "15.jpg",
+      "title": "CONVERGENCE POINT",
+      "date": "2023",
+      "description": "Unity of artistic vision. Synthesis complete."
+    },
+    {
+      "id": 16,
+      "filename": "16.jpg",
+      "title": "NOVUS OPUS",
+      "date": "2023",
+      "description": "New chapter initialized. Evolution phase activated."
+    },
+    {
+      "id": 17,
+      "filename": "17.jpg",
+      "title": "ASCENSION MATRIX",
+      "date": "2023",
+      "description": "Higher dimensional rendering. Transcendence achieved."
+    },
+    {
+      "id": 18,
+      "filename": "18.jpg",
+      "title": "QUANTUM RESONANCE",
+      "date": "2023",
+      "description": "Particle wave duality. Quantum superposition art."
+    },
+    {
+      "id": 19,
+      "filename": "19.jpg",
+      "title": "VOID NAVIGATION",
+      "date": "2023",
+      "description": "Empty space mastery. Absence as presence."
+    },
+    {
+      "id": 20,
+      "filename": "20.jpg",
+      "title": "SPECTRAL ANALYSIS",
+      "date": "2023",
+      "description": "Frequency decomposition. Wavelength calibration."
+    },
+    {
+      "id": 21,
+      "filename": "21.jpg",
+      "title": "TEMPORAL DISTORTION",
+      "date": "2023",
+      "description": "Time perception manipulation. Chronological aesthetics."
+    },
+    {
+      "id": 22,
+      "filename": "22.jpg",
+      "title": "INFINITE REGRESSION",
+      "date": "2023",
+      "description": "Mirror recursion. Endlessly nested perspectives."
+    },
+    {
+      "id": 23,
+      "filename": "23.jpg",
+      "title": "CONSCIOUSNESS FLUX",
+      "date": "2023",
+      "description": "Mental state visualization. Cognitive stream encoded."
+    },
+    {
+      "id": 24,
+      "filename": "24.jpg",
+      "title": "NEXUS EMERGENCE",
+      "date": "2024",
+      "description": "Connection hub. Network node visualization."
+    },
+    {
+      "id": 25,
+      "filename": "25.jpg",
+      "title": "SUBLIMINAL ENCODE",
+      "date": "2024",
+      "description": "Hidden information layers. Steganographic art."
+    },
+    {
+      "id": 26,
+      "filename": "26.jpg",
+      "title": "PARADOX DOMAIN",
+      "date": "2024",
+      "description": "Contradiction resolution. Coexisting states visualized."
+    },
+    {
+      "id": 27,
+      "filename": "27.jpg",
+      "title": "FINAL TRANSMISSION",
+      "date": "2024",
+      "description": "Mission critical artwork. Ultimate creative deployment."
+    }
+  ]
+}
