@@ -111,9 +111,32 @@ function typeWriterEffect() {
 document.addEventListener('DOMContentLoaded', () => {
     const tw = document.querySelector('.typewriter');
     if (tw) tw.style.visibility = 'hidden';
-});
 
-// Level Redirect system
+    // Global Night Vision Mode (Persistent across all pages)
+    const nvToggle = document.getElementById('nvToggle');
+    if(nvToggle){
+        // Check localStorage on load
+        if(localStorage.getItem('nightVisionMode') === 'true'){
+            document.body.classList.add('night-vision');
+            nvToggle.classList.add('active');
+        }
+
+        nvToggle.addEventListener('click', () => {
+            document.body.classList.toggle('night-vision');
+            nvToggle.classList.toggle('active');
+            localStorage.setItem('nightVisionMode', String(document.body.classList.contains('night-vision')));
+        });
+
+        // Toggle NV with 'N' key
+        document.addEventListener('keydown', (e) => {
+            if(e.key.toLowerCase() === 'n'){
+                document.body.classList.toggle('night-vision');
+                nvToggle.classList.toggle('active');
+                localStorage.setItem('nightVisionMode', String(document.body.classList.contains('night-vision')));
+            }
+        });
+    }
+});
 function loadLevel(targetUrl) {
     const clickSound = document.getElementById('sndClick');
     if (clickSound) {
@@ -264,27 +287,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Global Night Vision Mode (Persistent across all pages)
-const nvToggle = document.getElementById('nvToggle');
-if(nvToggle){
-    // Check localStorage on load
-    if(localStorage.getItem('nightVisionMode') === 'true'){
-        document.body.classList.add('night-vision');
-        nvToggle.classList.add('active');
-    }
-
-    nvToggle.addEventListener('click', () => {
-        document.body.classList.toggle('night-vision');
-        nvToggle.classList.toggle('active');
-        localStorage.setItem('nightVisionMode', String(document.body.classList.contains('night-vision')));
-    });
-
-    // Toggle NV with 'N' key
-    document.addEventListener('keydown', (e) => {
-        if(e.key.toLowerCase() === 'n'){
-            document.body.classList.toggle('night-vision');
-            nvToggle.classList.toggle('active');
-            localStorage.setItem('nightVisionMode', String(document.body.classList.contains('night-vision')));
-        }
-    });
-}
