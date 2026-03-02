@@ -1,6 +1,11 @@
 // Custom Crosshair Logic
 const cursor = document.querySelector('.cursor-crosshair');
 
+// IMMEDIATELY apply Night Vision Mode if saved (before rendering begins)
+if(localStorage.getItem('nightVisionMode') === 'true'){
+    document.body.classList.add('night-vision');
+}
+
 // Localhost-only background video guard (audio remains active)
 (function localhostVideoGuard() {
     const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
@@ -115,9 +120,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Global Night Vision Mode (Persistent across all pages)
     const nvToggle = document.getElementById('nvToggle');
     if(nvToggle){
-        // Check localStorage on load
-        if(localStorage.getItem('nightVisionMode') === 'true'){
-            document.body.classList.add('night-vision');
+        // If already applied from immediate check, update button state
+        if(document.body.classList.contains('night-vision')){
             nvToggle.classList.add('active');
         }
 
