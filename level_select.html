@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kirtan | MISSIONS & LOADOUT</title>
     <meta name="description" content="Tactical Loadout and Mission Briefings">
+    <link rel="icon" href="logo.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Orbitron:wght@400;700;900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=TacticalUpdate">
+    <link rel="stylesheet" href="styles.css?v=TacticalUpdate2" charset="utf-8">
     <style>
         /* NIGHT VISION OVERLAY */
         .nv-overlay{
@@ -78,19 +79,19 @@
     <button class="nv-toggle" id="nvToggle">[ NV MODE ]</button>
 
     <div class="hud-wrapper">
-        <header class="hud-header">
+        <header class="hud-header" style="position: relative;">
             <a href="igi-intro.html" class="hud-logo" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
                 <img src="logo.png" alt="Logo" class="hud-logo-img">
                 <span class="glitch" data-text="SYS_K">SYS_K</span>
             </a>
             <nav class="hud-nav">
-                <!-- Transition links via loading screen -->
                 <a href="dossier.html">[DOSSIER]</a>
-                <a href="level_select.html" class="text-green">[LOADOUT & MISSIONS]</a>
-                <a href="artworks.html">[PAST OPERATIONS]</a>
-                <a href="comms.html">[COMMS]</a>
+                <a href="level_select.html" class="text-green">[TECH OPS]</a>
+                <a href="achievements.html">[ACHIEVEMENTS]</a>
+                <a href="extras.html">[EXTRAS]</a>
             </nav>
             <div class="hud-status">STATUS: <span class="text-green blink">ACTIVE</span></div>
+            <a href="comms.html" class="contact-cta">[CONTACT]</a>
         </header>
 
         <main class="hud-main">
@@ -134,6 +135,54 @@
                             <div class="w-stats"><span>CAPACITY: VAST</span><span>FLEXIBILITY: HIGH</span></div>
                             <div class="w-desc">NoSQL secure data vault for storing mission critical assets.</div>
                         </div>
+                        <div class="weapon-card">
+                            <div class="w-header">SIDEARM: JAVASCRIPT</div>
+                            <div class="w-img"><img
+                                    src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500&auto=format&fit=crop"
+                                    alt="Code editor"></div>
+                            <div class="w-stats"><span>VERSATILITY: ELITE</span><span>EXECUTION: DYNAMIC</span></div>
+                            <div class="w-desc">Core scripting weapon for interactive frontend operations and API-driven missions.</div>
+                        </div>
+                        <div class="weapon-card">
+                            <div class="w-header">TACTICAL: EXPRESS.JS</div>
+                            <div class="w-img"><img
+                                    src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&auto=format&fit=crop"
+                                    alt="Backend network"></div>
+                            <div class="w-stats"><span>ROUTING: PRECISE</span><span>APIs: DEPLOYED</span></div>
+                            <div class="w-desc">Mission API command layer with secure middleware and modular backend control.</div>
+                        </div>
+                        <div class="weapon-card">
+                            <div class="w-header">BOOSTER: REDUX</div>
+                            <div class="w-img"><img
+                                    src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500&auto=format&fit=crop"
+                                    alt="System dashboard"></div>
+                            <div class="w-stats"><span>STATE CONTROL: STABLE</span><span>SYNC: REAL-TIME</span></div>
+                            <div class="w-desc">Centralized state logistics for high-consistency frontend combat scenarios.</div>
+                        </div>
+                        <div class="weapon-card">
+                            <div class="w-header">ARCHIVE: SQL</div>
+                            <div class="w-img"><img
+                                    src="https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=500&auto=format&fit=crop"
+                                    alt="Data grid"></div>
+                            <div class="w-stats"><span>QUERY POWER: HIGH</span><span>STRUCTURE: RIGID</span></div>
+                            <div class="w-desc">Relational data intelligence for structured records, joins, and analytical retrieval.</div>
+                        </div>
+                        <div class="weapon-card">
+                            <div class="w-header">SUPPORT: GIT & GITHUB</div>
+                            <div class="w-img"><img
+                                    src="https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=500&auto=format&fit=crop"
+                                    alt="Version control terminal"></div>
+                            <div class="w-stats"><span>VERSIONING: LOCKED</span><span>COLLAB: ACTIVE</span></div>
+                            <div class="w-desc">Version-control command system for branching, collaboration, and safe mission rollouts.</div>
+                        </div>
+                        <div class="weapon-card">
+                            <div class="w-header">DOCTRINE: DSA / OOP / DBMS / OS</div>
+                            <div class="w-img"><img
+                                    src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=500&auto=format&fit=crop"
+                                    alt="Computer science concepts"></div>
+                            <div class="w-stats"><span>FOUNDATION: STRONG</span><span>PROBLEM SOLVING: SHARP</span></div>
+                            <div class="w-desc">Core CS training powering optimized logic, system design thinking, and clean architecture.</div>
+                        </div>
                     </div>
                 </section>
 
@@ -148,42 +197,47 @@
                             <div class="m-status text-green">[SUCCESS]</div>
                             <div class="m-details">
                                 <h3>OP: HIRELY (JOB PORTAL)</h3>
-                                <p>A specialized nexus connecting seekers with destined opportunities across the
-                                    corporate sector.</p>
-                                <span class="m-tech">TECH: MongoDB, Express, React, Node.js, Tailwind</span>
+                                <p>A full-stack recruitment platform where employers create companies, post openings,
+                                    and review candidates while seekers discover roles through advanced filters for
+                                    category, location, and salary.</p>
+                                <span class="m-tech">TECH: MongoDB, Express.js, React, Node.js, JWT, Bcrypt, Cloudinary</span>
                             </div>
-                            <a href="https://github.com/kARUn077/" target="_blank" class="btn tactical-btn small-btn">>
+                            <a href="https://github.com/kARUn077/Hirely" target="_blank" class="btn tactical-btn small-btn">>
                                 VIEW_INTEL</a>
                         </div>
                         <div class="mission-row">
                             <div class="m-status text-green">[SUCCESS]</div>
                             <div class="m-details">
-                                <h3>OP: TECHFINITY (E-COMMERCE)</h3>
-                                <p>Established a secure, scalable digital marketplace for high-end electronic tech.</p>
-                                <span class="m-tech">TECH: React, Stripe, Redux, Node.js</span>
+                                <h3>OP: LEARNFINITY (LMS)</h3>
+                                <p>A MERN-based LMS with student/instructor roles, secure auth, course publishing,
+                                    lecture-wise progress tracking, and Stripe-powered checkout with webhook-driven
+                                    enrollment updates.</p>
+                                <span class="m-tech">TECH: React, Redux Toolkit Query, Node.js, Express.js, MongoDB, Stripe, Cloudinary</span>
                             </div>
-                            <a href="https://github.com/kARUn077/" target="_blank" class="btn tactical-btn small-btn">>
+                            <a href="https://github.com/kARUn077/Learnfinity" target="_blank" class="btn tactical-btn small-btn">>
                                 VIEW_INTEL</a>
                         </div>
                         <div class="mission-row">
                             <div class="m-status text-green">[SUCCESS]</div>
                             <div class="m-details">
                                 <h3>OP: WALLETIQ (FINANCE MANAGER)</h3>
-                                <p>A classified ledger tracking asset flows and financial resources in real-time.</p>
-                                <span class="m-tech">TECH: MERN Stack, Chart.js</span>
+                                <p>A professional personal-finance command center featuring income/expense tracking,
+                                    interactive Chart.js analytics, categorized transaction insights, and secure
+                                    JWT-based authentication.</p>
+                                <span class="m-tech">TECH: React (Vite), Node.js, Express.js, MongoDB, Chart.js, JWT, Bcrypt</span>
                             </div>
-                            <a href="https://github.com/kARUn077/" target="_blank" class="btn tactical-btn small-btn">>
+                            <a href="https://github.com/kARUn077/WalletIQ" target="_blank" class="btn tactical-btn small-btn">>
                                 VIEW_INTEL</a>
                         </div>
                         <div class="mission-row">
-                            <div class="m-status text-yellow">[IN_PROGRESS]</div>
+                            <div class="m-status text-green">[SUCCESS]</div>
                             <div class="m-details">
-                                <h3>OP: EAGLE EYE (OBJECT DETECTOR)</h3>
-                                <p>Developing an AI surveillance software capable of tracking moving targets via visual
-                                    feeds.</p>
-                                <span class="m-tech">TECH: Python, TensorFlow, OpenCV</span>
+                                <h3>OP: BRAINBOLT (QUIZ PLATFORM)</h3>
+                                <p>A full-stack quiz application with dynamic question rendering, automatic scoring,
+                                    leaderboard-focused gameplay flow, and clean client-server REST communication.</p>
+                                <span class="m-tech">TECH: React, Node.js, Express.js, MongoDB, JavaScript</span>
                             </div>
-                            <a href="https://github.com/kARUn077/" target="_blank" class="btn tactical-btn small-btn">>
+                            <a href="https://github.com/kARUn077/BrainBolt" target="_blank" class="btn tactical-btn small-btn">>
                                 VIEW_INTEL</a>
                         </div>
                     </div>
@@ -238,7 +292,7 @@
     <audio id="sndHover" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
     <audio id="sndClick" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
 
-    <script src="script.js?v=update1"></script>
+    <script src="script.js?v=update2" charset="utf-8"></script>
 </body>
 
 </html>

@@ -1,6 +1,27 @@
 // Custom Crosshair Logic
 const cursor = document.querySelector('.cursor-crosshair');
 
+// Localhost-only background video guard (audio remains active)
+(function localhostVideoGuard() {
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    if (!isLocalhost) return;
+
+    const path = window.location.pathname.toLowerCase();
+    const isTargetPage = path.endsWith('/dossier.html') || path.endsWith('/artworks.html') || path.endsWith('/success.html') || path.endsWith('/credits.html') ||
+                         path.endsWith('dossier.html') || path.endsWith('artworks.html') || path.endsWith('success.html') || path.endsWith('credits.html');
+    if (!isTargetPage) return;
+
+    const bgVideo = document.getElementById('bgVideo');
+    if (bgVideo) {
+        const container = bgVideo.closest('.video-bg-container');
+        if (container) {
+            container.style.display = 'none';
+        } else {
+            bgVideo.remove();
+        }
+    }
+})();
+
 document.addEventListener('mousemove', (e) => {
     cursor.style.left = e.clientX + 'px';
     cursor.style.top = e.clientY + 'px';
@@ -142,7 +163,7 @@ if (intelForm) {
 class TextScramble {
     constructor(el) {
         this.el = el;
-        this.chars = '!<>-_\\/[]{}—=+*^?#________';
+        this.chars = '!<>-_\\/[]{}-=+*^?#________';
         this.update = this.update.bind(this);
     }
     setText(newText) {

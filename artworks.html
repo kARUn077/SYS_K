@@ -6,15 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kirtan | PAST OPERATIONS - ARTWORKS</title>
     <meta name="description" content="Archive of Kirtan's artistic operations and past projects">
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" href="logo.png" type="image/png">
     <link
         href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Orbitron:wght@400;700;900&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=TacticalUpdate2" charset="utf-8">
     <style>
         /* Artworks Gallery Specific Styles */
         .artwork-gallery {
@@ -96,6 +93,213 @@
             font-style: italic;
         }
 
+        /* BINOCULAR SCOPE VIEW */
+        .binocular-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.98);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .binocular-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .binocular-view {
+            position: relative;
+            width: 80vw;
+            height: 80vh;
+            max-width: 1000px;
+            max-height: 700px;
+            background: #000;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 
+                0 0 0 100vmax rgba(0, 0, 0, 0.95),
+                inset 0 0 80px rgba(0, 255, 65, 0.3),
+                0 0 50px rgba(0, 255, 65, 0.4);
+            border: 3px solid rgba(0, 255, 65, 0.6);
+        }
+
+        .binocular-view::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.8) 100%),
+                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 20px 20px, 20px 20px;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .binocular-view::after {
+            content: '+';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            color: rgba(0, 255, 65, 0.6);
+            text-shadow: 0 0 20px rgba(0, 255, 65, 0.8);
+            pointer-events: none;
+            z-index: 5;
+            font-family: monospace;
+            line-height: 1;
+        }
+
+        .binocular-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: sepia(80%) hue-rotate(60deg) brightness(1.1) contrast(1.3);
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+
+        .binocular-controls {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            z-index: 6;
+        }
+
+        .zoom-btn {
+            padding: 0.8rem 1.2rem;
+            background: rgba(0, 255, 102, 0.2);
+            border: 2px solid rgba(0, 255, 102, 0.6);
+            color: var(--term-green);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: bold;
+        }
+
+        .zoom-btn:hover {
+            background: rgba(0, 255, 102, 0.4);
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.6);
+        }
+
+        .fullview-btn {
+            padding: 0.6rem 1rem;
+            background: rgba(0, 255, 102, 0.2);
+            border: 2px solid rgba(0, 255, 102, 0.6);
+            color: var(--term-green);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+        }
+
+        .fullview-btn:hover {
+            background: rgba(0, 255, 102, 0.4);
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.6);
+        }
+
+        .newtab-btn {
+            padding: 0.6rem 1rem;
+            background: rgba(0, 255, 102, 0.2);
+            border: 2px solid rgba(0, 255, 102, 0.6);
+            color: var(--term-green);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+        }
+
+        .newtab-btn:hover {
+            background: rgba(0, 255, 102, 0.4);
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.6);
+        }
+
+        .view-artwork-btn,
+        .zoom-btn,
+        .fullview-btn,
+        .newtab-btn,
+        .binocular-close,
+        .nv-toggle,
+        #audio-toggle {
+            cursor: none !important;
+        }
+
+        .binocular-hud {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.85rem;
+            color: rgba(0, 255, 65, 0.9);
+            z-index: 4;
+            text-shadow: 0 0 8px rgba(0, 255, 65, 0.8);
+            pointer-events: none;
+        }
+
+        .binocular-close {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 0, 0, 0.3);
+            border: 2px solid var(--alert-red);
+            color: var(--alert-red);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 10001;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
+        .binocular-close:hover {
+            background: var(--alert-red);
+            color: black;
+            box-shadow: 0 0 30px var(--alert-red);
+        }
+
+        .binocular-controls {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10001;
+        }
+
+        .binocular-info {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: rgba(0, 255, 65, 0.9);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.1rem;
+            z-index: 4;
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.8);
+            max-width: 80%;
+        }
+
+        .binocular-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
         /* NIGHT VISION OVERLAY */
         .nv-overlay{
             position:fixed;
@@ -164,7 +368,7 @@
     <!-- Background Atmospheric Video -->
     <div class="video-bg-container">
         <video autoplay muted loop id="bgVideo" class="covert-video">
-            <source src="https://cdn.pixabay.com/video/2020/07/04/43884-437508003_large.mp4" type="video/mp4">
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
         </video>
         <div class="video-overlay"></div>
     </div>
@@ -172,22 +376,48 @@
     <!-- Custom Crosshair Cursor -->
     <div class="cursor-crosshair"></div>
 
+    <!-- Binocular Scope Overlay -->
+    <div class="binocular-overlay" id="binocularOverlay">
+        <button class="binocular-close" id="binocularClose">[ESC] CLOSE</button>
+        <div class="binocular-controls">
+            <button class="zoom-btn" id="zoomInBtn" title="Zoom In">+</button>
+            <button class="zoom-btn" id="zoomOutBtn" title="Zoom Out">−</button>
+            <button class="fullview-btn" id="fullViewBtn" title="View Full Image">[FULL]</button>
+            <button class="newtab-btn" id="newTabBtn" title="Open Original in New Tab">[PREVIEW]</button>
+        </div>
+        
+        <div class="binocular-view" id="binocularView">
+            <img id="binocularImage" src="" alt="Scoped View" class="binocular-image">
+            <div class="binocular-hud">
+                <div>[ TACTICAL SCOPE ]</div>
+                <div id="zoomDisplay">ZOOM: 1.0x</div>
+                <div>STABILIZER: ACTIVE</div>
+                <div id="binocularCoords">COORDS: --</div>
+            </div>
+            <div class="binocular-info">
+                <div class="binocular-title" id="binocularTitle">TARGET ACQUIRED</div>
+                <div id="binocularDesc">Scanning for intel...</div>
+            </div>
+        </div>
+    </div>
+
     <!-- Interface HUD Wrapper -->
     <div class="hud-wrapper">
 
         <!-- Header / Navigation -->
-        <header class="hud-header">
+        <header class="hud-header" style="position: relative;">
             <a href="igi-intro.html" class="hud-logo" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
                 <img src="logo.png" alt="Logo" class="hud-logo-img">
                 <span class="glitch" data-text="SYS_K">SYS_K</span>
             </a>
             <nav class="hud-nav">
                 <a href="dossier.html">[DOSSIER]</a>
-                <a href="level_select.html">[LOADOUT & MISSIONS]</a>
-                <a href="artworks.html" class="text-green">[PAST OPERATIONS]</a>
-                <a href="comms.html">[COMMS]</a>
+                <a href="level_select.html">[TECH OPS]</a>
+                <a href="achievements.html">[ACHIEVEMENTS]</a>
+                <a href="extras.html">[EXTRAS]</a>
             </nav>
             <div class="hud-status">STATUS: <span class="text-green blink">ONLINE</span></div>
+            <a href="comms.html" class="contact-cta">[CONTACT]</a>
         </header>
 
         <!-- Main Content Area -->
@@ -195,7 +425,7 @@
 
             <!-- Artworks Archive Section -->
             <section id="artworks" class="sector active">
-                <h2 class="sector-title">>> PAST OPERATIONS ARCHIVE</h2>
+                <h2 class="sector-title">>> CREATIVE ARCHIVE</h2>
                 
                 <div class="terminal-box" style="margin-bottom: 2rem;">
                     <div class="term-header">
@@ -241,7 +471,7 @@
     <audio id="sndHover" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
     <audio id="sndClick" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
 
-    <script src="script.js?v=update1"></script>
+    <script src="script.js?v=update2" charset="utf-8"></script>
     
     <!-- Artworks Gallery Loader -->
     <script>
@@ -253,14 +483,16 @@
                 const gallery = document.getElementById('artworkGallery');
                 
                 gallery.innerHTML = data.artworks.map(artwork => `
-                    <div class="artwork-card">
+                    <div class="artwork-card" data-artwork-id="${artwork.id}">
                         <img src="my arts/${artwork.filename}" alt="${artwork.title}" class="artwork-image">
                         <h3 class="artwork-title">> ${artwork.title}</h3>
                         <div class="artwork-date">CLASSIFIED | ${artwork.date}</div>
                         <p class="artwork-description">${artwork.description}</p>
-                        <a href="my arts/${artwork.filename}" target="_blank" class="view-artwork-btn">[VIEW_FULL]</a>
+                        <button class="view-artwork-btn" onclick="openBinocularView('my arts/${artwork.filename}', '${artwork.title}', '${artwork.description}')">[SCOPE_VIEW]</button>
                     </div>
                 `).join('');
+                
+                attachArtworkHoverSound();
             } catch (error) {
                 console.error('Error loading artworks:', error);
                 document.getElementById('artworkGallery').innerHTML = 
@@ -303,6 +535,171 @@
                 return response;
             });
         };
+
+        // Binocular View Functions with Zoom
+        let currentZoom = 1.0;
+        const minZoom = 1.0;
+        const maxZoom = 4.0;
+        const zoomStep = 0.5;
+
+        function openBinocularView(imageSrc, title, description) {
+            const overlay = document.getElementById('binocularOverlay');
+            const image = document.getElementById('binocularImage');
+            const titleEl = document.getElementById('binocularTitle');
+            const descEl = document.getElementById('binocularDesc');
+            const coordsEl = document.getElementById('binocularCoords');
+            const binocularView = document.getElementById('binocularView');
+
+            // Reset zoom
+            currentZoom = 1.0;
+            image.style.transform = 'scale(1.0)';
+            binocularView.style.borderRadius = '50%';
+            document.getElementById('zoomDisplay').textContent = 'ZOOM: 1.0x';
+
+            image.src = imageSrc;
+            titleEl.textContent = title.toUpperCase();
+            descEl.textContent = description;
+            
+            // Random tactical coords for effect
+            const lat = (Math.random() * 180 - 90).toFixed(4);
+            const lon = (Math.random() * 360 - 180).toFixed(4);
+            coordsEl.textContent = `COORDS: ${lat}, ${lon}`;
+
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // Play scope sound
+            const clickSound = document.getElementById('sndClick');
+            if (clickSound) {
+                clickSound.currentTime = 0;
+                clickSound.volume = 0.4;
+                clickSound.play().catch(e => {});
+            }
+        }
+
+        function zoomIn() {
+            if (currentZoom < maxZoom) {
+                currentZoom = Math.min(currentZoom + zoomStep, maxZoom);
+                updateZoom();
+                playZoomSound();
+            }
+        }
+
+        function zoomOut() {
+            if (currentZoom > minZoom) {
+                currentZoom = Math.max(currentZoom - zoomStep, minZoom);
+                updateZoom();
+                playZoomSound();
+            }
+        }
+
+        function updateZoom() {
+            const image = document.getElementById('binocularImage');
+            const zoomDisplay = document.getElementById('zoomDisplay');
+            
+            image.style.transform = `scale(${currentZoom})`;
+            zoomDisplay.textContent = `ZOOM: ${currentZoom.toFixed(1)}x`;
+        }
+
+        function playZoomSound() {
+            const hoverSound = document.getElementById('sndHover');
+            if (hoverSound) {
+                hoverSound.currentTime = 0;
+                hoverSound.volume = 0.3;
+                hoverSound.play().catch(e => {});
+            }
+        }
+
+        function toggleFullView() {
+            const binocularView = document.getElementById('binocularView');
+            const image = document.getElementById('binocularImage');
+            const fullViewBtn = document.getElementById('fullViewBtn');
+            
+            if (binocularView.style.borderRadius === '0%') {
+                // Return to scope view
+                binocularView.style.borderRadius = '50%';
+                image.style.filter = 'sepia(80%) hue-rotate(60deg) brightness(1.1) contrast(1.3)';
+                fullViewBtn.textContent = '[FULL]';
+            } else {
+                // Full view mode
+                binocularView.style.borderRadius = '0%';
+                image.style.filter = 'none';
+                fullViewBtn.textContent = '[SCOPE]';
+            }
+            
+            playZoomSound();
+        }
+
+        function closeBinocularView() {
+            const overlay = document.getElementById('binocularOverlay');
+            const binocularView = document.getElementById('binocularView');
+            const image = document.getElementById('binocularImage');
+            const fullViewBtn = document.getElementById('fullViewBtn');
+            
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            // Reset zoom and view mode
+            currentZoom = 1.0;
+            image.style.transform = 'scale(1.0)';
+            binocularView.style.borderRadius = '50%';
+            image.style.filter = 'sepia(80%) hue-rotate(60deg) brightness(1.1) contrast(1.3)';
+            fullViewBtn.textContent = '[FULL]';
+            document.getElementById('zoomDisplay').textContent = 'ZOOM: 1.0x';
+        }
+
+        // Close binocular with ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeBinocularView();
+            }
+        });
+
+        // Close button handler
+        document.getElementById('binocularClose').addEventListener('click', closeBinocularView);
+
+        // Close on clicking outside the binocular view
+        document.getElementById('binocularOverlay').addEventListener('click', (e) => {
+            if (e.target.id === 'binocularOverlay') {
+                closeBinocularView();
+            }
+        });
+
+        // Zoom controls
+        document.getElementById('zoomInBtn').addEventListener('click', zoomIn);
+        document.getElementById('zoomOutBtn').addEventListener('click', zoomOut);
+        document.getElementById('fullViewBtn').addEventListener('click', toggleFullView);
+        
+        // Open image in new tab
+        document.getElementById('newTabBtn').addEventListener('click', () => {
+            const image = document.getElementById('binocularImage');
+            window.open(image.src, '_blank');
+            playZoomSound();
+        });
+
+        // Mouse wheel zoom
+        document.getElementById('binocularView').addEventListener('wheel', (e) => {
+            e.preventDefault();
+            if (e.deltaY < 0) {
+                zoomIn();
+            } else {
+                zoomOut();
+            }
+        });
+
+        // Keyboard zoom (+/- keys)
+        document.addEventListener('keydown', (e) => {
+            const overlay = document.getElementById('binocularOverlay');
+            if (!overlay.classList.contains('active')) return;
+            
+            if (e.key === '+' || e.key === '=') {
+                zoomIn();
+            } else if (e.key === '-' || e.key === '_') {
+                zoomOut();
+            } else if (e.key.toLowerCase() === 'f') {
+                toggleFullView();
+            }
+        });
     </script>
 </body>
 

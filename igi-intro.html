@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SYS_K - Tactical Ops</title>
+<link rel="icon" href="logo.png" type="image/png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -378,16 +379,21 @@ footer{
 /* CROSSHAIR */
 .cursor-crosshair{
     position:fixed;
-    width:24px;
-    height:24px;
-    border:2px solid var(--neon);
+    top:0;
+    left:0;
+    width:30px;
+    height:30px;
+    border:1px solid var(--neon);
     border-radius:50%;
     pointer-events:none;
-    transform:translate(-50%,-50%);
-    box-shadow:0 0 10px rgba(0,255,102,0.7);
+    transform:translate(-50%, -50%);
+    z-index:10000;
+    transition: width 0.1s, height 0.1s, border-color 0.1s;
 }
 
 body{ cursor:none; }
+
+a, button, .menu-item, .menu-btn, .nv-toggle{ cursor:none !important; }
 
 .cursor-crosshair::before,
 .cursor-crosshair::after{
@@ -397,19 +403,31 @@ body{ cursor:none; }
 }
 
 .cursor-crosshair::before{
-    width:1px;
-    height:30px;
-    left:50%;
     top:50%;
-    transform:translate(-50%,-50%);
+    left:-5px;
+    right:-5px;
+    height:1px;
+    transform:translateY(-50%);
 }
 
 .cursor-crosshair::after{
-    height:1px;
-    width:30px;
     left:50%;
-    top:50%;
-    transform:translate(-50%,-50%);
+    top:-5px;
+    bottom:-5px;
+    width:1px;
+    transform:translateX(-50%);
+    transition: background 0.12s ease;
+}
+
+body.hover-target .cursor-crosshair{
+    width:40px;
+    height:40px;
+    border-color:#ff2a2a;
+}
+
+body.hover-target .cursor-crosshair::before,
+body.hover-target .cursor-crosshair::after{
+    background:#ff2a2a;
 }
 
 /* NIGHT VISION OVERLAY */
@@ -549,19 +567,17 @@ document.addEventListener('mousemove',e=>{
 });
 
 // Hover sound and cursor effects
-document.querySelectorAll('.menu-item').forEach(item => {
+document.querySelectorAll('.menu-item, .nv-toggle').forEach(item => {
     item.addEventListener('mouseenter', () => {
         const hoverSound = document.getElementById('sndHover');
         hoverSound.volume = 0.3;
         hoverSound.currentTime = 0;
         hoverSound.play().catch(() => {});
-        cursor.style.borderColor = '#ff2e2e';
-        cursor.style.boxShadow = '0 0 20px rgba(255,46,46,0.9)';
+        document.body.classList.add('hover-target');
     });
     
     item.addEventListener('mouseleave', () => {
-        cursor.style.borderColor = '#00ff66';
-        cursor.style.boxShadow = '0 0 10px rgba(0,255,102,0.7)';
+        document.body.classList.remove('hover-target');
     });
     
     item.addEventListener('click', () => {
