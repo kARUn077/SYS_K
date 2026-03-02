@@ -276,7 +276,7 @@ if(nvToggle){
     nvToggle.addEventListener('click', () => {
         document.body.classList.toggle('night-vision');
         nvToggle.classList.toggle('active');
-        localStorage.setItem('nightVisionMode', document.body.classList.contains('night-vision'));
+        localStorage.setItem('nightVisionMode', String(document.body.classList.contains('night-vision')));
     });
 
     // Toggle NV with 'N' key
@@ -284,7 +284,7 @@ if(nvToggle){
         if(e.key.toLowerCase() === 'n'){
             document.body.classList.toggle('night-vision');
             nvToggle.classList.toggle('active');
-            localStorage.setItem('nightVisionMode', document.body.classList.contains('night-vision'));
+            localStorage.setItem('nightVisionMode', String(document.body.classList.contains('night-vision')));
         }
     });
 }
