@@ -69,7 +69,7 @@ body {
     text-align: right;
 }
 
-/* Custom Crosshair Cursor */
+/* Custom Crosshair Cursor - GPU Optimized */
 .cursor-crosshair {
     position: fixed;
     top: 0;
@@ -82,6 +82,7 @@ body {
     z-index: 10002;
     transform: translate(-50%, -50%);
     transition: width 0.1s, height 0.1s, border-color 0.1s;
+    will-change: transform;
 }
 
 .cursor-crosshair::before,

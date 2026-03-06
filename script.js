@@ -27,9 +27,21 @@ if(localStorage.getItem('nightVisionMode') === 'true'){
     }
 })();
 
+// Optimized cursor movement with GPU acceleration
+let cursorX = 0, cursorY = 0;
+let isMoving = false;
+
 document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
+    cursorX = e.clientX;
+    cursorY = e.clientY;
+    
+    if (!isMoving) {
+        isMoving = true;
+        requestAnimationFrame(() => {
+            cursor.style.transform = `translate(${cursorX}px, ${cursorY}px) translate(-50%, -50%)`;
+            isMoving = false;
+        });
+    }
 });
 
 // Hover states for Crosshair (turn red on clickable elements)
