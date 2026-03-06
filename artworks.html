@@ -483,12 +483,12 @@
                 const gallery = document.getElementById('artworkGallery');
                 
                 gallery.innerHTML = data.artworks.map(artwork => `
-                    <div class="artwork-card" data-artwork-id="${artwork.id}">
+                    <div class="artwork-card" data-artwork-id="${artwork.id}" data-src="my arts/${artwork.filename}" data-title="${artwork.title}" data-desc="${artwork.description}">
                         <img src="my arts/${artwork.filename}" alt="${artwork.title}" class="artwork-image">
                         <h3 class="artwork-title">> ${artwork.title}</h3>
                         <div class="artwork-date">CLASSIFIED | ${artwork.date}</div>
                         <p class="artwork-description">${artwork.description}</p>
-                        <button class="view-artwork-btn" onclick="openBinocularView('my arts/${artwork.filename}', '${artwork.title}', '${artwork.description}')">[SCOPE_VIEW]</button>
+                        <button class="view-artwork-btn">[SCOPE_VIEW]</button>
                     </div>
                 `).join('');
                 
@@ -522,6 +522,17 @@
                 card.addEventListener('mouseleave', () => {
                     document.body.classList.remove('hover-target');
                 });
+
+                // Add click handler to button
+                const btn = card.querySelector('.view-artwork-btn');
+                if (btn) {
+                    btn.addEventListener('click', () => {
+                        const src = card.dataset.src;
+                        const title = card.dataset.title;
+                        const desc = card.dataset.desc;
+                        openBinocularView(src, title, desc);
+                    });
+                }
             });
         }
         
