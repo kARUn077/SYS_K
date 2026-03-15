@@ -1,3 +1,159 @@
+
+
+
+// Shorter code: up, up, down, down
+const konamiCode = [38, 38, 40, 40];
+let konamiIndex = 0;
+
+document.addEventListener('keydown', function(e) {
+    if (e.keyCode === konamiCode[konamiIndex]) {
+        konamiIndex++;
+        if (konamiIndex === konamiCode.length) {
+            showIgiEasterEgg();
+            konamiIndex = 0;
+        }
+    } else {
+        konamiIndex = 0;
+    }
+});
+
+// IGI Easter Egg: Show villains image and play audio
+function showIgiEasterEgg() {
+    // Remove any existing overlay
+    const oldOverlay = document.getElementById('igi-easter-egg-overlay');
+    if (oldOverlay) oldOverlay.remove();
+
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.id = 'igi-easter-egg-overlay';
+    overlay.style.position = 'fixed';
+    overlay.style.top = 0;
+    overlay.style.left = 0;
+    overlay.style.width = '100vw';
+    overlay.style.height = '100vh';
+    overlay.style.background = 'rgba(0,0,0,0.85)';
+    overlay.style.display = 'flex';
+    overlay.style.flexDirection = 'column';
+    overlay.style.justifyContent = 'center';
+    overlay.style.alignItems = 'center';
+    overlay.style.zIndex = 9999;
+
+    // Add image
+    const img = document.createElement('img');
+    img.src = 'assets/igi-guards.jpg';
+    img.alt = 'IGI Villains';
+    img.style.maxWidth = '90vw';
+    img.style.maxHeight = '80vh';
+    img.style.width = '100%';
+    img.style.height = 'auto';
+    img.style.border = '5px solid #fff';
+    img.style.borderRadius = '16px';
+    img.style.boxShadow = '0 0 40px #000';
+    img.style.background = '#222';
+    img.style.marginBottom = '32px';
+    img.onerror = function() {
+        img.alt = 'Image not found';
+        img.style.display = 'none';
+        console.error('IGI image not found at assets/igi-guards.jpg');
+    };
+    overlay.appendChild(img);
+
+    // (No caption, only image)
+
+    // Add overlay to body
+    document.body.appendChild(overlay);
+
+    // Play audio
+    const audio = new Audio('assets/hey-you-stop-there.mp3');
+    audio.volume = 1.0;
+    audio.play().then(() => {
+        console.log('IGI audio played');
+    }).catch((err) => {
+        console.error('Audio play failed:', err);
+        // Show a message if audio fails
+        const errMsg = document.createElement('div');
+        errMsg.textContent = 'Audio could not be played.';
+        errMsg.style.color = 'red';
+        errMsg.style.marginTop = '20px';
+        overlay.appendChild(errMsg);
+    });
+
+    // Remove overlay when audio ends or on click
+    function removeOverlay() {
+        if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+    }
+    audio.addEventListener('ended', removeOverlay);
+    overlay.addEventListener('click', () => {
+        audio.pause();
+        removeOverlay();
+    });
+    // Debug log
+    console.log('IGI Easter Egg triggered!');
+}
+
+function showEasterEggModal() {
+    let modal = document.getElementById('easterEggModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'easterEggModal';
+        modal.style.position = 'fixed';
+        modal.style.inset = '0';
+        modal.style.background = 'rgba(0,0,0,0.97)';
+        modal.style.zIndex = '9999';
+        modal.style.display = 'flex';
+        modal.style.flexDirection = 'column';
+        modal.style.justifyContent = 'center';
+        modal.style.alignItems = 'center';
+        modal.innerHTML = `
+            <style>
+                #closeEasterEggModal {
+                    padding:0.7rem 2.2rem;
+                    font-size:1.1rem;
+                    background:none;
+                    border:2px solid var(--term-green);
+                    color:var(--term-green);
+                    border-radius:6px;
+                    font-family:var(--font-mono);
+                    cursor:pointer;
+                    transition:all 0.2s;
+                }
+                #closeEasterEggModal:hover, #closeEasterEggModal:focus {
+                    background:var(--term-green);
+                    color:#000;
+                    box-shadow:0 0 16px var(--term-green);
+                    border-color:var(--term-green);
+                }
+            </style>
+            <div style="color:var(--term-green); font-family:var(--font-heading); font-size:2.2rem; letter-spacing:0.12em; text-shadow:0 0 18px #0f0; margin-bottom:1.5rem;">EASTER EGG UNLOCKED!</div>
+            <div style="color:#fff; font-size:1.1rem; font-family:var(--font-mono); margin-bottom:2rem; text-align:center;">You found the secret!<br>Keep gaming, agent.<br><br><span style='color:var(--term-green); font-size:1.5rem;'>✔️</span></div>
+            <button id="closeEasterEggModal">[CLOSE]</button>
+            <audio id="easterEggSound" src="assets/games/igi-alarm.mp3" preload="auto"></audio>
+        `;
+        document.body.appendChild(modal);
+        // Only add the ESC handler once
+        modal._escHandler = function(e) {
+            if (e.key === 'Escape') {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        };
+        document.addEventListener('keydown', modal._escHandler);
+        document.getElementById('closeEasterEggModal').onclick = function() {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        };
+    } else {
+        modal.style.display = 'flex';
+    }
+    document.body.style.overflow = 'hidden';
+    // Play sound
+    const snd = document.getElementById('easterEggSound');
+    if (snd) {
+        snd.currentTime = 0;
+        snd.volume = 0.5;
+        snd.play().catch(()=>{});
+    }
+}
 // Custom Crosshair Logic
 const cursor = document.querySelector('.cursor-crosshair');
 
@@ -44,34 +200,39 @@ document.addEventListener('mousemove', (e) => {
     }
 });
 
-// Hover states for Crosshair (turn red on clickable elements)
-const interactables = document.querySelectorAll('a, button, input, textarea, .weapon-card, .mission-row, .intel-photo-frame, .contact-card, .artwork-card');
 
-interactables.forEach(el => {
-    el.addEventListener('mouseenter', () => {
-        document.body.classList.add('hover-target');
-        // Optional: play subtle UI hover sound
-        const hoverSound = document.getElementById('sndHover');
-        if (hoverSound) {
-            hoverSound.currentTime = 0;
-            hoverSound.volume = 0.2;
-            hoverSound.play().catch(e => { }); // Catch autoplay restrictions
-        }
+// Attach hover/click/cursor listeners to interactive elements (including dynamically created ones)
+function attachInteractableHoverSound() {
+    const interactables = document.querySelectorAll('a, button, input, textarea, .weapon-card, .mission-row, .intel-photo-frame, .contact-card, .artwork-card, .filter-chip, .game-library-card');
+    interactables.forEach(el => {
+        // Prevent duplicate listeners
+        if (el._hoverSoundAttached) return;
+        el._hoverSoundAttached = true;
+        el.addEventListener('mouseenter', () => {
+            document.body.classList.add('hover-target');
+            const hoverSound = document.getElementById('sndHover');
+            if (hoverSound) {
+                hoverSound.currentTime = 0;
+                hoverSound.volume = 0.2;
+                hoverSound.play().catch(e => { });
+            }
+        });
+        el.addEventListener('mouseleave', () => {
+            document.body.classList.remove('hover-target');
+        });
+        el.addEventListener('click', () => {
+            const clickSound = document.getElementById('sndClick');
+            if (clickSound) {
+                clickSound.currentTime = 0;
+                clickSound.volume = 0.5;
+                clickSound.play().catch(e => { });
+            }
+        });
     });
+}
 
-    el.addEventListener('mouseleave', () => {
-        document.body.classList.remove('hover-target');
-    });
-
-    el.addEventListener('click', () => {
-        const clickSound = document.getElementById('sndClick');
-        if (clickSound) {
-            clickSound.currentTime = 0;
-            clickSound.volume = 0.5;
-            clickSound.play().catch(e => { });
-        }
-    });
-});
+// Initial attach for static elements
+document.addEventListener('DOMContentLoaded', attachInteractableHoverSound);
 
 // Scroll Reveal Logic (Mission Briefing Style)
 const sectors = document.querySelectorAll('.sector');

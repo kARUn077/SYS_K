@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <style>
+            .tactical-btn {
+                background: none;
+                border: 2px solid var(--term-green);
+                color: var(--term-green);
+                font-family: var(--font-mono), monospace;
+                font-size: 1rem;
+                padding: 0.35rem 1.1rem;
+                margin-top: 1.1rem;
+                border-radius: 4px;
+                letter-spacing: 0.04rem;
+                transition: all 0.18s;
+                box-shadow: 0 0 0px #0f0;
+                outline: none;
+            }
+            .tactical-btn:hover, .tactical-btn:focus {
+                background: var(--term-green);
+                color: #000;
+                box-shadow: 0 0 16px #0f0a;
+                border-color: #0f0;
+            }
+            .preview-game-btn {
+                display: inline-block;
+                padding: 0.6rem 1.2rem;
+                border: 1px solid var(--term-green);
+                background: rgba(0, 255, 65, 0.1);
+                color: var(--term-green);
+                text-decoration: none;
+                font-size: 0.85rem;
+                transition: all 0.3s ease;
+                /* cursor: pointer; removed for custom crosshair */
+                margin-top: 1.1rem;
+            }
+            .preview-game-btn:hover {
+                background: var(--term-green);
+                color: black;
+                box-shadow: 0 0 20px var(--term-green);
+                border-color: var(--term-green);
+                font-weight: bold;
+            }
+        </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirtan | GAMING JOURNEY</title>
+    <meta name="description" content="Nostalgic PC gaming journey and favorite titles">
+    <link rel="icon" href="logo.png" type="image/png">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Orbitron:wght@400;700;900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css?v=TacticalUpdate2" charset="utf-8">
+
+    <style>
+        .section-sub {
+            color: var(--term-dark-green);
+            margin-top: 0.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .snapshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .snapshot-tile {
+            border: 1px solid var(--hud-border);
+            background: rgba(0, 22, 0, 0.7);
+            padding: 0.75rem;
+        }
+
+        .snapshot-label {
+            font-size: 0.72rem;
+            color: var(--term-dark-green);
+            letter-spacing: 0.05rem;
+        }
+
+        .snapshot-value {
+            font-family: var(--font-heading);
+            color: var(--term-green);
+            font-size: 1.05rem;
+            margin-top: 0.2rem;
+        }
+
+        .era-list {
+            margin-top: 0.8rem;
+            display: grid;
+            gap: 0.8rem;
+        }
+
+        .era-row {
+            border-left: 2px solid var(--hud-border);
+            padding: 0.6rem 0.85rem;
+            background: rgba(0, 18, 0, 0.55);
+            transition: all 0.2s ease;
+        }
+
+        .era-row:hover {
+            border-left-color: var(--term-green);
+            background: rgba(0, 28, 0, 0.8);
+            transform: translateX(4px);
+        }
+
+        .era-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.35rem;
+        }
+
+        .era-year {
+            font-family: var(--font-heading);
+            color: var(--term-green);
+            font-size: 0.95rem;
+            letter-spacing: 0.06rem;
+        }
+
+        .era-mode {
+            color: var(--term-dark-green);
+            font-size: 0.8rem;
+        }
+
+        .era-text {
+            color: rgba(0, 255, 65, 0.85);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .journey-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .journey-card {
+            border: 1px solid var(--hud-border);
+            background: linear-gradient(180deg, rgba(0, 26, 0, 0.8), rgba(0, 14, 0, 0.7));
+            padding: 1rem;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .journey-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent, rgba(0, 255, 65, 0.08), transparent);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .journey-card:hover {
+            border-color: var(--term-green);
+            box-shadow: 0 0 14px rgba(0, 255, 65, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .journey-card:hover::before {
+            opacity: 1;
+        }
+
+        .game-title {
+            font-family: var(--font-heading);
+            color: var(--term-green);
+            font-size: 1.05rem;
+            margin-bottom: 0.35rem;
+            letter-spacing: 0.04rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .game-meta {
+            font-size: 0.78rem;
+            color: var(--term-dark-green);
+            margin-bottom: 0.55rem;
+            letter-spacing: 0.04rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .game-note {
+            color: rgba(0, 255, 65, 0.82);
+            font-size: 0.9rem;
+            line-height: 1.45;
+            position: relative;
+            z-index: 1;
+        }
+
+        .memory-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 1rem;
+            margin-top: 0.8rem;
+        }
+
+        .memory-card {
+            border: 1px dashed var(--hud-border);
+            background: rgba(0, 16, 0, 0.7);
+            padding: 0.95rem;
+        }
+
+        .memory-title {
+            color: var(--term-green);
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .memory-text {
+            color: rgba(0, 255, 65, 0.82);
+            font-size: 0.88rem;
+            line-height: 1.45;
+        }
+
+        .skill-list {
+            margin-top: 0.9rem;
+            display: grid;
+            gap: 0.7rem;
+        }
+
+        .skill-row {
+            display: grid;
+            grid-template-columns: 160px 1fr;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .skill-name {
+            color: var(--term-dark-green);
+            font-size: 0.82rem;
+            letter-spacing: 0.05rem;
+        }
+
+        .skill-bar {
+            height: 8px;
+            border: 1px solid var(--hud-border);
+            background: rgba(0, 10, 0, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-fill {
+            height: 100%;
+            background: linear-gradient(90deg, rgba(0, 255, 65, 0.35), rgba(0, 255, 65, 0.9));
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.55);
+        }
+
+        .quick-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 1rem;
+        }
+
+        .quick-tag {
+            border: 1px solid var(--hud-border);
+            padding: 0.25rem 0.6rem;
+            font-size: 0.8rem;
+            color: var(--term-dark-green);
+            background: rgba(0, 255, 65, 0.08);
+        }
+
+        .library-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+            margin-top: 0.8rem;
+        }
+
+        .filter-chip {
+            border: 1px solid var(--hud-border);
+            background: rgba(0, 20, 0, 0.7);
+            color: var(--term-dark-green);
+            padding: 0.35rem 0.7rem;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            letter-spacing: 0.04rem;
+            /* cursor: pointer; removed to allow custom crosshair */
+            transition: all 0.2s ease;
+        }
+
+        .filter-chip:hover,
+        .filter-chip.active {
+            border-color: var(--term-green);
+            color: var(--term-green);
+            background: rgba(0, 255, 65, 0.14);
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.25);
+        }
+
+        .games-grid {
+            margin-top: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+        }
+
+        .game-library-card {
+            border: 1px solid var(--hud-border);
+            background: rgba(0, 18, 0, 0.72);
+            overflow: hidden;
+            transition: all 0.25s ease;
+        }
+
+        .game-library-card:hover {
+            border-color: var(--term-green);
+            box-shadow: 0 0 14px rgba(0, 255, 65, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .game-library-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--hud-border);
+            filter: grayscale(30%) contrast(1.05);
+        }
+
+        .game-library-body {
+            padding: 0.85rem;
+        }
+
+        .game-library-title {
+            color: var(--term-green);
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            letter-spacing: 0.04rem;
+        }
+
+        .game-library-meta {
+            margin-top: 0.25rem;
+            color: var(--term-dark-green);
+            font-size: 0.75rem;
+            letter-spacing: 0.04rem;
+        }
+
+        .game-library-memory {
+            margin-top: 0.45rem;
+            color: rgba(0, 255, 65, 0.83);
+            font-size: 0.86rem;
+            line-height: 1.45;
+        }
+
+        .library-note {
+            margin-top: 0.7rem;
+            color: var(--term-dark-green);
+            font-size: 0.82rem;
+        }
+
+        .empty-state {
+            border: 1px dashed var(--hud-border);
+            padding: 1rem;
+            color: var(--term-dark-green);
+            font-size: 0.9rem;
+            background: rgba(0, 10, 0, 0.55);
+        }
+
+        @media (max-width: 640px) {
+            .skill-row {
+                grid-template-columns: 1fr;
+                gap: 0.35rem;
+            }
+        }
+
+        /* NIGHT VISION OVERLAY */
+        .nv-overlay{
+            position:fixed;
+            inset:0;
+            background:radial-gradient(circle at center, rgba(0,255,102,0.3) 0%, rgba(0,255,102,0.15) 50%, rgba(0,10,3,0.8) 100%);
+            opacity:0;
+            pointer-events:none;
+            z-index:60;
+            transition:opacity 0.3s ease;
+        }
+
+        body.night-vision .nv-overlay{
+            opacity:1;
+        }
+
+        body.night-vision .nv-overlay::before{
+            content:"";
+            position:absolute;
+            inset:0;
+            background:repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px);
+            animation:nvFlicker 0.15s infinite;
+            pointer-events:none;
+        }
+
+        @keyframes nvFlicker{
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100%{opacity:1;}
+            20%, 24%, 55%{opacity:0.5;}
+        }
+
+        .nv-toggle{
+            position:fixed;
+            bottom:20px;
+            right:20px;
+            padding:8px 12px;
+            background:rgba(0,255,102,0.1);
+            border:1px solid rgba(0,255,102,0.5);
+            color:var(--term-green);
+            font-family:'Share Tech Mono', monospace;
+            font-size:0.75rem;
+            cursor:pointer;
+            z-index:50;
+            transition:all 0.25s ease;
+            letter-spacing:0.05rem;
+        }
+
+        .nv-toggle:hover{
+            background:rgba(0,255,102,0.25);
+            box-shadow:0 0 12px rgba(0,255,102,0.4);
+        }
+    </style>
+</head>
+
+<body class="crt">
+
+    <div class="scanlines"></div>
+    <div class="nv-overlay"></div>
+    <button class="nv-toggle" id="nvToggle">[ NV MODE ]</button>
+    <div class="cursor-crosshair"></div>
+
+    <div class="hud-wrapper">
+
+        <header class="hud-header" style="position: relative;">
+            <a href="igi-intro.html" class="hud-logo" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+                <img src="logo.png" alt="Logo" class="hud-logo-img">
+                <span class="glitch" data-text="SYS_K">SYS_K</span>
+            </a>
+            <nav class="hud-nav">
+                <a href="dossier.html">[DOSSIER]</a>
+                <a href="level_select.html">[TECH OPS]</a>
+                <a href="achievements.html">[ACHIEVEMENTS]</a>
+                <a href="extras.html" class="text-green">[EXTRAS]</a>
+            </nav>
+            <div class="hud-status">STATUS: <span class="text-green blink">ONLINE</span></div>
+            <a href="comms.html" class="contact-cta">[CONTACT]</a>
+        </header>
+
+        <main class="hud-main">
+            <section class="sector active">
+                <h2 class="sector-title">>> GAME LIBRARY</h2>
+                <div class="terminal-box main-library" style="margin-bottom: 2.5rem;">
+                    <div class="term-header">
+                        <span>> GAME LIBRARY</span>
+                        <span class="status-indicator"></span>
+                    </div>
+                    <div class="term-body">
+                        <div class="library-controls" id="genreFilters"></div>
+                        <input type="text" id="gameSearch" class="game-search" placeholder="Search games by name..." style="margin:1rem 0 1.5rem 0; width:100%; max-width:350px; padding:0.5rem; background:rgba(0,20,0,0.7); border:1px solid var(--hud-border); color:var(--term-green); font-family:var(--font-mono); font-size:0.95rem;" />
+                        <div class="games-grid" id="gamesGrid"></div>
+                        <p class="library-note">Tip: Add more games in <b>gaming-data.json</b> for instant updates. Use filters or search above.</p>
+                    </div>
+                </div>
+                <details class="about-gaming-journey" style="margin-bottom:2rem;">
+                    <summary style="font-family:var(--font-heading); color:var(--term-green); font-size:1.1rem; cursor:pointer;">About My Gaming Journey</summary>
+                    <div style="margin-top:1rem; color:var(--term-dark-green); font-size:0.98rem;">
+                        <p>From retro PC classics to tactical shooters, my journey has been about exploration, mission discipline, and story-driven action. LAN competitions, late-night campaigns, and retrying tough missions shaped my playstyle. <br><br> <b>Core Skills:</b> Stealth execution, map awareness, and reflex gameplay.</p>
+                    </div>
+                </details>
+                <div style="margin-top: 2rem;">
+                    <a href="extras.html" class="btn tactical-btn"><< BACK TO EXTRAS</a>
+                </div>
+            </section>
+        </main>
+
+        <footer class="hud-footer">
+            <div class="footer-links" style="display:flex; gap:1.5rem;">
+                <a href="https://github.com/kARUn077" target="_blank" style="color:var(--term-green); text-decoration:none;">[GITHUB]</a>
+                <a href="https://www.linkedin.com/in/karun-poddar-515b23264/" target="_blank" style="color:var(--term-green); text-decoration:none;">[LINKEDIN]</a>
+                <a href="https://www.instagram.com/me_kirtan_17/" target="_blank" style="color:var(--term-green); text-decoration:none;">[INSTAGRAM]</a>
+                <a href="mailto:karunpoddar0@gmail.com" style="color:var(--term-green); text-decoration:none;">[EMAIL]</a>
+            </div>
+            <div style="display:flex; gap:1.5rem; align-items: center;">
+                <span>SYS_VERSION: 1.0.4</span>
+                <span id="audio-toggle" class="text-green" style="transition: all 0.2s;">[AUDIO: OFF]</span>
+                <span>CONNECTION: VERIFIED</span>
+            </div>
+        </footer>
+    </div>
+
+    <audio id="sndBgTrack" src="bgm.mp3" loop preload="auto"></audio>
+    <audio id="sndHover" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
+    <audio id="sndClick" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
+
+    <script src="script.js?v=update5" charset="utf-8"></script>
+    <script>
+        let allGames = [];
+        let currentGenre = 'ALL';
+        let searchQuery = '';
+
+        function gameCardMarkup(game) {
+            return `
+                <article class="game-library-card" data-image="${game.image}" data-title="${game.title}" data-meta="${game.genre.toUpperCase()} | ${game.era.toUpperCase()}" data-memory="${game.memory}">
+                    <img class="game-library-image" src="${game.image}" alt="${game.title}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="game-library-image" style="display:none; align-items:center; justify-content:center; color:var(--term-dark-green); font-size:0.78rem; letter-spacing:0.05rem;">[ NO IMAGE ]</div>
+                    <div class="game-library-body">
+                        <h3 class="game-library-title">${game.title}</h3>
+                        <p class="game-library-meta">${game.genre.toUpperCase()} | ${game.era.toUpperCase()}</p>
+                        <p class="game-library-memory">${game.memory}</p>
+                        <button class="preview-game-btn tactical-btn">[PREVIEW]</button>
+                    </div>
+                </article>
+            `;
+        }
+
+        function renderGames() {
+            const grid = document.getElementById('gamesGrid');
+            if (!grid) return;
+
+            let filteredGames = allGames;
+            if (currentGenre !== 'ALL') {
+                filteredGames = filteredGames.filter(game => game.genre.toUpperCase() === currentGenre);
+            }
+            if (searchQuery.trim()) {
+                filteredGames = filteredGames.filter(game => game.title.toLowerCase().includes(searchQuery.trim().toLowerCase()));
+            }
+
+            if (!filteredGames.length) {
+                grid.innerHTML = '<div class="empty-state">No games found for this filter/search. Add more in gaming-data.json.</div>';
+                return;
+            }
+            grid.innerHTML = filteredGames.map(gameCardMarkup).join('');
+            if (typeof attachInteractableHoverSound === 'function') attachInteractableHoverSound();
+        }
+
+        function renderGenreFilters() {
+            const filterWrap = document.getElementById('genreFilters');
+            if (!filterWrap) return;
+
+            const genres = ['ALL', ...new Set(allGames.map(game => game.genre.toUpperCase()))];
+            filterWrap.innerHTML = genres.map(genre => `
+                <button class="filter-chip ${genre === currentGenre ? 'active' : ''}" data-genre="${genre}">${genre}</button>
+            `).join('');
+
+            filterWrap.querySelectorAll('.filter-chip').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    currentGenre = btn.dataset.genre;
+                    renderGenreFilters();
+                    renderGames();
+                });
+            });
+            if (typeof attachInteractableHoverSound === 'function') attachInteractableHoverSound();
+        }
+
+        async function loadGamingLibrary() {
+            try {
+                const response = await fetch('gaming-data.json');
+                const data = await response.json();
+                allGames = Array.isArray(data.games) ? data.games : [];
+                renderGenreFilters();
+                renderGames();
+            } catch (error) {
+                const grid = document.getElementById('gamesGrid');
+                if (grid) {
+                    grid.innerHTML = '<div class="empty-state">Could not load gaming-data.json. Check file path and JSON format.</div>';
+                }
+                console.error('Gaming data load failed:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadGamingLibrary();
+            const searchInput = document.getElementById('gameSearch');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    searchQuery = e.target.value;
+                    renderGames();
+                });
+            }
+
+            // Attach preview modal logic after every render
+            function attachGamePreviewModal() {
+                document.querySelectorAll('.preview-game-btn').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const card = btn.closest('.game-library-card');
+                        const img = card.getAttribute('data-image');
+                        openGamePreviewModal(img);
+                    });
+                });
+            }
+            const origRenderGames = renderGames;
+            renderGames = function() {
+                origRenderGames();
+                attachGamePreviewModal();
+            };
+        });
+
+        // Modal HTML for SCOPE VIEW (insert before </body>)
+    </script>
+    <div class="game-preview-modal" id="gamePreviewModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:1000; justify-content:center; align-items:center;">
+        <div style="position:relative; display:flex; flex-direction:column; align-items:center;">
+            <button id="gamePreviewClose" style="position:absolute; top:-40px; right:0; font-size:1.1rem; background:none; border:none; color:#0f0; cursor:pointer;">[CLOSE]</button>
+            <img id="gamePreviewImage" src="" alt="Game Preview" style="max-width:80vw; max-height:80vh; border-radius:10px; box-shadow:0 0 40px #0f0a;">
+        </div>
+    </div>
+    <script>
+    // Simple preview modal logic
+    function openGamePreviewModal(imgSrc) {
+        const modal = document.getElementById('gamePreviewModal');
+        const image = document.getElementById('gamePreviewImage');
+        image.src = imgSrc;
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+    function closeGamePreviewModal() {
+        document.getElementById('gamePreviewModal').style.display = 'none';
+        document.body.style.overflow = '';
+    }
+    document.getElementById('gamePreviewClose').addEventListener('click', closeGamePreviewModal);
+    document.getElementById('gamePreviewModal').addEventListener('click', function(e) {
+        if (e.target.id === 'gamePreviewModal') closeGamePreviewModal();
+    });
+    document.addEventListener('keydown', function(e) {
+        const modal = document.getElementById('gamePreviewModal');
+        if (modal.style.display !== 'flex') return;
+        if (e.key === 'Escape') closeGamePreviewModal();
+    });
+    </script>
+    </script>
+</body>
+
+</html>

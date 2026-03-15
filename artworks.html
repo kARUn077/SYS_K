@@ -75,7 +75,7 @@
             text-decoration: none;
             font-size: 0.85rem;
             transition: all 0.3s ease;
-            cursor: pointer;
+            /* cursor: pointer; removed for custom crosshair */
         }
 
         .view-artwork-btn:hover {
@@ -182,7 +182,7 @@
             color: var(--term-green);
             font-family: 'Share Tech Mono', monospace;
             font-size: 1.2rem;
-            cursor: pointer;
+            /* cursor: pointer; removed for custom crosshair */
             transition: all 0.2s ease;
             font-weight: bold;
         }
@@ -199,7 +199,7 @@
             color: var(--term-green);
             font-family: 'Share Tech Mono', monospace;
             font-size: 0.75rem;
-            cursor: pointer;
+            /* cursor: pointer; removed for custom crosshair */
             transition: all 0.2s ease;
             text-transform: uppercase;
         }
@@ -216,7 +216,7 @@
             color: var(--term-green);
             font-family: 'Share Tech Mono', monospace;
             font-size: 0.75rem;
-            cursor: pointer;
+            /* cursor: pointer; removed for custom crosshair */
             transition: all 0.2s ease;
             text-transform: uppercase;
         }
@@ -258,7 +258,7 @@
             color: var(--alert-red);
             font-family: 'Share Tech Mono', monospace;
             font-size: 0.9rem;
-            cursor: pointer;
+            /* cursor: pointer; removed for custom crosshair */
             z-index: 10001;
             transition: all 0.3s ease;
             text-transform: uppercase;
@@ -442,6 +442,10 @@
                 <div class="artwork-gallery" id="artworkGallery">
                     <!-- Dynamically loaded gallery -->
                 </div>
+
+                <div style="margin-top: 2rem;">
+                    <a href="extras.html" class="btn tactical-btn"><< BACK TO EXTRAS</a>
+                </div>
             </section>
 
         </main>
@@ -459,7 +463,7 @@
             </div>
             <div style="display:flex; gap:1.5rem; align-items: center;">
                 <span>SYS_VERSION: 1.0.4</span>
-                <span id="audio-toggle" class="text-green" style="cursor: pointer; transition: all 0.2s;">[AUDIO:
+                <span id="audio-toggle" class="text-green" style="transition: all 0.2s;">[AUDIO:
                     OFF]</span>
                 <span>CONNECTION: VERIFIED</span>
             </div>

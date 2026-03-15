@@ -1,0 +1,354 @@
+{
+  "games": [
+    {
+      "title": "CTR",
+      "genre": "Racing",
+      "era": "Arcade Speed",
+      "memory": "Fast kart races, wild power-ups, and tight drift control.",
+      "image": "assets/games/CTR.jpg"
+    },
+    {
+      "title": "Driver 2",
+      "genre": "Racing",
+      "era": "Retro Classic",
+      "memory": "Classic street pursuit gameplay with old-school mission tension.",
+      "image": "assets/games/Driver 2.jpg"
+    },
+    {
+      "title": "Far Cry 3",
+      "genre": "Open World",
+      "era": "Story Action",
+      "memory": "Large-scale open map combat with mission variety and chaos.",
+      "image": "assets/games/farcry 3.jpg"
+    },
+    {
+      "title": "G-Force",
+      "genre": "Action Adventure",
+      "era": "Arcade Action",
+      "memory": "Stylized mission gameplay with a fun, light action vibe.",
+      "image": "assets/games/G - force.jpg"
+    },
+    {
+      "title": "GTA Vice City",
+      "genre": "Open World",
+      "era": "Retro Classic",
+      "memory": "Neon nights, iconic radio tracks, and free-roam chaos.",
+      "image": "assets/games/Gta vice city.jpg"
+    },
+    {
+      "title": "GTA San Andreas",
+      "genre": "Open World",
+      "era": "Retro Classic",
+      "memory": "Huge map, long mission chains, and legendary sandbox moments.",
+      "image": "assets/games/gta san andreas.jpg"
+    },
+    {
+      "title": "Hitman 2",
+      "genre": "Stealth",
+      "era": "Mission Era",
+      "memory": "Silent takedowns, clean routes, and tactical objective flow.",
+      "image": "assets/games/hitman 2.jpg"
+    },
+    {
+      "title": "Hulk",
+      "genre": "Action",
+      "era": "Arcade Action",
+      "memory": "Destruction-heavy combat and pure power-fantasy gameplay moments.",
+      "image": "assets/games/Hulk.jpg"
+    },
+    {
+      "title": "Nascar Rumble",
+      "genre": "Racing",
+      "era": "Arcade Speed",
+      "memory": "Arcade-style racing with boosts, collisions, and nonstop speed.",
+      "image": "assets/games/nascar rumble.jpg"
+    },
+    {
+      "title": "Need for Speed",
+      "genre": "Racing",
+      "era": "Arcade Speed",
+      "memory": "Street races, speed build-ups, and late-night track runs.",
+      "image": "assets/games/NFS.jpg"
+    },
+    {
+      "title": "Pepsiman",
+      "genre": "Arcade",
+      "era": "Retro Classic",
+      "memory": "Classic quirky obstacle runs with pure retro fun energy.",
+      "image": "assets/games/Pepsi man.jpg"
+    },
+    {
+      "title": "Prince of Persia: The Two Thrones",
+      "genre": "Action Adventure",
+      "era": "Retro Classic",
+      "memory": "Parkour precision and timing-based sword combat.",
+      "image": "assets/games/Prince of persia - the two thrones.jpg"
+    },
+    {
+      "title": "Project IGI",
+      "genre": "Shooting",
+      "era": "Mission Era",
+      "memory": "Stealth-heavy infiltration with high-pressure objective runs.",
+      "image": "assets/games/Project igi.jpg"
+    },
+    {
+      "title": "Rayman",
+      "genre": "Platformer",
+      "era": "Retro Classic",
+      "memory": "Creative level design with precise movement and timing.",
+      "image": "assets/games/Rayman.jpg"
+    },
+    {
+      "title": "Rumble Racing",
+      "genre": "Racing",
+      "era": "Arcade Speed",
+      "memory": "Arcade tracks, collisions, and high-energy race sessions.",
+      "image": "assets/games/rumble racing.jpg"
+    },
+    {
+      "title": "Spider-Man",
+      "genre": "Action Adventure",
+      "era": "Story Action",
+      "memory": "Hero-based combat and mission runs with classic comic style.",
+      "image": "assets/games/Spider man.jpg"
+    },
+    {
+      "title": "Tekken 3",
+      "genre": "Fighting",
+      "era": "Retro Classic",
+      "memory": "Iconic versus battles, combos, and local match competition.",
+      "image": "assets/games/tekken 3.jpg"
+    },
+    {
+      "title": "Tomb Raider",
+      "genre": "Action Adventure",
+      "era": "Story Action",
+      "memory": "Exploration, puzzles, and cinematic mission progression.",
+      "image": "assets/games/Tomb raider.jpg"
+    },
+    {
+      "title": "Total Overdose",
+      "genre": "Action",
+      "era": "Retro Classic",
+      "memory": "Wild gunfights, stylish combos, and chaotic mission runs.",
+      "image": "assets/games/total-overdose.jpg"
+    },
+    {
+      "title": "Transformers",
+      "genre": "Action",
+      "era": "Story Action",
+      "memory": "Mech combat and mission-heavy action with cinematic moments.",
+      "image": "assets/games/transformers.jpg"
+    },
+    {
+      "title": "Contra",
+      "genre": "Arcade",
+      "era": "Retro Classic",
+      "memory": "Fast side-scrolling action with nonstop enemy waves.",
+      "image": "assets/games/Contra.jpg"
+    },
+    {
+      "title": "Duke Nukem",
+      "genre": "Shooting",
+      "era": "Retro Classic",
+      "memory": "Classic FPS intensity with old-school mission vibes.",
+      "image": "assets/games/Duke nukem.jpg"
+    },
+    {
+      "title": "Freedom Fighters",
+      "genre": "Action",
+      "era": "Mission Era",
+      "memory": "Squad-based combat and objective-focused campaign flow.",
+      "image": "assets/games/Freedom fighters.jpg"
+    },
+    {
+      "title": "Halo 2",
+      "genre": "Shooting",
+      "era": "Competitive Era",
+      "memory": "Iconic sci-fi firefights and tactical shooter pacing.",
+      "image": "assets/games/Halo 2.jpg"
+    },
+    {
+      "title": "Hitman Contracts",
+      "genre": "Stealth",
+      "era": "Mission Era",
+      "memory": "Stealth-heavy assassination routes with precise execution.",
+      "image": "assets/games/Hitman contracts.jpg"
+    },
+    {
+      "title": "Hitman Absolution",
+      "genre": "Stealth",
+      "era": "Story Action",
+      "memory": "Cinematic stealth missions with intense objective runs.",
+      "image": "assets/games/hitman absolution.jpg"
+    },
+    {
+      "title": "IGI 2",
+      "genre": "Shooting",
+      "era": "Mission Era",
+      "memory": "Tactical infiltration and long-range objective gameplay.",
+      "image": "assets/games/Igi 2.jpg"
+    },
+    {
+      "title": "Mafia 3",
+      "genre": "Open World",
+      "era": "Story Action",
+      "memory": "Story-driven missions with open-city combat and progression.",
+      "image": "assets/games/mafia 3.jpg"
+    },
+    {
+      "title": "Metal Slug",
+      "genre": "Arcade",
+      "era": "Retro Classic",
+      "memory": "Run-and-gun chaos with iconic pixel action moments.",
+      "image": "assets/games/Metal slug.jpg"
+    },
+    {
+      "title": "Prince of Persia: Sands of Time",
+      "genre": "Action Adventure",
+      "era": "Retro Classic",
+      "memory": "Time-control mechanics and classic parkour puzzle flow.",
+      "image": "assets/games/Prince of persia - Sands of time.jpg"
+    },
+    {
+      "title": "Prince of Persia: Warrior Within",
+      "genre": "Action Adventure",
+      "era": "Retro Classic",
+      "memory": "Dark tone, combo-heavy combat, and challenging platforming.",
+      "image": "assets/games/Prince of persia - warrior within.jpg"
+    },
+    {
+      "title": "Road Rash",
+      "genre": "Racing",
+      "era": "Retro Classic",
+      "memory": "Bike racing mayhem with chaotic combat on the roads.",
+      "image": "assets/games/Road rash.jpg"
+    },
+    {
+      "title": "Sleeping Dogs",
+      "genre": "Open World",
+      "era": "Story Action",
+      "memory": "Open-city missions blending driving, combat, and story.",
+      "image": "assets/games/Sleeping dogs.jpg"
+    },
+    {
+      "title": "Street Fighter",
+      "genre": "Fighting",
+      "era": "Retro Classic",
+      "memory": "Classic versus battles and combo-based fighting gameplay.",
+      "image": "assets/games/street fighter.jpg"
+    },
+    {
+      "title": "Avatar The Game",
+      "genre": "Action Adventure",
+      "era": "Story Action",
+      "memory": "Epic battles and exploration on Pandora.",
+      "image": "assets/games/Avatar The Game.jpg"
+    },
+    {
+      "title": "Call of Duty 4",
+      "genre": "Shooting",
+      "era": "Modern Era",
+      "memory": "Intense modern warfare missions and multiplayer.",
+      "image": "assets/games/Call of Duty 4.jpg"
+    },
+    {
+      "title": "Counter Strike",
+      "genre": "Shooting",
+      "era": "Competitive Era",
+      "memory": "Classic team-based tactical shooter.",
+      "image": "assets/games/counter strike.jpg"
+    },
+    {
+      "title": "Cricket 07",
+      "genre": "Sports",
+      "era": "Retro Classic",
+      "memory": "Legendary cricket matches and tournaments.",
+      "image": "assets/games/Cricket 07.jpg"
+    },
+    {
+      "title": "Delta Force",
+      "genre": "Shooting",
+      "era": "Mission Era",
+      "memory": "Tactical military operations and open maps.",
+      "image": "assets/games/Delta Force.jpg"
+    },
+    {
+      "title": "Ghost Recon",
+      "genre": "Shooting",
+      "era": "Tactical Era",
+      "memory": "Squad-based tactical combat and missions.",
+      "image": "assets/games/Ghost Recon.jpg"
+    },
+    {
+      "title": "GTA 5",
+      "genre": "Open World",
+      "era": "Modern Era",
+      "memory": "Heists, chaos, and a massive open city.",
+      "image": "assets/games/Gta 5.jpg"
+    },
+    {
+      "title": "Max Payne",
+      "genre": "Action",
+      "era": "Story Action",
+      "memory": "Bullet time and noir storytelling.",
+      "image": "assets/games/Max Payne.jpg"
+    },
+    {
+      "title": "Max Payne 2",
+      "genre": "Action",
+      "era": "Story Action",
+      "memory": "Sequel with deeper story and slow-motion action.",
+      "image": "assets/games/Max Payne 2.jpg"
+    },
+    {
+      "title": "NOVA",
+      "genre": "Shooting",
+      "era": "Sci-Fi Era",
+      "memory": "Futuristic battles and alien combat.",
+      "image": "assets/games/NOVA.jpg"
+    },
+    {
+      "title": "RDR 2",
+      "genre": "Open World",
+      "era": "Story Action",
+      "memory": "Wild West adventures and immersive storytelling.",
+      "image": "assets/games/RDR 2.jpg"
+    },
+    {
+      "title": "The Amazing Spider Man",
+      "genre": "Action Adventure",
+      "era": "Story Action",
+      "memory": "Web-slinging and open city superhero action.",
+      "image": "assets/games/The Amazing spider man.jpg"
+    },
+    {
+      "title": "The Terminator",
+      "genre": "Action",
+      "era": "Retro Classic",
+      "memory": "Futuristic battles against machines.",
+      "image": "assets/games/The terminator.jpg"
+    },
+    {
+      "title": "Uncharted 4",
+      "genre": "Action Adventure",
+      "era": "Modern Era",
+      "memory": "Treasure hunting and cinematic action.",
+      "image": "assets/games/uncharted 4.jpg"
+    },
+    {
+      "title": "Virtua Cop 2",
+      "genre": "Shooting",
+      "era": "Arcade Classic",
+      "memory": "On-rails shooting and arcade fun.",
+      "image": "assets/games/Virtua Cop 2.jpg"
+    },
+    {
+      "title": "WWE",
+      "genre": "Fighting",
+      "era": "Modern Era",
+      "memory": "Wrestling matches and superstar showdowns.",
+      "image": "assets/games/wwe.jpg"
+    }
+  ]
+}
