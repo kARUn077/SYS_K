@@ -463,8 +463,46 @@
                 </div>
                 <details class="about-gaming-journey" style="margin-bottom:2rem;">
                     <summary style="font-family:var(--font-heading); color:var(--term-green); font-size:1.1rem; cursor:pointer;">About My Gaming Journey</summary>
-                    <div style="margin-top:1rem; color:var(--term-dark-green); font-size:0.98rem;">
-                        <p>From retro PC classics to tactical shooters, my journey has been about exploration, mission discipline, and story-driven action. LAN competitions, late-night campaigns, and retrying tough missions shaped my playstyle. <br><br> <b>Core Skills:</b> Stealth execution, map awareness, and reflex gameplay.</p>
+                    <div style="margin-top:1.2rem;">
+                        <div class="gaming-timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-year">2008</div>
+                                <div class="timeline-content">
+                                    <b>First Encounter:</b> Started with <span class="text-green">Contra</span> and <span class="text-green">Road Rash</span> on PC.<br>
+                                    <span class="timeline-note">Late-night gaming with friends!</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-year">2012</div>
+                                <div class="timeline-content">
+                                    <b>LAN Battles:</b> <span class="text-green">Counter-Strike 1.6</span> and <span class="text-green">NFS Most Wanted</span>.<br>
+                                    <span class="timeline-note">Discovered tactical shooters and team play.</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-year">2014</div>
+                                <div class="timeline-content">
+                                    <b>Prince of Persia:</b> Played and enjoyed the series.<br>
+                                    <span class="timeline-note">Classic platforming and adventure!</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-year">2016</div>
+                                <div class="timeline-content">
+                                    <b>Stealth Phase:</b> Fell in love with <span class="text-green">Hitman</span> and <span class="text-green">Splinter Cell</span> series.<br>
+                                    <span class="timeline-note">Mastered stealth and strategy.</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-year">2019-Present</div>
+                                <div class="timeline-content" style="min-height: 1.2rem; display: flex; align-items: center;">
+                                    <span><b>Casual Gaming:</b> <span class="text-green">Mafia 3</span>, <span class="text-green">Far Cry</span>, <span class="text-green">GTA 5</span> <span style="font-size:0.92em; color:var(--term-dark-green);">(mostly on my own PC, less frequent)</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top:1.5rem; color:var(--term-green); font-size:1rem;">
+                            <b>Core Skills:</b> Stealth execution, map awareness, reflex gameplay
+                        </div>
                     </div>
                 </details>
                 <div style="margin-top: 2rem;">
@@ -472,6 +510,73 @@
                 </div>
             </section>
         </main>
+
+        <style>
+            .gaming-timeline {
+                border-left: 3px solid var(--term-green);
+                margin-left: 5.2rem;
+                padding-left: 2.2rem;
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .timeline-item {
+                position: relative;
+                padding-bottom: 0.5rem;
+                min-height: 3.2rem;
+            }
+            .timeline-year {
+                position: absolute;
+                left: -8.2rem;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 8rem;
+                color: var(--term-green);
+                font-family: var(--font-heading);
+                font-size: 1.08rem;
+                background: #010;
+                padding: 0.22rem 0;
+                border-radius: 6px;
+                box-shadow: 0 0 8px #0f0a;
+                letter-spacing: 0.04rem;
+                text-align: center;
+                z-index: 2;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .timeline-item:last-child .timeline-year {
+                text-align: left;
+                padding-left: 0.7rem;
+            }
+            .timeline-content {
+                color: var(--term-dark-green);
+                font-size: 0.98rem;
+                margin-left: 0.5rem;
+                margin-right: 0.5rem;
+                padding-left: 0.5rem;
+                word-break: break-word;
+            }
+            .timeline-note {
+                display: block;
+                color: #0f0;
+                font-size: 0.85rem;
+                margin-top: 0.2rem;
+                font-style: italic;
+            }
+            @media (max-width: 1200px) {
+                .gaming-timeline { margin-left: 2.7rem; padding-left: 1.1rem; }
+                .timeline-year { left: -3.7rem; min-width: 3.2rem; font-size: 1.01rem; padding: 0.15rem 0.6rem; }
+            }
+            @media (max-width: 900px) {
+                .gaming-timeline { margin-left: 1.2rem; padding-left: 0.7rem; }
+                .timeline-year { left: -2.7rem; font-size: 0.98rem; min-width: 2.2rem; padding: 0.13rem 0.4rem; }
+            }
+            @media (max-width: 700px) {
+                .gaming-timeline { margin-left: 0.5rem; padding-left: 0.5rem; }
+                .timeline-year { left: -1.7rem; font-size: 0.92rem; min-width: 1.6rem; padding: 0.10rem 0.2rem; }
+            }
+        </style>
 
         <footer class="hud-footer">
             <div class="footer-links" style="display:flex; gap:1.5rem;">
@@ -553,13 +658,28 @@
         }
 
         async function loadGamingLibrary() {
-            try {
-                const response = await fetch('gaming-data.json');
-                const data = await response.json();
-                allGames = Array.isArray(data.games) ? data.games : [];
-                renderGenreFilters();
-                renderGames();
-            } catch (error) {
+                        try {
+                                const response = await fetch('gaming-data.json');
+                                const data = await response.json();
+                                const customOrder = [
+                                        'contra','zuma deluxe','road rash','NASCAR Rumble','Virtua Cop 2','rumble racing','rayman','metal slug','Mega Man','street fighter','N.O.V.A. – Near Orbit Vanguard Alliance','Crash Team Racing','halo 2', 'Need for Speed: Most Wanted' ,'Age of Empires II','driver 2','pepsiman','tekken 3','WWE SmackDown vs. Raw 2007','Duke Nukem 3D','mortal kombat special forces','total overdose','cricket 07', 'Spider-Man (2000)' , 'The Incredible Hulk','Avatar: The Game','tomb raider','Grand Theft Auto: Vice City','transformers','spider man','max payne', 'Hitman: Contracts' ,'hitman absolution','freedom fighters','hitman absol.','transformers' , 'ghost recon' ,'The Amazing Spider-Man','Grand Theft Auto: San Andreas','the terminator','max payne 2','james bond 007', 'g-force', 'Counter-Strike','delta force','prince of persia: the two thrones','Hitman 2: Silent Assassin','project igi','igi 2','sleeping dogs','prince of persia: sands of time', 'Call of Duty 4: Modern Warfare','prince of persia: warrior within','Marvel\'s Spider-Man: Miles Morales','mafia 3','uncharted 4','far cry 3','Grand Theft Auto V' ,'Red Dead Redemption 2'
+                                ];
+                                function normalize(str) {
+                                    return str.toLowerCase().replace(/[^a-z0-9]/g, '');
+                                }
+                                allGames = Array.isArray(data.games) ? data.games.slice().sort((a, b) => {
+                                    const aNorm = normalize(a.title);
+                                    const bNorm = normalize(b.title);
+                                    const aIndex = customOrder.findIndex(t => normalize(t) === aNorm);
+                                    const bIndex = customOrder.findIndex(t => normalize(t) === bNorm);
+                                    if (aIndex === -1 && bIndex === -1) return a.title.localeCompare(b.title);
+                                    if (aIndex === -1) return 1;
+                                    if (bIndex === -1) return -1;
+                                    return aIndex - bIndex;
+                                }) : [];
+                                renderGenreFilters();
+                                renderGames();
+                        } catch (error) {
                 const grid = document.getElementById('gamesGrid');
                 if (grid) {
                     grid.innerHTML = '<div class="empty-state">Could not load gaming-data.json. Check file path and JSON format.</div>';

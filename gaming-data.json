@@ -1,7 +1,7 @@
 {
   "games": [
     {
-      "title": "CTR",
+      "title": "Crash Team Racing",
       "genre": "Racing",
       "era": "Arcade Speed",
       "memory": "Fast kart races, wild power-ups, and tight drift control.",
@@ -29,42 +29,42 @@
       "image": "assets/games/G - force.jpg"
     },
     {
-      "title": "GTA Vice City",
+      "title": "Grand Theft Auto: Vice City",
       "genre": "Open World",
       "era": "Retro Classic",
       "memory": "Neon nights, iconic radio tracks, and free-roam chaos.",
       "image": "assets/games/Gta vice city.jpg"
     },
     {
-      "title": "GTA San Andreas",
+      "title": "Grand Theft Auto: San Andreas",
       "genre": "Open World",
       "era": "Retro Classic",
       "memory": "Huge map, long mission chains, and legendary sandbox moments.",
       "image": "assets/games/gta san andreas.jpg"
     },
     {
-      "title": "Hitman 2",
+      "title": "Hitman 2: Silent Assassin",
       "genre": "Stealth",
       "era": "Mission Era",
       "memory": "Silent takedowns, clean routes, and tactical objective flow.",
       "image": "assets/games/hitman 2.jpg"
     },
     {
-      "title": "Hulk",
+      "title": "The Incredible Hulk",
       "genre": "Action",
       "era": "Arcade Action",
       "memory": "Destruction-heavy combat and pure power-fantasy gameplay moments.",
       "image": "assets/games/Hulk.jpg"
     },
     {
-      "title": "Nascar Rumble",
+      "title": "NASCAR Rumble",
       "genre": "Racing",
       "era": "Arcade Speed",
       "memory": "Arcade-style racing with boosts, collisions, and nonstop speed.",
       "image": "assets/games/nascar rumble.jpg"
     },
     {
-      "title": "Need for Speed",
+      "title": "Need for Speed: Most Wanted",
       "genre": "Racing",
       "era": "Arcade Speed",
       "memory": "Street races, speed build-ups, and late-night track runs.",
@@ -106,7 +106,7 @@
       "image": "assets/games/rumble racing.jpg"
     },
     {
-      "title": "Spider-Man",
+      "title": "Spider-Man (2000)",
       "genre": "Action Adventure",
       "era": "Story Action",
       "memory": "Hero-based combat and mission runs with classic comic style.",
@@ -148,7 +148,7 @@
       "image": "assets/games/Contra.jpg"
     },
     {
-      "title": "Duke Nukem",
+      "title": "Duke Nukem 3D",
       "genre": "Shooting",
       "era": "Retro Classic",
       "memory": "Classic FPS intensity with old-school mission vibes.",
@@ -169,7 +169,7 @@
       "image": "assets/games/Halo 2.jpg"
     },
     {
-      "title": "Hitman Contracts",
+      "title": "Hitman: Contracts",
       "genre": "Stealth",
       "era": "Mission Era",
       "memory": "Stealth-heavy assassination routes with precise execution.",
@@ -239,21 +239,21 @@
       "image": "assets/games/street fighter.jpg"
     },
     {
-      "title": "Avatar The Game",
+      "title": "Avatar: The Game",
       "genre": "Action Adventure",
       "era": "Story Action",
       "memory": "Epic battles and exploration on Pandora.",
       "image": "assets/games/Avatar The Game.jpg"
     },
     {
-      "title": "Call of Duty 4",
+      "title": "Call of Duty 4: Modern Warfare",
       "genre": "Shooting",
       "era": "Modern Era",
       "memory": "Intense modern warfare missions and multiplayer.",
       "image": "assets/games/Call of Duty 4.jpg"
     },
     {
-      "title": "Counter Strike",
+      "title": "Counter-Strike",
       "genre": "Shooting",
       "era": "Competitive Era",
       "memory": "Classic team-based tactical shooter.",
@@ -281,7 +281,7 @@
       "image": "assets/games/Ghost Recon.jpg"
     },
     {
-      "title": "GTA 5",
+      "title": "Grand Theft Auto V",
       "genre": "Open World",
       "era": "Modern Era",
       "memory": "Heists, chaos, and a massive open city.",
@@ -302,21 +302,21 @@
       "image": "assets/games/Max Payne 2.jpg"
     },
     {
-      "title": "NOVA",
+      "title": "N.O.V.A. – Near Orbit Vanguard Alliance",
       "genre": "Shooting",
       "era": "Sci-Fi Era",
       "memory": "Futuristic battles and alien combat.",
       "image": "assets/games/NOVA.jpg"
     },
     {
-      "title": "RDR 2",
+      "title": "Red Dead Redemption 2",
       "genre": "Open World",
       "era": "Story Action",
       "memory": "Wild West adventures and immersive storytelling.",
       "image": "assets/games/RDR 2.jpg"
     },
     {
-      "title": "The Amazing Spider Man",
+      "title": "The Amazing Spider-Man",
       "genre": "Action Adventure",
       "era": "Story Action",
       "memory": "Web-slinging and open city superhero action.",
@@ -344,11 +344,53 @@
       "image": "assets/games/Virtua Cop 2.jpg"
     },
     {
-      "title": "WWE",
+      "title": "WWE SmackDown vs. Raw 2007",
       "genre": "Fighting",
       "era": "Modern Era",
       "memory": "Wrestling matches and superstar showdowns.",
       "image": "assets/games/wwe.jpg"
+    },
+    {
+      "title": "Mega Man",
+      "genre": "Arcade",
+      "era": "Retro Classic",
+      "memory": "Platforming action and classic boss battles.",
+      "image": "assets/games/Megaman.jpg"
+    },
+    {
+      "title": "Zuma Deluxe",
+      "genre": "Puzzle",
+      "era": "Arcade Classic",
+      "memory": "Addictive marble-shooting puzzle fun.",
+      "image": "assets/games/Zuma Deluxe.jpg"
+    },
+    {
+      "title": "Age of Empires II",
+      "genre": "Strategy",
+      "era": "Classic Era",
+      "memory": "Epic real-time strategy and empire building.",
+      "image": "assets/games/Age of empires 2.jpg"
+    },
+    {
+      "title": "James Bond 007",
+      "genre": "Action",
+      "era": "Spy Era",
+      "memory": "Secret agent missions and classic spy action.",
+      "image": "assets/games/james bond 007.jpg"
+    },
+    {
+      "title": "Mortal Kombat Special Forces",
+      "genre": "Fighting",
+      "era": "Classic Era",
+      "memory": "Unique Mortal Kombat spin-off with special ops action.",
+      "image": "assets/games/Mortal_Kombat_Special_Forces.jpg"
+    },
+    {
+      "title": "Marvel's Spider-Man: Miles Morales",
+      "genre": "Action",
+      "era": "Modern Era",
+      "memory": "Web-slinging adventure as Miles Morales in New York.",
+      "image": "assets/games/Spider man miles morales.jpg"
     }
   ]
 }
