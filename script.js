@@ -1,6 +1,3 @@
-
-
-
 // Shorter code: up, up, down, down
 const konamiCode = [38, 38, 40, 40];
 let konamiIndex = 0;
@@ -462,5 +459,38 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+});
+
+// Animate combat stats bars on dossier.html (percent next to label)
+window.addEventListener('DOMContentLoaded', function() {
+    const statLabels = document.querySelectorAll('.stat-label .stat-percent');
+    const bars = document.querySelectorAll('.stat-bar .fill');
+    const percents = [95, 90, 85];
+    bars.forEach((bar, i) => {
+        bar.style.transition = 'none';
+        bar.style.width = '0%';
+        void bar.offsetWidth;
+        bar.style.transition = 'width 3.5s linear';
+        setTimeout(() => {
+            bar.style.width = percents[i] + '%';
+            // Animate percentage count-up next to label
+            let current = 0;
+            const target = percents[i];
+            const duration = 3500;
+            const start = performance.now();
+            function animatePercent(now) {
+                const elapsed = now - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const value = Math.floor(progress * target);
+                statLabels[i].textContent = value + '%';
+                if (progress < 1) {
+                    requestAnimationFrame(animatePercent);
+                } else {
+                    statLabels[i].textContent = target + '%';
+                }
+            }
+            requestAnimationFrame(animatePercent);
+        }, 500 + i * 500);
+    });
 });
 
