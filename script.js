@@ -197,6 +197,54 @@ document.addEventListener('mousemove', (e) => {
     }
 });
 
+// Skill Card Click Handler - Redirect to documentation
+function attachSkillCardClickHandlers() {
+    const skillCards = document.querySelectorAll('.weapon-card[data-link]');
+    console.log('Attaching skill card handlers to', skillCards.length, 'cards');
+    
+    skillCards.forEach(card => {
+        card.style.cursor = 'pointer';
+        
+        card.addEventListener('click', function(e) {
+            const link = this.getAttribute('data-link');
+            console.log('Skill card clicked, redirecting to:', link);
+            if (link) {
+                // Try multiple methods to ensure redirect works
+                window.open(link, '_blank');
+            }
+        });
+    });
+}
+
+// Call immediately when script loads (not relying on DOMContentLoaded which might have already fired)
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', attachSkillCardClickHandlers);
+} else {
+    // DOM is already loaded, call immediately
+    setTimeout(attachSkillCardClickHandlers, 100);
+}
+
+// Also call on document ready as backup
+document.addEventListener('DOMContentLoaded', attachSkillCardClickHandlers);
+
+// And call periodically in case elements are added dynamically
+setInterval(() => {
+    const unattached = document.querySelectorAll('.weapon-card[data-link]:not([data-handler-attached])');
+    if (unattached.length > 0) {
+        unattached.forEach(card => {
+            card.setAttribute('data-handler-attached', 'true');
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', function(e) {
+                const link = this.getAttribute('data-link');
+                if (link) {
+                    window.open(link, '_blank');
+                }
+            });
+        });
+    }
+}, 1000);
+
+
 
 // Attach hover/click/cursor listeners to interactive elements (including dynamically created ones)
 function attachInteractableHoverSound() {

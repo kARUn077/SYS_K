@@ -794,10 +794,29 @@ body.hover-target .cursor-crosshair::after {
     align-items: flex-start;
     padding: 1.5rem 2rem;
     border-bottom: 1px solid var(--hud-border);
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
 }
 
 .mission-row:last-child {
     border-bottom: none;
+}
+
+.mission-row:hover {
+    transform: translateY(-4px);
+    background: linear-gradient(90deg, rgba(0, 255, 102, 0.06), rgba(0, 255, 102, 0.02));
+    box-shadow: inset 0 0 0 1px rgba(0, 255, 102, 0.28), 0 12px 32px rgba(0, 0, 0, 0.32);
+    border-bottom-color: rgba(0, 255, 102, 0.55);
+}
+
+.mission-row:hover .m-status,
+.mission-row:hover .m-details h3,
+.mission-row:hover .m-tech {
+    color: var(--term-green);
+}
+
+.mission-row:hover .m-details p {
+    color: #d6d6d6;
 }
 
 .m-status {
