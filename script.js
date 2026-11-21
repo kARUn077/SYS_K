@@ -1,9 +1,9 @@
 // Shorter code: up, up, down, down
-const konamiCode = [38, 38, 40, 40];
+const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown'];
 let konamiIndex = 0;
 
 document.addEventListener('keydown', function(e) {
-    if (e.keyCode === konamiCode[konamiIndex]) {
+    if (e.key === konamiCode[konamiIndex]) {
         konamiIndex++;
         if (konamiIndex === konamiCode.length) {
             showIgiEasterEgg();
@@ -88,69 +88,6 @@ function showIgiEasterEgg() {
     console.log('IGI Easter Egg triggered!');
 }
 
-function showEasterEggModal() {
-    let modal = document.getElementById('easterEggModal');
-    if (!modal) {
-        modal = document.createElement('div');
-        modal.id = 'easterEggModal';
-        modal.style.position = 'fixed';
-        modal.style.inset = '0';
-        modal.style.background = 'rgba(0,0,0,0.97)';
-        modal.style.zIndex = '9999';
-        modal.style.display = 'flex';
-        modal.style.flexDirection = 'column';
-        modal.style.justifyContent = 'center';
-        modal.style.alignItems = 'center';
-        modal.innerHTML = `
-            <style>
-                #closeEasterEggModal {
-                    padding:0.7rem 2.2rem;
-                    font-size:1.1rem;
-                    background:none;
-                    border:2px solid var(--term-green);
-                    color:var(--term-green);
-                    border-radius:6px;
-                    font-family:var(--font-mono);
-                    cursor:pointer;
-                    transition:all 0.2s;
-                }
-                #closeEasterEggModal:hover, #closeEasterEggModal:focus {
-                    background:var(--term-green);
-                    color:#000;
-                    box-shadow:0 0 16px var(--term-green);
-                    border-color:var(--term-green);
-                }
-            </style>
-            <div style="color:var(--term-green); font-family:var(--font-heading); font-size:2.2rem; letter-spacing:0.12em; text-shadow:0 0 18px #0f0; margin-bottom:1.5rem;">EASTER EGG UNLOCKED!</div>
-            <div style="color:#fff; font-size:1.1rem; font-family:var(--font-mono); margin-bottom:2rem; text-align:center;">You found the secret!<br>Keep gaming, agent.<br><br><span style='color:var(--term-green); font-size:1.5rem;'>✔️</span></div>
-            <button id="closeEasterEggModal">[CLOSE]</button>
-            <audio id="easterEggSound" src="assets/games/igi-alarm.mp3" preload="auto"></audio>
-        `;
-        document.body.appendChild(modal);
-        // Only add the ESC handler once
-        modal._escHandler = function(e) {
-            if (e.key === 'Escape') {
-                modal.style.display = 'none';
-                document.body.style.overflow = '';
-            }
-        };
-        document.addEventListener('keydown', modal._escHandler);
-        document.getElementById('closeEasterEggModal').onclick = function() {
-            modal.style.display = 'none';
-            document.body.style.overflow = '';
-        };
-    } else {
-        modal.style.display = 'flex';
-    }
-    document.body.style.overflow = 'hidden';
-    // Play sound
-    const snd = document.getElementById('easterEggSound');
-    if (snd) {
-        snd.currentTime = 0;
-        snd.volume = 0.5;
-        snd.play().catch(()=>{});
-    }
-}
 // Custom Crosshair Logic
 const cursor = document.querySelector('.cursor-crosshair');
 
@@ -185,6 +122,7 @@ let cursorX = 0, cursorY = 0;
 let isMoving = false;
 
 document.addEventListener('mousemove', (e) => {
+    if (!cursor) return;
     cursorX = e.clientX;
     cursorY = e.clientY;
     
@@ -197,54 +135,13 @@ document.addEventListener('mousemove', (e) => {
     }
 });
 
-// Skill Card Click Handler - Redirect to documentation
-function attachSkillCardClickHandlers() {
-    const skillCards = document.querySelectorAll('.weapon-card[data-link]');
-    console.log('Attaching skill card handlers to', skillCards.length, 'cards');
-    
-    skillCards.forEach(card => {
-        card.style.cursor = 'pointer';
-        
-        card.addEventListener('click', function(e) {
-            const link = this.getAttribute('data-link');
-            console.log('Skill card clicked, redirecting to:', link);
-            if (link) {
-                // Try multiple methods to ensure redirect works
-                window.open(link, '_blank');
-            }
-        });
-    });
-}
-
-// Call immediately when script loads (not relying on DOMContentLoaded which might have already fired)
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', attachSkillCardClickHandlers);
-} else {
-    // DOM is already loaded, call immediately
-    setTimeout(attachSkillCardClickHandlers, 100);
-}
-
-// Also call on document ready as backup
-document.addEventListener('DOMContentLoaded', attachSkillCardClickHandlers);
-
-// And call periodically in case elements are added dynamically
-setInterval(() => {
-    const unattached = document.querySelectorAll('.weapon-card[data-link]:not([data-handler-attached])');
-    if (unattached.length > 0) {
-        unattached.forEach(card => {
-            card.setAttribute('data-handler-attached', 'true');
-            card.style.cursor = 'pointer';
-            card.addEventListener('click', function(e) {
-                const link = this.getAttribute('data-link');
-                if (link) {
-                    window.open(link, '_blank');
-                }
-            });
-        });
-    }
-}, 1000);
-
-
+// Skill Card Click Handler - single delegated listener (works for dynamic cards too)
+document.addEventListener('click', function (e) {
+    const card = e.target.closest('.weapon-card[data-link]');
+    if (!card) return;
+    const link = card.getAttribute('data-link');
+    if (link) window.open(link, '_blank', 'noopener');
+});
 
 // Attach hover/click/cursor listeners to interactive elements (including dynamically created ones)
 function attachInteractableHoverSound() {
@@ -255,23 +152,13 @@ function attachInteractableHoverSound() {
         el._hoverSoundAttached = true;
         el.addEventListener('mouseenter', () => {
             document.body.classList.add('hover-target');
-            const hoverSound = document.getElementById('sndHover');
-            if (hoverSound) {
-                hoverSound.currentTime = 0;
-                hoverSound.volume = 0.2;
-                hoverSound.play().catch(e => { });
-            }
+            if (window.igiSound) igiSound.play('hover');
         });
         el.addEventListener('mouseleave', () => {
             document.body.classList.remove('hover-target');
         });
         el.addEventListener('click', () => {
-            const clickSound = document.getElementById('sndClick');
-            if (clickSound) {
-                clickSound.currentTime = 0;
-                clickSound.volume = 0.5;
-                clickSound.play().catch(e => { });
-            }
+            if (window.igiSound) igiSound.play('click');
         });
     });
 }
@@ -295,10 +182,6 @@ const sectorObserver = new IntersectionObserver(function (entries, observer) {
             entry.target.classList.add('active');
             observer.unobserve(entry.target);
 
-            // Trigger Typewriter if it's the hero
-            if (entry.target.id === 'hero') {
-                typeWriterEffect();
-            }
         }
     });
 }, revealOptions);
@@ -307,33 +190,39 @@ sectors.forEach(sector => {
     sectorObserver.observe(sector);
 });
 
-// Retro Typewriter Effect for Hero Text
+// Retro Typewriter Effect - types every .typewriter element one after another
 function typeWriterEffect() {
-    const textElement = document.querySelector('.typewriter');
-    if (!textElement) return;
+    const elements = Array.from(document.querySelectorAll('.typewriter'));
+    if (!elements.length) return;
 
-    const textStr = textElement.innerHTML;
-    textElement.innerHTML = '';
-    textElement.style.visibility = 'visible';
-
-    let i = 0;
     const speed = 30; // ms per char
+    const texts = elements.map(el => el.textContent);
+    elements.forEach(el => { el.textContent = ''; el.style.visibility = 'visible'; });
 
+    let line = 0;
+    let i = 0;
     function type() {
-        if (i < textStr.length) {
-            textElement.innerHTML += textStr.charAt(i);
+        if (line >= elements.length) return;
+        const text = texts[line];
+        if (i < text.length) {
+            elements[line].textContent += text.charAt(i);
             i++;
             setTimeout(type, speed);
+        } else {
+            line++;
+            i = 0;
+            setTimeout(type, 200);
         }
     }
 
-    setTimeout(type, 1000); // 1s initial delay matching CSS
+    setTimeout(type, 1000); // 1s initial delay
 }
 
 // Ensure hero text starts hidden if JS is active so typewriter can take over
 document.addEventListener('DOMContentLoaded', () => {
-    const tw = document.querySelector('.typewriter');
-    if (tw) tw.style.visibility = 'hidden';
+    const hasTypewriter = document.querySelector('.typewriter');
+    document.querySelectorAll('.typewriter').forEach(el => { el.style.visibility = 'hidden'; });
+    if (hasTypewriter) typeWriterEffect();
 
     // Global Night Vision Mode (Persistent across all pages)
     const nvToggle = document.getElementById('nvToggle');
@@ -349,9 +238,12 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('nightVisionMode', String(document.body.classList.contains('night-vision')));
         });
 
-        // Toggle NV with 'N' key
+        // Toggle NV with 'N' key (ignored while typing in a form field)
         document.addEventListener('keydown', (e) => {
-            if(e.key.toLowerCase() === 'n'){
+            if (e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
+            const t = e.target;
+            if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+            if (e.key.toLowerCase() === 'n') {
                 document.body.classList.toggle('night-vision');
                 nvToggle.classList.toggle('active');
                 localStorage.setItem('nightVisionMode', String(document.body.classList.contains('night-vision')));
@@ -360,12 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 function loadLevel(targetUrl) {
-    const clickSound = document.getElementById('sndClick');
-    if (clickSound) {
-        clickSound.currentTime = 0;
-        clickSound.volume = 0.5;
-        clickSound.play().catch(e => { });
-    }
+    if (window.igiSound) igiSound.play('click');
 
     // Redirect through the fake loading screen
     setTimeout(() => {
@@ -468,9 +355,6 @@ document.addEventListener('DOMContentLoaded', () => {
         fx.setText(originalText);
     });
 
-    const tw = document.querySelector('.typewriter');
-    if (tw) tw.style.visibility = 'hidden';
-
     // Restored Background Music Toggle system
     const bgTrack = document.getElementById('sndBgTrack');
     const audioToggle = document.getElementById('audio-toggle');
@@ -485,8 +369,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 audioToggle.classList.replace('text-green', 'text-yellow');
                 audioToggle.classList.add('blink');
             }).catch(e => {
-                localStorage.setItem('tactical_audio_playing', 'false');
-                audioToggle.innerText = '[AUDIO: OFF]';
+                audioToggle.innerText = '[AUDIO: TAP]';
+                const gestures = ['pointerdown', 'keydown', 'touchstart'];
+                const startOnGesture = (ev) => {
+                    gestures.forEach(t => document.removeEventListener(t, startOnGesture, true));
+                    if (localStorage.getItem('tactical_audio_playing') !== 'true') return;
+                    if (audioToggle.contains(ev.target)) return;   /* the toggle handles its own click */
+                    bgTrack.play().then(() => {
+                        audioToggle.innerText = '[AUDIO: ON]';
+                        audioToggle.classList.replace('text-green', 'text-yellow');
+                        audioToggle.classList.add('blink');
+                    }).catch(() => { audioToggle.innerText = '[AUDIO: OFF]'; });
+                };
+                gestures.forEach(t => document.addEventListener(t, startOnGesture, true));
             });
         }
 
@@ -515,6 +410,7 @@ window.addEventListener('DOMContentLoaded', function() {
     const bars = document.querySelectorAll('.stat-bar .fill');
     const percents = [95, 90, 85];
     bars.forEach((bar, i) => {
+        if (!statLabels[i] || percents[i] === undefined) return;
         bar.style.transition = 'none';
         bar.style.width = '0%';
         void bar.offsetWidth;
@@ -528,7 +424,7 @@ window.addEventListener('DOMContentLoaded', function() {
             const start = performance.now();
             function animatePercent(now) {
                 const elapsed = now - start;
-                const progress = Math.min(elapsed / duration, 1);
+                const progress = Math.min(Math.max(elapsed / duration, 0), 1);
                 const value = Math.floor(progress * target);
                 statLabels[i].textContent = value + '%';
                 if (progress < 1) {

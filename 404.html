@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MISSION FAILED | SYS_K</title>
+    <meta name="robots" content="noindex">
+    <link rel="icon" href="/logo.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --g: #00ff66; --r: #ff3b3b; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { min-height: 100dvh; display: grid; place-items: center; overflow-x: hidden; background: #050000; color: var(--g); font-family: 'Share Tech Mono', monospace; }
+        body::before { content: ""; position: fixed; inset: 0; z-index: -1; background:
+            radial-gradient(circle at 50% 40%, rgba(90, 0, 0, .55), #000 72%),
+            repeating-linear-gradient(0deg, rgba(255, 59, 59, .05) 0 1px, transparent 1px 4px); }
+        .wrap { width: min(92vw, 680px); padding: 2rem 0; text-align: center; }
+        .code { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: clamp(5rem, 24vw, 10rem); line-height: 1; letter-spacing: .06em; color: var(--r); text-shadow: 0 0 30px rgba(255, 59, 59, .7); animation: flick 3s steps(1) infinite; }
+        @keyframes flick { 0%, 92%, 100% { opacity: 1; } 94% { opacity: .35; } 96% { opacity: 1; } 97% { opacity: .5; } }
+        .fail { display: inline-block; margin-top: .6rem; padding: .35rem 1.2rem; border: 2px solid var(--r); color: var(--r); font-family: 'Orbitron', sans-serif; font-weight: 900; letter-spacing: .35em; font-size: clamp(.8rem, 3vw, 1.1rem); transform: rotate(-2deg); }
+        .msg { margin: 1.6rem auto 0; max-width: 32em; color: #e6c9c9; line-height: 1.7; }
+        .msg code { color: #ffd23f; overflow-wrap: anywhere; }
+        .log { margin: 1.6rem auto 0; max-width: 32em; padding: .9rem 1.1rem; border: 1px dashed rgba(255, 59, 59, .6); background: rgba(40, 0, 0, .5); text-align: left; font-size: .82rem; line-height: 1.8; color: #d9a3a3; }
+        .log b { color: var(--r); font-weight: 400; }
+        .actions { display: flex; flex-wrap: wrap; gap: .8rem; justify-content: center; margin-top: 2rem; }
+        .btn { display: inline-block; min-width: 12rem; padding: .8rem 1.4rem; text-align: center; text-decoration: none; text-transform: uppercase; font-family: 'Orbitron', sans-serif; letter-spacing: .06em; color: var(--g); border: 1px solid var(--g); background: rgba(0, 255, 102, .08); transition: background .2s, color .2s, box-shadow .2s; }
+        .btn:hover, .btn:focus-visible { background: var(--g); color: #001a08; box-shadow: 0 0 18px rgba(0, 255, 102, .6); }
+        .pages { margin-top: 1.8rem; font-size: .8rem; color: #8a6a6a; }
+        .pages a { color: var(--g); margin: 0 .5rem; white-space: nowrap; }
+        @media (max-width: 480px) { .btn { flex: 1 1 100%; } }
+        @media (prefers-reduced-motion: reduce) { .code { animation: none; } }
+    </style>
+</head>
+
+<body>
+    <main class="wrap">
+        <div class="code">404</div>
+        <div class="fail">MISSION FAILED</div>
+        <p class="msg">The target <code id="path">/unknown</code> could not be located. The page was moved, deleted, or never existed.</p>
+        <div class="log">
+            <div><b>&gt; STATUS:</b> SIGNAL LOST</div>
+            <div><b>&gt; ERROR:</b> TARGET NOT FOUND</div>
+            <div><b>&gt; ACTION:</b> RETURN TO BASE AND RETRY</div>
+        </div>
+        <div class="actions">
+            <a class="btn" href="/igi-intro.html">&gt;&gt; RETURN TO HQ</a>
+            <a class="btn" href="/dossier.html">&gt;&gt; VIEW DOSSIER</a>
+        </div>
+        <div class="pages">
+            <a href="/level_select.html">[TECH OPS]</a>
+            <a href="/achievements.html">[ACHIEVEMENTS]</a>
+            <a href="/extras.html">[EXTRAS]</a>
+            <a href="/comms.html">[CONTACT]</a>
+        </div>
+    </main>
+    <script>
+        document.getElementById('path').textContent = location.pathname.length > 60 ? location.pathname.slice(0, 57) + '...' : location.pathname;
+    </script>
+</body>
+
+</html>

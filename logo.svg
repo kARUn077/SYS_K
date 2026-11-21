@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="SYS_K emblem">
+  <!-- hexagon badge -->
+  <g fill="none" stroke="#00ff66" stroke-linejoin="miter">
+    <path d="M32 3 L57 17.500 V46.500 L32 61 L7 46.500 V17.500 Z" stroke-width="3"/>
+    <path d="M32 9.500 L51.500 20.750 V43.250 L32 54.500 L12.500 43.250 V20.750 Z" stroke-width="1" opacity=".5"/>
+  </g>
+  <!-- corner sight ticks -->
+  <g fill="none" stroke="#00ff66" stroke-width="2" stroke-linecap="square">
+    <path d="M32 3 V9"/>
+    <path d="M32 55 V61"/>
+    <path d="M7 32 H13"/>
+    <path d="M51 32 H57"/>
+  </g>
+  <!-- K monogram -->
+  <g fill="none" stroke="#c8ffd8" stroke-width="4.500" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M23.500 19.500 V44.500"/>
+    <path d="M24 32 L40.500 19.500"/>
+    <path d="M29.500 29 L41 44.500"/>
+  </g>
+  <!-- laser dot -->
+  <circle cx="46.500" cy="32" r="2" fill="#ff3b3b"/>
+</svg>

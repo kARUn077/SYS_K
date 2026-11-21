@@ -1,4 +1,4 @@
-# Kirtan's Portfolio
+# Karun's Portfolio
 
 A modern, interactive portfolio website inspired by classic games like Project IGI. Showcases achievements, artworks, gaming stats, and more—with hidden easter eggs for retro gaming fans!
 
@@ -34,7 +34,7 @@ _Add screenshots or demo GIFs here if you want_
 
 ## Credits
 - IGI character images and audio are for fan tribute purposes only.
-- Built by Kirtan.
+- Built by Karun.
 
 ---
 Enjoy exploring and finding the secrets!

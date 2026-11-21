@@ -4,15 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mission Objectives | KIRTAN</title>
+    <title>Mission Objectives | KARUN</title>
     <meta name="description" content="Future Mission Objectives and Goals">
-    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="icon" href="logo.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Orbitron:wght@400;700;900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=TacticalUpdate2" charset="utf-8">
+    <link rel="stylesheet" href="styles.css?v=TacticalUpdate3" charset="utf-8">
+    <link rel="stylesheet" href="igi-ui.css?v=3">
     <style>
         /* NIGHT VISION OVERLAY */
         .nv-overlay{
@@ -69,6 +70,68 @@
             box-shadow:0 0 15px rgba(0,255,102,0.6);
             border-color:var(--term-green);
         }
+
+        /* =================== Objectives briefing =================== */
+        .brief-text { margin: 0 0 1.5rem; color: rgba(0, 255, 65, .8); }
+        .obj-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; }
+        .osum { min-width: 0; padding: .9rem .6rem; text-align: center; border: 1px solid var(--hud-border); background: rgba(0, 20, 8, .55); }
+        .osum b { display: block; font-family: var(--font-heading); font-size: 1.8rem; color: #fff; text-shadow: 0 0 12px rgba(0, 255, 65, .55); }
+        .osum span { font-size: .68rem; letter-spacing: .14em; color: var(--term-green); }
+        .osum.critical b { color: #ff6b6b; text-shadow: 0 0 12px rgba(255, 59, 59, .6); }
+        .osum.critical span { color: #ff6b6b; }
+        .osum.high b { color: #ffd23f; text-shadow: 0 0 12px rgba(255, 210, 63, .5); }
+        .osum.high span { color: #ffd23f; }
+
+        .obj-filters { display: flex; flex-wrap: wrap; gap: .6rem; margin: 0 0 1.6rem; }
+        .obj-chip {
+            padding: .5rem 1rem; background: rgba(0, 255, 65, .06); border: 1px solid var(--hud-border); color: var(--term-green);
+            font-family: var(--font-heading); font-size: .72rem; letter-spacing: .14em; transition: background .2s, color .2s, box-shadow .2s, border-color .2s;
+        }
+        .obj-chip:hover, .obj-chip.active { background: var(--term-green); color: #001a08; border-color: var(--term-green); box-shadow: 0 0 14px rgba(0, 255, 65, .45); }
+
+        .obj-list { display: flex; flex-direction: column; gap: 1.4rem; margin-bottom: 2rem; }
+        .obj {
+            --pc: var(--term-green);
+            display: grid; grid-template-columns: auto 1fr auto; gap: 1.4rem; align-items: start; min-width: 0;
+            padding: 1.4rem 1.5rem; border: 1px solid var(--hud-border); border-left: 4px solid var(--pc);
+            background: linear-gradient(90deg, rgba(0, 30, 10, .65), rgba(0, 8, 3, .85));
+            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+        }
+        .obj[hidden] { display: none; }
+        .obj[data-priority="critical"] { --pc: #ff4d4d; }
+        .obj[data-priority="high"] { --pc: #ffd23f; }
+        .obj[data-priority="medium"] { --pc: var(--term-green); }
+        .obj:hover { transform: translateX(6px); box-shadow: 0 0 22px rgba(0, 255, 65, .15); border-color: var(--pc); }
+
+        /* ring icon, like the IGI objectives screen */
+        .obj-ring {
+            width: 54px; height: 54px; display: grid; place-items: center; border-radius: 50%; flex: 0 0 auto;
+            border: 2px solid var(--pc); color: #fff; font-family: var(--font-heading); font-weight: 900; font-size: 1rem;
+            background: radial-gradient(circle, #000 52%, color-mix(in srgb, var(--pc) 45%, transparent) 60%, #000 76%);
+            box-shadow: 0 0 12px color-mix(in srgb, var(--pc) 45%, transparent);
+        }
+        .obj-main { min-width: 0; }
+        .obj-tag { font-size: .72rem; letter-spacing: .2em; color: #ffd23f; }
+        .obj h3 { margin: .3rem 0 .5rem; font-family: var(--font-heading); font-size: 1.2rem; color: #fff; overflow-wrap: anywhere; }
+        .obj p { margin: 0 0 .9rem; color: #aaa; font-size: .92rem; line-height: 1.65; }
+        .obj-meta { display: flex; flex-wrap: wrap; gap: .5rem; }
+        .obj-meta span { padding: .25rem .7rem; font-size: .78rem; color: #cfffdc; background: #0a140c; border: 1px solid #1d3a22; overflow-wrap: anywhere; }
+        .obj-meta i { font-style: normal; margin-right: .5rem; font-size: .62rem; letter-spacing: .14em; color: var(--term-green); opacity: .8; }
+        .obj-pri {
+            padding: .3rem .8rem; font-size: .7rem; letter-spacing: .16em; font-family: var(--font-heading); white-space: nowrap;
+            border: 1px solid var(--pc); color: var(--pc);
+        }
+        .obj-pri.critical { --pc: #ff4d4d; background: rgba(255, 59, 59, .1); }
+        .obj-pri.high { --pc: #ffd23f; background: rgba(255, 210, 63, .08); }
+        .obj-pri.medium { --pc: var(--term-green); background: rgba(0, 255, 65, .08); }
+        .schedule-box p { margin: 0; color: rgba(0, 255, 65, .75); font-size: .92rem; line-height: 1.7; }
+
+        @media (max-width: 760px) {
+            .obj { grid-template-columns: auto 1fr; padding: 1.1rem; gap: 1rem; }
+            .obj-pri { grid-column: 1 / -1; justify-self: start; }
+            .obj:hover { transform: none; }
+        }
+        @media (prefers-reduced-motion: reduce) { .obj { transition: none; } }
     </style>
 </head>
 
@@ -85,60 +148,111 @@
             <div class="map-grid">
                 <section id="objectives" class="sector active">
                     <div class="terminal-box" style="margin-bottom: 2rem;">
-                        <div class="term-header"><span>CLASSIFIED_OBJECTIVES.LOG</span></div>
+                        <div class="term-header">
+                            <span>CLASSIFIED_OBJECTIVES.LOG</span>
+                            <span class="status-indicator"></span>
+                        </div>
                         <div class="term-body">
-                            <p style="margin-bottom: 1.5rem; color: rgba(0, 255, 65, 0.8);">High-priority deployment zones for future acquisition and mastery. Success rate dependent on strategic execution.</p>
-                            
-                            <div class="missions-list" style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 2rem;">
-                                <div class="mission-row" style="display: flex; gap: 2rem; align-items: flex-start;">
-                                    <div class="m-status text-yellow" style="min-width: 220px; max-width: 220px; flex-shrink: 0;">[PRIMARY_TARGET]</div>
-                                    <div class="m-details" style="flex: 1;">
-                                        <h3>INFILTRATE: TOP QUANT COMPANY</h3>
-                                        <p>Secure SDE position in elite quantitative trading firm. Deploy algorithmic warfare at institutional scale. Target institutions specializing in high-frequency trading systems.</p>
-                                        <span class="m-tech">STATUS: In Pursuit | TARGET: HFT/Quant Firms | ETA: 2026-2027 | PRIORITY: CRITICAL</span>
-                                    </div>
-                                </div>
+                            <p class="brief-text">High-priority deployment zones for future acquisition and mastery. Success rate dependent on strategic execution.</p>
 
-                                <div class="mission-row" style="display: flex; gap: 2rem; align-items: flex-start;">
-                                    <div class="m-status text-yellow" style="min-width: 220px; max-width: 220px; flex-shrink: 0;">[SECONDARY_TARGET]</div>
-                                    <div class="m-details" style="flex: 1;">
-                                        <h3>OPERATION WANDERLUST: WORLD TOUR</h3>
-                                        <p>Execute global reconnaissance mission. Map cultural territories across multiple continents. Document diverse geographical zones and establish international operational presence.</p>
-                                        <span class="m-tech">STATUS: Route Planning | SCOPE: International | PRIORITY: High | DURATION: 6-12 months</span>
-                                    </div>
-                                </div>
+                            <div class="obj-summary">
+                                <div class="osum"><b id="sumTotal">5</b><span>TOTAL TARGETS</span></div>
+                                <div class="osum critical"><b id="sumCritical">2</b><span>CRITICAL</span></div>
+                                <div class="osum high"><b id="sumHigh">2</b><span>HIGH</span></div>
+                                <div class="osum medium"><b id="sumMedium">1</b><span>MEDIUM</span></div>
+                            </div>
+                        </div>
+                    </div>
 
-                                <div class="mission-row" style="display: flex; gap: 2rem; align-items: flex-start;">
-                                    <div class="m-status text-yellow" style="min-width: 220px; max-width: 220px; flex-shrink: 0;">[TERTIARY_TARGET]</div>
-                                    <div class="m-details" style="flex: 1;">
-                                        <h3>RENDEZVOUS: MUSIC IDOL</h3>
-                                        <p>Establish direct contact with musical inspiration and creative influence. Mission critical for personal morale boost and creative alignment.</p>
-                                        <span class="m-tech">STATUS: Opportunity Tracking | OBJECTIVE: Face-to-Face Meeting | PRIORITY: Medium</span>
-                                    </div>
-                                </div>
+                    <div class="obj-filters" role="group" aria-label="Filter by priority">
+                        <button type="button" class="obj-chip active" data-filter="all">[ALL TARGETS]</button>
+                        <button type="button" class="obj-chip" data-filter="critical">[CRITICAL]</button>
+                        <button type="button" class="obj-chip" data-filter="high">[HIGH]</button>
+                        <button type="button" class="obj-chip" data-filter="medium">[MEDIUM]</button>
+                    </div>
 
-                                <div class="mission-row" style="display: flex; gap: 2rem; align-items: flex-start;">
-                                    <div class="m-status text-yellow" style="min-width: 220px; max-width: 220px; flex-shrink: 0;">[TECHNICAL_TARGET]</div>
-                                    <div class="m-details" style="flex: 1;">
-                                        <h3>AI SYSTEMS MASTERY</h3>
-                                        <p>Deep learning architecture development and advanced ML deployment. Master cutting-edge AI frameworks and neural network design patterns.</p>
-                                        <span class="m-tech">STATUS: Training Phase | TECH: TensorFlow, PyTorch, JAX | PRIORITY: Critical | DEADLINE: Ongoing</span>
-                                    </div>
-                                </div>
+                    <div class="obj-list">
 
-                                <div class="mission-row" style="display: flex; gap: 2rem; align-items: flex-start;">
-                                    <div class="m-status text-yellow" style="min-width: 220px; max-width: 220px; flex-shrink: 0;">[COMMUNITY_TARGET]</div>
-                                    <div class="m-details" style="flex: 1;">
-                                        <h3>OPEN SOURCE CONTRIBUTION</h3>
-                                        <p>Contribute to major open-source repositories and become recognized community operative. Establish presence in high-impact projects.</p>
-                                        <span class="m-tech">STATUS: Initial Contact | PLATFORM: GitHub | PRIORITY: High | IMPACT: Global</span>
-                                    </div>
+                        <article class="obj" data-priority="critical">
+                            <div class="obj-ring">01</div>
+                            <div class="obj-main">
+                                <div class="obj-tag">[PRIMARY_TARGET]</div>
+                                <h3>INFILTRATE: TOP QUANT COMPANY</h3>
+                                <p>Secure SDE position in elite quantitative trading firm. Deploy algorithmic warfare at institutional scale. Target institutions specializing in high-frequency trading systems.</p>
+                                <div class="obj-meta">
+                                    <span><i>STATUS</i>In Pursuit</span>
+                                    <span><i>TARGET</i>HFT/Quant Firms</span>
+                                    <span><i>ETA</i>2026-2027</span>
                                 </div>
                             </div>
+                            <div class="obj-pri critical">CRITICAL</div>
+                        </article>
 
-                            <hr style="border-color: var(--term-dark-green); margin: 2rem 0; border-style: dashed;">
+                        <article class="obj" data-priority="high">
+                            <div class="obj-ring">02</div>
+                            <div class="obj-main">
+                                <div class="obj-tag">[SECONDARY_TARGET]</div>
+                                <h3>OPERATION WANDERLUST: WORLD TOUR</h3>
+                                <p>Execute global reconnaissance mission. Map cultural territories across multiple continents. Document diverse geographical zones and establish international operational presence.</p>
+                                <div class="obj-meta">
+                                    <span><i>STATUS</i>Route Planning</span>
+                                    <span><i>SCOPE</i>International</span>
+                                    <span><i>DURATION</i>6-12 months</span>
+                                </div>
+                            </div>
+                            <div class="obj-pri high">HIGH</div>
+                        </article>
 
-                            <p style="margin-top: 2rem; color: rgba(0, 255, 65, 0.7); font-size: 0.9rem;">OBJECTIVE COMPLETION SCHEDULE: Prioritized targets scheduled for sequential deployment. Concurrent parallel execution where resources allow. All objectives classified as long-term strategic initiatives.</p>
+                        <article class="obj" data-priority="medium">
+                            <div class="obj-ring">03</div>
+                            <div class="obj-main">
+                                <div class="obj-tag">[TERTIARY_TARGET]</div>
+                                <h3>RENDEZVOUS: MUSIC IDOL</h3>
+                                <p>Establish direct contact with musical inspiration and creative influence. Mission critical for personal morale boost and creative alignment.</p>
+                                <div class="obj-meta">
+                                    <span><i>STATUS</i>Opportunity Tracking</span>
+                                    <span><i>OBJECTIVE</i>Face-to-Face Meeting</span>
+                                </div>
+                            </div>
+                            <div class="obj-pri medium">MEDIUM</div>
+                        </article>
+
+                        <article class="obj" data-priority="critical">
+                            <div class="obj-ring">04</div>
+                            <div class="obj-main">
+                                <div class="obj-tag">[TECHNICAL_TARGET]</div>
+                                <h3>AI SYSTEMS MASTERY</h3>
+                                <p>Deep learning architecture development and advanced ML deployment. Master cutting-edge AI frameworks and neural network design patterns.</p>
+                                <div class="obj-meta">
+                                    <span><i>STATUS</i>Training Phase</span>
+                                    <span><i>TECH</i>TensorFlow, PyTorch, JAX</span>
+                                    <span><i>DEADLINE</i>Ongoing</span>
+                                </div>
+                            </div>
+                            <div class="obj-pri critical">CRITICAL</div>
+                        </article>
+
+                        <article class="obj" data-priority="high">
+                            <div class="obj-ring">05</div>
+                            <div class="obj-main">
+                                <div class="obj-tag">[COMMUNITY_TARGET]</div>
+                                <h3>OPEN SOURCE CONTRIBUTION</h3>
+                                <p>Contribute to major open-source repositories and become recognized community operative. Establish presence in high-impact projects.</p>
+                                <div class="obj-meta">
+                                    <span><i>STATUS</i>Initial Contact</span>
+                                    <span><i>PLATFORM</i>GitHub</span>
+                                    <span><i>IMPACT</i>Global</span>
+                                </div>
+                            </div>
+                            <div class="obj-pri high">HIGH</div>
+                        </article>
+
+                    </div>
+
+                    <div class="terminal-box schedule-box">
+                        <div class="term-header"><span>> COMPLETION_SCHEDULE.TXT</span></div>
+                        <div class="term-body">
+                            <p>OBJECTIVE COMPLETION SCHEDULE: Prioritized targets scheduled for sequential deployment. Concurrent parallel execution where resources allow. All objectives classified as long-term strategic initiatives.</p>
                         </div>
                     </div>
 
@@ -155,7 +269,28 @@
     <audio id="sndHover" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
     <audio id="sndClick" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
 
-    <script src="script.js?v=update5" charset="utf-8"></script>
+    <script src="igi-audio.js?v=4"></script>
+    <script src="script.js?v=update8" charset="utf-8"></script>
+    <script src="igi-map.js?v=16"></script>
+    <script src="igi-ui.js?v=1"></script>
+    <script>
+    /* objectives: priority counters + filter chips */
+    (function () {
+        var cards = Array.prototype.slice.call(document.querySelectorAll('.obj'));
+        function count(p) { return cards.filter(function (c) { return c.getAttribute('data-priority') === p; }).length; }
+        function put(id, n) { var e = document.getElementById(id); if (e) e.textContent = n; }
+        put('sumTotal', cards.length); put('sumCritical', count('critical')); put('sumHigh', count('high')); put('sumMedium', count('medium'));
+
+        var chips = Array.prototype.slice.call(document.querySelectorAll('.obj-chip'));
+        chips.forEach(function (chip) {
+            chip.addEventListener('click', function () {
+                var f = chip.getAttribute('data-filter');
+                chips.forEach(function (c) { c.classList.toggle('active', c === chip); });
+                cards.forEach(function (c) { c.hidden = !(f === 'all' || c.getAttribute('data-priority') === f); });
+            });
+        });
+    })();
+    </script>
 </body>
 
 </html>

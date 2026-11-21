@@ -4,14 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kirtan | CLASSIFIED DOSSIER</title>
-    <meta name="description" content="Tactical Portfolio of Kirtan - MERN Stack Operative">
-<link rel="icon" href="logo.png" type="image/png">
+    <title>Karun | CLASSIFIED DOSSIER</title>
+    <meta name="description" content="Karun Poddar - Software Development Engineer Intern. Full-stack (MERN) and AI projects, MNNIT Allahabad ECE 2026.">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
     <link
         href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Orbitron:wght@400;700;900&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="styles.css?v=TacticalUpdate2" charset="utf-8">
+    <link rel="stylesheet" href="styles.css?v=TacticalUpdate3" charset="utf-8">
+    <link rel="stylesheet" href="igi-ui.css?v=3">
     <style>
         /* NIGHT VISION OVERLAY */
         .nv-overlay{
@@ -68,6 +69,101 @@
             box-shadow:0 0 15px rgba(0,255,102,0.6);
             border-color:var(--term-green);
         }
+
+        /* SERVICE RECORD STRIP */
+        .record-strip{
+            display:grid;
+            grid-template-columns:repeat(4, 1fr);
+            gap:1rem;
+        }
+        .record-tile{
+            border:1px solid var(--hud-border);
+            background:rgba(0,20,8,0.55);
+            padding:1rem 1.2rem;
+            text-align:center;
+            transition:border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+        }
+        .record-tile:hover{
+            border-color:var(--term-green);
+            box-shadow:0 0 16px rgba(0,255,102,0.35);
+            transform:translateY(-3px);
+        }
+        .record-tile strong{
+            display:block;
+            font-family:var(--font-heading);
+            font-size:1.6rem;
+            color:#fff;
+            letter-spacing:0.06rem;
+            text-shadow:0 0 10px rgba(0,255,102,0.5);
+        }
+        .record-tile span{
+            display:block;
+            margin-top:0.3rem;
+            font-size:0.72rem;
+            letter-spacing:0.12rem;
+            color:var(--term-green);
+        }
+
+
+        /* HERO */
+        .hero-grid{ display:grid; grid-template-columns:1.25fr 1fr; gap:2rem; align-items:stretch; }
+        .hero-main{ margin:0; display:flex; flex-direction:column; }
+        .hero-main .term-body{ flex:1; display:flex; flex-direction:column; justify-content:center; padding:2.2rem 2rem; }
+        .hero-main .target-name{ font-size:clamp(2rem, 6vw, 3.1rem); margin:.6rem 0 .3rem; overflow-wrap:anywhere; }
+        .hero-main .role-designation{ margin:0 0 1.4rem; font-size:1.05rem; letter-spacing:.06em; }
+        .hero-chips{ display:flex; flex-wrap:wrap; gap:.6rem; margin-bottom:1.4rem; }
+        .hero-chips span{ padding:.35rem .8rem; font-size:.78rem; letter-spacing:.1em; color:#cfffdc; border:1px solid var(--hud-border); background:rgba(0,20,8,.6); }
+        .hero-line{ margin:0 0 1.8rem; color:#9fbfa8; font-size:1rem; }
+        .hero-main .action-buttons{ display:flex; flex-wrap:wrap; gap:.8rem; margin:0; }
+        .hero-main .action-buttons .btn{ padding:.7rem .9rem; font-size:.8rem; }
+        .hero-side{ display:flex; flex-direction:column; gap:1rem; min-width:0; }
+        .hero-side .intel-photo-frame{ flex:1; min-height:300px; }
+        .hero-side .intel-img{ width:100%; height:100%; min-height:300px; object-fit:cover; }
+        .id-card{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.6rem 1rem; padding:.9rem 1.1rem; border:1px solid var(--term-green); background:rgba(0,30,10,.7); box-shadow:0 0 16px rgba(0,255,65,.2); }
+        .id-card i{ display:block; font-style:normal; font-size:.62rem; letter-spacing:.22em; color:var(--term-green); opacity:.8; }
+        .id-card b{ font-family:var(--font-heading); font-size:1.05rem; letter-spacing:.08em; color:#fff; }
+        .id-status{ display:flex; align-items:center; font-size:.72rem; letter-spacing:.16em; color:#ffd23f; }
+
+        .record-tile strong{ font-size:clamp(.85rem, 3.4vw, 1.6rem); overflow-wrap:normal; word-break:keep-all; }
+
+        /* ===== IGI classified-file look ===== */
+        .class-strip{
+            display:flex; flex-wrap:wrap; justify-content:space-between; gap:.3rem 1rem; margin:0 0 1.2rem; padding:.45rem .9rem;
+            border:1px solid rgba(255,59,59,.55); background:rgba(40,0,0,.45); color:#ff6b6b; font-size:.7rem; letter-spacing:.22em;
+        }
+        .class-strip .dot{ display:inline-block; width:8px; height:8px; margin-right:.6rem; border-radius:50%; background:#ff3b3b; box-shadow:0 0 8px #ff3b3b; animation:csBlink 1.2s steps(2) infinite; }
+        @keyframes csBlink{ 50%{ opacity:.2; } }
+
+        .briefing{ margin:0 0 1.3rem; padding:.7rem 1rem; border-left:3px solid #ffd23f; background:linear-gradient(90deg, rgba(255,210,63,.09), transparent); }
+        .briefing .b-tag{ font-size:.66rem; letter-spacing:.24em; color:#ffd23f; margin-bottom:.3rem; }
+        .briefing p{ margin:0; color:#c8ffd8; font-size:.95rem; line-height:1.6; }
+
+        .photo-stamp{
+            position:absolute; z-index:6; left:50%; top:84%; transform:translate(-50%,-50%) rotate(-8deg); padding:.3rem 1.1rem;
+            border:3px solid rgba(255,59,59,.85); color:rgba(255,59,59,.85); font-family:var(--font-heading); font-weight:900; font-size:clamp(1.3rem,4vw,2.2rem);
+            letter-spacing:.2em; text-shadow:0 0 10px rgba(255,59,59,.5); pointer-events:none; background:rgba(30,0,0,.55); opacity:.9; white-space:nowrap;
+        }
+        .photo-tag{ position:absolute; z-index:6; left:14px; top:14px; padding:.15rem .55rem; background:rgba(0,0,0,.65); color:var(--term-green); font-size:.66rem; letter-spacing:.2em; pointer-events:none; }
+
+        /* corner brackets on every dossier box, like the IGI HUD panels */
+        #experience .terminal-box::before, #operations .terminal-box::before, #education .terminal-box::before, #commendations .terminal-box::before,
+        .hero-main::before{
+            content:""; position:absolute; right:-1px; bottom:-1px; width:16px; height:16px; z-index:3; pointer-events:none;
+            border:2px solid var(--term-green); border-left:0; border-top:0; box-shadow:2px 2px 10px rgba(0,255,65,.4);
+        }
+        .record-tile{ position:relative; }
+        .record-tile::before{ content:""; position:absolute; left:-1px; top:-1px; width:10px; height:10px; border:2px solid var(--term-green); border-right:0; border-bottom:0; }
+        #experience .sector-title, #operations .sector-title, #education .sector-title, #commendations .sector-title{ border-left-color:#ffd23f; }
+        .mission-row .m-status{ letter-spacing:.14em; }
+        @media (max-width:600px){ .cs-hide{ display:none; } .class-strip{ font-size:.62rem; letter-spacing:.14em; } }
+        @media (prefers-reduced-motion:reduce){ .class-strip .dot{ animation:none; } }
+
+        /* keep the dossier readable on tablets and phones */
+        @media (max-width:900px){
+            .hero-grid{ grid-template-columns:1fr; }
+            .hero-side .intel-photo-frame, .hero-side .intel-img{ min-height:240px; }
+            .record-strip{ grid-template-columns:repeat(2, 1fr); }
+        }
     </style>
 </head>
 
@@ -81,9 +177,6 @@
     <!-- Background Atmospheric Video (Placeholder authentic stock) -->
     <div class="video-bg-container">
         <!-- Using a free stock video of spy/server/hacker thematic -->
-        <video autoplay muted loop id="bgVideo" class="covert-video">
-            <source src="https://videos.pexels.com/video-files/3156/3156-uhd_2560_1440_30fps.mp4" type="video/mp4">
-        </video>
         <div class="video-overlay"></div>
     </div>
 
@@ -96,7 +189,7 @@
         <!-- Header / Navigation -->
         <header class="hud-header" style="position: relative;">
             <a href="igi-intro.html" class="hud-logo" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
-                <img src="logo.png" alt="Logo" class="hud-logo-img">
+                <img src="logo.svg" alt="SYS_K emblem" class="hud-logo-img" width="44" height="44">
                 <span class="glitch" data-text="SYS_K">SYS_K</span>
             </a>
             <nav class="hud-nav">
@@ -112,73 +205,175 @@
         <!-- Main Content Area -->
         <main class="hud-main">
 
-            <!-- Combined Hero & Dossier Dashboard -->
+            <!-- Hero -->
             <section id="hero" class="sector active">
+                <div class="class-strip" aria-hidden="true">
+                    <span><i class="dot"></i>TOP SECRET // EYES ONLY</span>
+                    <span>FILE: SYS-K / KARUN PODDAR</span>
+                    <span class="cs-hide">CLEARANCE: LEVEL 5</span>
+                </div>
                 <h2 class="sector-title" style="margin-bottom: 1.5rem;">>> CLASSIFIED DOSSIER</h2>
-                <div class="intel-grid" style="grid-template-columns: 1.2fr 1fr; gap: 2rem; align-items: stretch;">
+                <div class="hero-grid">
 
-                    <!-- Left Column: Target Info & Briefing -->
-                    <div class="terminal-box" style="margin-bottom: 0; display: flex; flex-direction: column;">
+                    <div class="terminal-box hero-main">
                         <div class="term-header">
-                            <span>> root@kirtan:~/execute_briefing.sh</span>
+                            <span>> root@karun:~/execute_briefing.sh</span>
                             <span class="status-indicator"></span>
                         </div>
-                        <div class="term-body" style="flex-grow: 1;">
-                            <p class="typewriter delay-1">ACCESS GRANTED. DECRYPTING PROFILE...</p>
-                            <h1 class="target-name delay-2 glitch" data-text="TARGET: KIRTAN"
-                                style="font-size: 2.8rem;">TARGET: KIRTAN</h1>
-                            <p class="role-designation delay-3">DESIGNATION: MERN STACK DEVELOPER // COMPETITIVE
-                                PROGRAMMER</p>
+                        <div class="term-body">
+                            <p class="typewriter delay-1">ACCESS GRANTED.</p>
+                            <h1 class="target-name delay-2 glitch" data-text="TARGET: KARUN">TARGET: KARUN</h1>
+                            <p class="role-designation delay-3">SDE INTERN // FULL-STACK &amp; AI</p>
 
-                            <hr style="border:0; border-bottom:1px dashed var(--hud-border); margin: 1.5rem 0;">
+                            <div class="briefing delay-4">
+                                <div class="b-tag">&gt; MISSION BRIEFING</div>
+                                <p>Full-stack and AI engineer. Ships clean features, solves problems fast, and goes in with the numbers to prove it.</p>
+                            </div>
 
-                            <p class="delay-4">> ORIGIN: RAJASTHAN, IN</p>
-                            <p class="delay-4">> SPECIALTIES: SCALABLE ARCHITECTURES, ALGO. WARFARE</p>
+                            <div class="hero-chips delay-4">
+                                <span>SIKAR, IN</span>
+                                <span>SKILLSCAPITAL &middot; REMOTE</span>
+                                <span>MNNIT &middot; ECE 2026</span>
+                            </div>
 
-                            <br>
-                            <p class="dossier-text delay-4">Elite operative with lethal precision across full-stack operations. Classified record: 95%+ bug elimination rate. Specializes in sub-millisecond load time optimization under extreme pressure. Combat-tested deployment protocols for enterprise-grade web applications. Expertise in building scalable, secure, high-performance systems from ground zero.</p>
-
-                            <div class="action-buttons delay-5"
-                                style="margin-top: 2.5rem; display: flex; flex-wrap: wrap; gap: 1rem;">
-                                <!-- <a href="level_select.html" class="btn tactical-btn">> VIEW_MISSIONS.EXE</a> -->
-                                <!-- <a href="comms.html" class="btn tactical-btn">[ESTABLISH_COMMS]</a> -->
-                                <a href="resume.pdf" class="btn tactical-btn"
-                                    download="Karun_Poddar_MNNIT.pdf">[EXTRACT_CV.PDF]</a>
+                            <div class="action-buttons delay-5">
+                                <a href="resume.pdf" class="btn tactical-btn" download="Karun_Poddar_MNNIT.pdf">[EXTRACT_CV.PDF]</a>
+                                <a href="level_select.html" class="btn tactical-btn">[VIEW_MISSIONS]</a>
+                                <a href="comms.html" class="btn tactical-btn">[ESTABLISH_COMMS]</a>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Right Column: Photo & Stats Bars -->
-                    <div style="display: flex; flex-direction: column; gap: 2rem;">
+                    <div class="hero-side">
                         <div class="intel-photo-frame">
-                            <img src="profile.jpg" alt="Operative Kirtan" class="intel-img glitch-photo"
-                                style="height: 280px; object-fit: cover;">
+                            <img src="profile.jpg" alt="Operative Karun" class="intel-img glitch-photo">
                             <div class="frame-corners"><span></span></div>
+                            <div class="photo-stamp" aria-hidden="true">CLASSIFIED</div>
+                            <div class="photo-tag" aria-hidden="true">SUBJECT 001</div>
                         </div>
-
-                        <div class="terminal-box" style="margin-bottom: 0; flex-grow: 1;">
-                            <div class="term-header"><span>COMBAT_STATS</span></div>
-                            <div class="term-body" style="padding: 1.5rem;">
-                                <div class="stats-bar-container" style="margin-top: 0;">
-                                    <div class="stat-label">CQC (PROBLEM SOLVING) <span class="stat-percent">0%</span></div>
-                                    <div class="stat-bar">
-                                        <div class="fill"></div>
-                                    </div>
-
-                                    <div class="stat-label">MARKSMANSHIP (DATA STRUCTURES) <span class="stat-percent">0%</span></div>
-                                    <div class="stat-bar">
-                                        <div class="fill"></div>
-                                    </div>
-
-                                    <div class="stat-label">INFILTRATION (MERN STACK) <span class="stat-percent">0%</span></div>
-                                    <div class="stat-bar">
-                                        <div class="fill"></div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="id-card">
+                            <div><i>OPERATIVE</i><b>KARUN PODDAR</b></div>
+                            <div class="id-status"><span class="status-indicator"></span>ACTIVE DUTY</div>
                         </div>
                     </div>
 
+                </div>
+            </section>
+
+            <!-- Service Record (coding ranks, from the resume) -->
+            <section id="record" class="sector active" style="margin-top: 2.5rem;">
+                <div class="record-strip">
+                    <div class="record-tile"><strong>1,800+</strong><span>PROBLEMS SOLVED</span></div>
+                    <div class="record-tile"><strong>KNIGHT</strong><span>LEETCODE (1000+ SOLVED)</span></div>
+                    <div class="record-tile"><strong>SPECIALIST</strong><span>CODEFORCES</span></div>
+                    <div class="record-tile"><strong>3 STAR</strong><span>CODECHEF</span></div>
+                </div>
+            </section>
+
+            <!-- Field Experience (Internship) -->
+            <section id="experience" class="sector active" style="margin-top: 3rem;">
+                <h2 class="sector-title" style="margin-bottom: 1.5rem;">>> MISSION 01: FIELD EXPERIENCE</h2>
+                <div class="missions-list terminal-box">
+                    <div class="term-header">
+                        <span>> MISSION_LOG // ACTIVE_DEPLOYMENT: SKILLSCAPITAL</span>
+                        <span class="status-indicator"></span>
+                    </div>
+                    <div class="mission-row">
+                        <div class="m-status text-yellow">[ACTIVE]<br>SEP 2026 - PRESENT</div>
+                        <div class="m-details">
+                            <h3>SOFTWARE DEVELOPMENT ENGINEER INTERN // REMOTE</h3>
+                            <p>> 4-step Precision Matching workflow in React: role setup time down 40%.</p>
+                            <p>> Semantic evaluation engine on PostgreSQL (pgvector) across 10,000+ profiles.</p>
+                            <p>> Candidate Precision Reports in React: candidate review time down 60%.</p>
+                            <p>> Proctoring tool in JavaScript + MediaPipe: tab switches, fullscreen exits, multiple faces.</p>
+                            <span class="m-tech">TECH: React, JavaScript, PostgreSQL (pgvector), MediaPipe</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Operations (projects from the resume) -->
+            <section id="operations" class="sector active" style="margin-top: 3rem;">
+                <h2 class="sector-title" style="margin-bottom: 1.5rem;">>> MISSION 02: FEATURED OPERATIONS</h2>
+                <div class="missions-list terminal-box">
+                    <div class="term-header">
+                        <span>> MISSION_LOG: TOP_OPERATIONS</span>
+                        <span class="status-indicator"></span>
+                    </div>
+                    <div class="mission-row">
+                        <div class="m-status text-green">[SUCCESS]<br>APR 2026</div>
+                        <div class="m-details">
+                            <h3>OP: DEEPDIVE AI (RESEARCH AUTOMATION)</h3>
+                            <p>AI research pipeline on LangGraph multi-agent workflows: agents search, analyze and write structured reports (Tavily + BeautifulSoup), with a Streamlit UI.</p>
+                            <span class="m-tech">TECH: Python, LangGraph, OpenAI, Tavily API, BeautifulSoup, Streamlit</span>
+                        </div>
+                        <a href="https://github.com/kARUn077/DeepDive-AI" target="_blank" class="btn tactical-btn small-btn">> VIEW_INTEL</a>
+                    </div>
+                    <div class="mission-row">
+                        <div class="m-status text-green">[SUCCESS]<br>JUL 2025</div>
+                        <div class="m-details">
+                            <h3>OP: LEARNFINITY (LMS)</h3>
+                            <p>Learning platform with JWT auth and role-based access, Stripe payments, Cloudinary uploads, instructor dashboards and student progress tracking.</p>
+                            <span class="m-tech">TECH: Node.js, Express.js, React, Redux, MongoDB, Stripe, Cloudinary</span>
+                        </div>
+                        <a href="https://github.com/kARUn077/Learnfinity" target="_blank" class="btn tactical-btn small-btn">> VIEW_INTEL</a>
+                    </div>
+                </div>
+                <div style="margin-top: 1rem; text-align: right;">
+                    <a href="level_select.html" class="btn tactical-btn small-btn">[VIEW_ALL_MISSIONS]</a>
+                </div>
+            </section>
+
+            <!-- Education -->
+            <section id="education" class="sector active" style="margin-top: 3rem;">
+                <h2 class="sector-title" style="margin-bottom: 1.5rem;">>> MISSION 03: TRAINING RECORD</h2>
+                <div class="missions-list terminal-box">
+                    <div class="term-header">
+                        <span>> ACADEMY_ARCHIVE: VERIFIED</span>
+                        <span class="status-indicator"></span>
+                    </div>
+                    <div class="mission-row">
+                        <div class="m-status text-green">[GRADUATED]<br>2022 - 2026</div>
+                        <div class="m-details">
+                            <h3>MOTILAL NEHRU NATIONAL INSTITUTE OF TECHNOLOGY (MNNIT), ALLAHABAD</h3>
+                            <p>B.Tech in Electronics and Communication Engineering.</p>
+                            <span class="m-tech">CGPA: 7.61</span>
+                        </div>
+                    </div>
+                    <div class="mission-row">
+                        <div class="m-status text-green">[COMPLETED]<br>2019 - 2021</div>
+                        <div class="m-details">
+                            <h3>SARASWATI ENG MED SCH, NEEMKATHANA, SIKAR, RAJASTHAN</h3>
+                            <p>Class XII (CBSE) and Class X (CBSE).</p>
+                            <span class="m-tech">CLASS XII: 92.6%</span>
+                            <span class="m-tech">CLASS X: 93.4%</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Commendations (achievements from the resume) -->
+            <section id="commendations" class="sector active" style="margin-top: 3rem;">
+                <h2 class="sector-title" style="margin-bottom: 1.5rem;">>> MISSION 04: COMMENDATIONS</h2>
+                <div class="missions-list terminal-box">
+                    <div class="term-header">
+                        <span>> HONORS_ROLL // CONFIRMED</span>
+                        <span class="status-indicator"></span>
+                    </div>
+                    <div class="mission-row">
+                        <div class="m-status text-yellow">[TOP 5]<br>2024</div>
+                        <div class="m-details">
+                            <h3>CODOTRON 2024</h3>
+                            <p>Top 5 teams at Codotron 2024, the CC club technical event at MNNIT.</p>
+                        </div>
+                    </div>
+                    <div class="mission-row">
+                        <div class="m-status text-yellow">[3RD PLACE]<br>2024</div>
+                        <div class="m-details">
+                            <h3>QUINTATHALON // ELECTROMANIA, AVISHKAR 2024</h3>
+                            <p>3rd position in Quintathalon, the flagship event of Electromania, Avishkar 2024.</p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -192,7 +387,7 @@
                     style="color:var(--term-green); text-decoration:none;">[LINKEDIN]</a>
                 <a href="https://www.instagram.com/me_kirtan_17/" target="_blank"
                     style="color:var(--term-green); text-decoration:none;">[INSTAGRAM]</a>
-                <a href="mailto:karunpoddar0@gmail.com"
+                <a href="mailto:karunpoddar881@gmail.com"
                     style="color:var(--term-green); text-decoration:none;">[EMAIL]</a>
             </div>
             <div style="display:flex; gap:1.5rem; align-items: center;">
@@ -209,7 +404,10 @@
     <audio id="sndHover" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
     <audio id="sndClick" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
 
-    <script src="script.js?v=update6" charset="utf-8"></script>
+    <script src="igi-audio.js?v=4"></script>
+    <script src="script.js?v=update9" charset="utf-8"></script>
+    <script src="igi-map.js?v=16"></script>
+    <script src="igi-ui.js?v=1"></script>
 </body>
 
 </html>

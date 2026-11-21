@@ -4,133 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SYSTEM LOADING...</title>
-    <link rel="icon" href="logo.png" type="image/png">
+    <title>MISSION LOADING... | SYS_K</title>
+    <link rel="icon" href="logo.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=TacticalUpdate2" charset="utf-8">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=TacticalUpdate3" charset="utf-8">
     <style>
-        .loading-screen {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            z-index: 1000;
-        }
+        /* night vision */
+        .nv-overlay { position: fixed; inset: 0; background: radial-gradient(circle at center, rgba(0,255,102,.3) 0%, rgba(0,255,102,.15) 50%, rgba(0,10,3,.8) 100%); opacity: 0; pointer-events: none; z-index: 60; transition: opacity .3s ease; }
+        body.night-vision .nv-overlay { opacity: 1; }
+        .nv-toggle { position: fixed; top: 14px; right: 14px; padding: 8px 12px; background: rgba(0,255,102,.1); border: 1px solid rgba(0,255,102,.5); color: var(--term-green); font-family: 'Share Tech Mono', monospace; font-size: .75rem; z-index: 50; letter-spacing: .05rem; }
+        .nv-toggle.active { background: rgba(0,255,102,.3); box-shadow: 0 0 15px rgba(0,255,102,.6); }
 
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(0, 255, 65, 0.2);
-            border-top-color: var(--term-green);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 2rem;
-        }
+        body { min-height: 100dvh; display: grid; place-items: center; overflow-x: hidden; }
+        .grid-bg { position: fixed; inset: 0; z-index: -1; background:
+            radial-gradient(circle at 50% 45%, rgba(0, 60, 20, .45), #000 75%),
+            linear-gradient(rgba(0,255,65,.05) 1px, transparent 1px) 0 0 / 44px 44px,
+            linear-gradient(90deg, rgba(0,255,65,.05) 1px, transparent 1px) 0 0 / 44px 44px;
+            animation: gridDrift 14s linear infinite; }
+        @keyframes gridDrift { to { background-position: 0 0, 0 44px, 44px 0; } }
 
-        .loading-bar-container {
-            width: 400px;
-            height: 20px;
-            border: 2px solid var(--term-green);
-            padding: 2px;
-            margin-bottom: 1rem;
-        }
+        .brief { width: min(92vw, 720px); padding: 1.5rem 0; text-align: center; }
+        .brief-no { font-size: .85rem; letter-spacing: .45em; color: #ffd23f; text-shadow: 0 0 10px rgba(255,210,63,.5); }
+        .brief-title { margin: .5rem 0 .3rem; font-family: var(--font-heading); font-weight: 900; font-size: clamp(1.8rem, 7.5vw, 3.4rem); letter-spacing: .12em; color: #fff; text-shadow: 0 0 22px rgba(0,255,65,.7); overflow-wrap: anywhere; }
+        .brief-obj { margin: 0 auto 2rem; max-width: 34em; color: #c8ffd8; letter-spacing: .06em; font-size: clamp(.9rem, 2.6vw, 1.05rem); }
+        .brief-obj b { color: #ffd23f; font-weight: 400; letter-spacing: .2em; margin-right: .5rem; }
 
-        .loading-bar {
-            height: 100%;
-            background: var(--term-green);
-            width: 0%;
-            box-shadow: 0 0 10px var(--term-green);
-            animation: loadProgress 2s ease-out forwards;
-        }
+        .sweep { position: relative; width: 150px; height: 150px; margin: 0 auto 1.8rem; border: 2px solid var(--term-green); border-radius: 50%; overflow: hidden;
+            background: radial-gradient(circle, rgba(0,255,65,.12), rgba(0,255,65,.02)); box-shadow: 0 0 26px rgba(0,255,65,.35), inset 0 0 20px rgba(0,255,65,.15); }
+        .sweep::before, .sweep::after { content: ""; position: absolute; background: rgba(0,255,65,.7); left: 50%; top: 50%; transform: translate(-50%, -50%); }
+        .sweep::before { width: 1px; height: 100%; } .sweep::after { width: 100%; height: 1px; }
+        .sweep .ring { position: absolute; left: 50%; top: 50%; border: 1px solid rgba(0,255,65,.4); border-radius: 50%; transform: translate(-50%, -50%); }
+        .sweep .r1 { width: 50px; height: 50px; } .sweep .r2 { width: 100px; height: 100px; }
+        .sweep .beam { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, transparent 0deg, rgba(0,255,65,.6) 28deg, transparent 30deg); animation: spin 2.4s linear infinite; }
+        .sweep .blip { position: absolute; width: 6px; height: 6px; border-radius: 50%; background: #ff3b3b; box-shadow: 0 0 8px #ff3b3b; animation: blip 1.6s ease-in-out infinite; }
+        .sweep .b1 { left: 64%; top: 30%; } .sweep .b2 { left: 34%; top: 66%; animation-delay: .5s; } .sweep .b3 { left: 72%; top: 62%; animation-delay: 1s; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes blip { 0%,100% { opacity: 1; } 50% { opacity: .15; } }
 
-        .loading-text {
-            font-family: var(--font-mono);
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-        }
-
-        .loading-subtext {
-            color: #888;
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-
-        @keyframes spin {
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes loadProgress {
-            0% {
-                width: 0%;
-            }
-
-            100% {
-                width: 100%;
-            }
-        }
-
-        /* NIGHT VISION OVERLAY */
-        .nv-overlay{
-            position:fixed;
-            inset:0;
-            background:radial-gradient(circle at center, rgba(0,255,102,0.3) 0%, rgba(0,255,102,0.15) 50%, rgba(0,10,3,0.8) 100%);
-            opacity:0;
-            pointer-events:none;
-            z-index:60;
-            transition:opacity 0.3s ease;
-        }
-
-        body.night-vision .nv-overlay{
-            opacity:1;
-        }
-
-        body.night-vision .nv-overlay::before{
-            content:"";
-            position:absolute;
-            inset:0;
-            background:repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px);
-            animation:nvFlicker 0.15s infinite;
-            pointer-events:none;
-        }
-
-        @keyframes nvFlicker{
-            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100%{opacity:1;}
-            20%, 24%, 55%{opacity:0.5;}
-        }
-
-        .nv-toggle{
-            position:fixed;
-            bottom:20px;
-            right:20px;
-            padding:8px 12px;
-            background:rgba(0,255,102,0.1);
-            border:1px solid rgba(0,255,102,0.5);
-            color:var(--term-green);
-            font-family:'Share Tech Mono', monospace;
-            font-size:0.75rem;
-            cursor:pointer;
-            z-index:50;
-            transition:all 0.25s ease;
-            letter-spacing:0.05rem;
-        }
-
-        .nv-toggle:hover{
-            background:rgba(0,255,102,0.25);
-            box-shadow:0 0 12px rgba(0,255,102,0.4);
-        }
-
-        .nv-toggle.active{
-            background:rgba(0,255,102,0.3);
-            box-shadow:0 0 15px rgba(0,255,102,0.6);
-            border-color:var(--term-green);
-        }
+        .bar { display: grid; grid-template-columns: repeat(25, 1fr); gap: 4px; padding: 5px; border: 1px solid var(--term-green); background: rgba(0,20,8,.6); box-shadow: 0 0 16px rgba(0,255,65,.25); }
+        .bar i { height: 18px; background: rgba(0,255,65,.12); transition: background .1s, box-shadow .1s; }
+        .bar i.on { background: var(--term-green); box-shadow: 0 0 6px var(--term-green); }
+        .meta { display: flex; justify-content: space-between; gap: 1rem; margin-top: .7rem; font-size: .85rem; letter-spacing: .12em; }
+        .meta .pct { font-family: var(--font-heading); font-weight: 700; color: #fff; }
+        #status { color: var(--term-green); text-align: left; overflow-wrap: anywhere; }
+        .tip { margin-top: 1.6rem; padding-top: 1rem; border-top: 1px dashed var(--hud-border); font-size: .85rem; color: #8fb59a; letter-spacing: .04em; }
+        .tip b { color: #ffd23f; font-weight: 400; letter-spacing: .2em; margin-right: .4rem; }
+        .skip { margin-top: 1.2rem; font-size: .72rem; letter-spacing: .2em; color: #5f8a6c; }
+        .skip a { color: var(--term-green); }
+        @media (max-width: 480px) { .sweep { width: 120px; height: 120px; } .bar i { height: 14px; } }
+        @media (prefers-reduced-motion: reduce) { .grid-bg, .sweep .beam, .sweep .blip { animation: none; } }
     </style>
 </head>
 
@@ -138,56 +62,95 @@
     <div class="scanlines"></div>
     <div class="nv-overlay"></div>
     <div class="cursor-crosshair"></div>
-    <button class="nv-toggle" id="nvToggle">[ NV MODE ]</button>
+    <button class="nv-toggle" id="nvToggle" type="button">[ NV MODE ]</button>
+    <div class="grid-bg"></div>
 
-    <!-- Moving IGI Style Grid for Loading -->
-    <div class="video-bg-container" style="background: 
-        radial-gradient(circle at 50% 50%, rgba(0, 50, 0, 0.4) 0%, #000 100%),
-        linear-gradient(rgba(0, 255, 65, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 65, 0.05) 1px, transparent 1px);
-        background-size: 100% 100%, 40px 40px, 40px 40px;
-        animation: bgMoveSmall 10s linear infinite;">
-    </div>
+    <main class="brief" aria-live="polite">
+        <div class="brief-no" id="briefNo">MISSION BRIEFING</div>
+        <h1 class="brief-title" id="briefTitle">LOADING</h1>
+        <p class="brief-obj"><b>OBJECTIVE</b><span id="briefObj">Establishing secure uplink.</span></p>
 
-    <div class="loading-screen">
-        <div class="spinner"></div>
-        <div class="loading-bar-container">
-            <div class="loading-bar"></div>
+        <div class="sweep" aria-hidden="true">
+            <div class="ring r1"></div><div class="ring r2"></div>
+            <div class="beam"></div>
+            <span class="blip b1"></span><span class="blip b2"></span><span class="blip b3"></span>
         </div>
-        <div class="loading-text blink text-green">DECRYPTING CLASSIFIED FILES...</div>
-        <div class="loading-subtext" id="loadStatus"> Establishing Secure Uplink...</div>
-    </div>
 
-    <!-- Audio Effects -->
-    <audio id="sndClick" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
+        <div class="bar" id="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+        <div class="meta"><span id="status">Establishing secure uplink...</span><span class="pct" id="pct">0%</span></div>
+        <div class="tip"><b>INTEL</b><span id="tip"></span></div>
+        <div class="skip">PRESS ENTER OR CLICK TO SKIP</div>
+        <noscript><p class="skip"><a href="igi-intro.html">CONTINUE &gt;&gt;</a></p></noscript>
+    </main>
 
-    <script src="script.js?v=update5" charset="utf-8"></script>
+    <script src="igi-audio.js?v=4"></script>
+    <script src="script.js?v=update8" charset="utf-8"></script>
     <script>
-        // Loading sequence simulation
-        const statusEl = document.getElementById('loadStatus');
-        const tasks = [
-            "Bypassing Firewall...",
-            "Loading Operative Data...",
-            "Mounting Level Assets...",
-            "Access Granted."
-        ];
-
-        // Change text every 400ms
-        tasks.forEach((task, index) => {
-            setTimeout(() => {
-                statusEl.innerText = task;
-            }, index * 500);
-        });
-
-        // Redirect logic using URL parameters
-        window.onload = function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const targetPage = urlParams.get('target') || 'index.html';
-
-            setTimeout(() => {
-                window.location.href = targetPage;
-            }, 2000); // 2 second fake load
+    (function () {
+        /* where we are going + a short briefing for it */
+        var BRIEF = {
+            'igi-intro.html':    ['HEADQUARTERS',        'Return to base.'],
+            'dossier.html':      ['DOSSIER',             'Infiltrate the dossier room.'],
+            'level_select.html': ['TECH OPS BASE',       'Reach the Tech Ops base.'],
+            'achievements.html': ['ACHIEVEMENTS VAULT',  'Enter the combat record vault.'],
+            'extras.html':       ['EXTRAS COMPOUND',     'Reach the off-duty archives.'],
+            'artworks.html':     ['ART REPOSITORY',      'Break into the art repository.'],
+            'gaming.html':       ['GAME LIBRARY',        'Enter the game library.'],
+            'comms.html':        ['COMMS TOWER',         'Reach the secure uplink.'],
+            'objectives.html':   ['OBJECTIVES ROOM',     'Read the mission objectives.'],
+            'credits.html':      ['CREDITS CHECKPOINT',  'Roll the credits.']
         };
+        var NUM = { 'dossier.html': '02', 'level_select.html': '03', 'achievements.html': '04', 'extras.html': '05', 'artworks.html': '06', 'gaming.html': '07', 'comms.html': '08', 'objectives.html': '09', 'credits.html': '10' };
+        var TIPS = [
+            'Press M to open the map computer.',
+            'Press N to switch night vision on or off.',
+            'Complete objectives on the map to unlock mission-complete reports.',
+            'Use the arrow keys on the main menu, like the original game.',
+            'The map keeps your objective progress between visits.'
+        ];
+        var TASKS = ['Bypassing firewall...', 'Loading operative data...', 'Mounting level assets...', 'Decrypting classified files...', 'Access granted.'];
+
+        /* only same-site .html pages are allowed as a target (blocks javascript: and external redirects) */
+        var target = 'index.html';
+        try {
+            var raw = new URLSearchParams(location.search).get('target') || 'index.html';
+            var u = new URL(raw, location.href);
+            if (u.origin === location.origin && /\.html$/i.test(u.pathname)) target = u.pathname + u.search + u.hash;
+        } catch (e) { /* fall back to index.html */ }
+
+        var file = target.split('/').pop().split('?')[0].split('#')[0].toLowerCase();
+        var b = BRIEF[file] || ['MISSION', 'Establishing secure uplink.'];
+        document.getElementById('briefNo').textContent = NUM[file] ? 'MISSION ' + NUM[file] : 'MISSION BRIEFING';
+        document.getElementById('briefTitle').textContent = b[0];
+        document.getElementById('briefObj').textContent = b[1];
+        document.title = 'LOADING: ' + b[0] + ' | SYS_K';
+        document.getElementById('tip').textContent = TIPS[Math.floor(Math.random() * TIPS.length)];
+
+        var barEl = document.getElementById('bar'), segs = [];
+        var N = window.matchMedia('(max-width:480px)').matches ? 20 : 25;
+        barEl.style.gridTemplateColumns = 'repeat(' + N + ', 1fr)';
+        for (var i = 0; i < N; i++) { var s = document.createElement('i'); barEl.appendChild(s); segs.push(s); }
+        var pctEl = document.getElementById('pct'), statusEl = document.getElementById('status');
+
+        var DURATION = 2400, t0 = performance.now(), done = false;
+        function go() { if (done) return; done = true; location.href = target; }
+        (function frame(now) {
+            if (done) return;
+            var p = Math.min((now - t0) / DURATION, 1);
+            var eased = 1 - Math.pow(1 - p, 2);
+            var on = Math.round(eased * N);
+            segs.forEach(function (sg, j) { sg.classList.toggle('on', j < on); });
+            var pc = Math.round(eased * 100);
+            pctEl.textContent = pc + '%';
+            barEl.setAttribute('aria-valuenow', pc);
+            statusEl.textContent = TASKS[Math.min(TASKS.length - 1, Math.floor(p * TASKS.length))];
+            if (p < 1) requestAnimationFrame(frame); else setTimeout(go, 150);
+        })(t0);
+
+        /* skip with Enter / click (a click on the night-vision button does not skip) */
+        document.addEventListener('keydown', function (e) { if (e.key === 'Enter') go(); });
+        document.addEventListener('click', function (e) { if (!e.target.closest('#nvToggle')) go(); });
+    })();
     </script>
 </body>
 

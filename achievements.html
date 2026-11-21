@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kirtan | COMBAT RECORD</title>
-    <meta name="description" content="Achievements & Coding Profiles - Kirtan">
-    <link rel="icon" href="logo.png" type="image/png">
+    <title>Karun | COMBAT RECORD</title>
+    <meta name="description" content="Achievements & Coding Profiles - Karun">
+    <link rel="icon" href="logo.svg" type="image/svg+xml">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +15,8 @@
         href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Orbitron:wght@400;700;900&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="styles.css?v=TacticalUpdate2" charset="utf-8">
+    <link rel="stylesheet" href="styles.css?v=TacticalUpdate5" charset="utf-8">
+    <link rel="stylesheet" href="igi-ui.css?v=3">
     <style>
         /* NIGHT VISION OVERLAY */
         .nv-overlay{
@@ -73,32 +74,101 @@
             border-color:var(--term-green);
         }
 
-        /* Achievements card hover polish */
-        #achievements .weapon-card {
-            cursor: pointer;
-            transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease, background-color 0.28s ease;
+        /* =================== Achievements page =================== */
+        .ach-filters { display: flex; flex-wrap: wrap; gap: .6rem; margin: 0 0 2.2rem; }
+        .ach-chip {
+            padding: .5rem 1rem; background: rgba(0, 255, 65, .06); border: 1px solid var(--hud-border);
+            color: var(--term-green); font-family: var(--font-heading); font-size: .72rem; letter-spacing: .14em;
+            transition: background .2s, color .2s, box-shadow .2s, border-color .2s;
         }
+        .ach-chip:hover, .ach-chip.active {
+            background: var(--term-green); color: #001a08; border-color: var(--term-green); box-shadow: 0 0 14px rgba(0, 255, 65, .45);
+        }
+        .ach-block { margin-bottom: 3.2rem; }
+        .ach-block[hidden] { display: none; }
 
-        #achievements .weapon-card:hover {
-            transform: translateY(-6px) scale(1.01);
-            border-color: var(--term-green);
-            box-shadow: 0 0 26px rgba(0, 255, 65, 0.22), inset 0 0 0 1px rgba(0, 255, 102, 0.16);
-            background: rgba(0, 0, 0, 0.82);
+        /* total + ranks */
+        .ach-hero { display: grid; grid-template-columns: 1.15fr 1fr; gap: 1.5rem; align-items: stretch; }
+        .ach-total { margin: 0; }
+        .ach-total .term-body { text-align: center; padding: 2.2rem 1.5rem; }
+        .ach-total .big {
+            font-family: var(--font-heading); font-weight: 900; font-size: clamp(3rem, 10vw, 5.4rem); line-height: 1;
+            color: #fff; text-shadow: 0 0 24px rgba(0, 255, 65, .7);
         }
+        .ach-total .big small { font-size: .5em; color: var(--term-green); }
+        .ach-total .lbl { margin-top: .7rem; letter-spacing: .3em; font-size: .85rem; color: var(--term-green); }
+        .ach-total .sub { margin: 1rem 0 0; color: #aaa; font-size: .95rem; }
+        .rank-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+        .rank-tile {
+            display: flex; flex-direction: column; justify-content: center; text-align: center; min-width: 0;
+            padding: 1rem .6rem; border: 1px solid var(--hud-border); background: rgba(0, 20, 8, .55);
+            transition: border-color .25s, box-shadow .25s, transform .25s;
+        }
+        .rank-tile:hover { border-color: var(--term-green); box-shadow: 0 0 16px rgba(0, 255, 65, .35); transform: translateY(-3px); }
+        .rank-tile strong {
+            font-family: var(--font-heading); font-size: clamp(1rem, 3.4vw, 1.4rem); color: #fff;
+            text-shadow: 0 0 10px rgba(0, 255, 65, .5); overflow-wrap: anywhere;
+        }
+        .rank-tile span { margin-top: .35rem; font-size: .7rem; letter-spacing: .14em; color: var(--term-green); }
 
-        #achievements .weapon-card:hover .w-header {
-            color: var(--term-green);
+        /* platform cards */
+        .plat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.5rem; }
+        .plat {
+            display: flex; flex-direction: column; min-width: 0; border: 1px solid var(--hud-border); background: rgba(0, 0, 0, .72);
+            transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
         }
+        .plat:hover { transform: translateY(-5px); border-color: var(--term-green); box-shadow: 0 0 24px rgba(0, 255, 65, .22); }
+        .plat-head { display: flex; align-items: center; gap: .8rem; padding: 1rem 1.2rem; border-bottom: 1px dashed var(--hud-border); }
+        .plat-mono {
+            flex: 0 0 auto; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 6px;
+            border: 1px solid var(--term-green); background: rgba(0, 255, 65, .08); color: var(--term-green);
+            font-family: var(--font-heading); font-weight: 900; font-size: .8rem; letter-spacing: .04em;
+        }
+        .plat-name { flex: 1; min-width: 0; font-family: var(--font-heading); font-size: .86rem; letter-spacing: .03em; color: #fff; overflow-wrap: anywhere; }
+        .plat-chip {
+            flex: 0 0 auto; padding: .2rem .5rem; border: 1px solid var(--term-green); background: rgba(0, 255, 65, .08);
+            color: var(--term-green); font-size: .64rem; letter-spacing: .08em; white-space: nowrap;
+        }
+        .plat-main { padding: 1.2rem 1.2rem .3rem; }
+        .plat-main .num { font-family: var(--font-heading); font-weight: 900; font-size: 2.5rem; line-height: 1.1; color: #fff; text-shadow: 0 0 16px rgba(0, 255, 65, .6); }
+        .plat-main .cap { font-size: .72rem; letter-spacing: .2em; color: var(--term-green); opacity: .85; }
+        .plat-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: .7rem; padding: .9rem 1.2rem 1.2rem; }
+        .plat-stat { min-width: 0; padding: .15rem .6rem; border-left: 2px solid rgba(0, 255, 65, .5); }
+        .plat-stat b { display: block; color: var(--term-green); font-size: 1.05rem; overflow-wrap: anywhere; }
+        .plat-stat > span { display: block; color: #888; font-size: .72rem; letter-spacing: .05em; }
+        .plat .btn { display: block; margin: auto 1.2rem 1.2rem; text-align: center; }
 
-        #achievements .weapon-card:hover .w-img img {
-            transform: scale(1.03);
-            filter: grayscale(100%) contrast(1.5) sepia(100%) hue-rotate(90deg);
+        /* medals */
+        .honor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .honor {
+            display: flex; gap: 1.1rem; align-items: flex-start; padding: 1.4rem; min-width: 0;
+            border: 1px solid var(--hud-border); background: linear-gradient(135deg, rgba(0, 40, 12, .7), rgba(0, 10, 4, .85));
+            transition: border-color .25s, box-shadow .25s, transform .25s;
         }
+        .honor:hover { border-color: #ffd23f; box-shadow: 0 0 22px rgba(255, 210, 63, .2); transform: translateY(-4px); }
+        .medal {
+            flex: 0 0 auto; width: 64px; height: 64px; display: grid; place-items: center; border-radius: 50%;
+            border: 2px solid #ffd23f; color: #ffd23f; font-family: var(--font-heading); font-weight: 900; font-size: .85rem;
+            background: radial-gradient(circle, rgba(255, 210, 63, .18), transparent 70%);
+            box-shadow: 0 0 14px rgba(255, 210, 63, .35), inset 0 0 12px rgba(255, 210, 63, .2);
+        }
+        .honor > div:last-child { min-width: 0; }
+        .honor h4 { margin: .15rem 0 0; font-family: var(--font-heading); font-size: 1.05rem; color: #fff; overflow-wrap: anywhere; }
+        .honor .when { font-size: .72rem; letter-spacing: .16em; color: #ffd23f; }
+        .honor p { margin: .5rem 0 0; color: #aaa; font-size: .9rem; line-height: 1.55; }
 
-        #achievements .weapon-card .w-img img {
-            transition: transform 0.28s ease, filter 0.28s ease;
-        }
+        /* leadership */
+        .lead-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .lead { min-width: 0; padding: 1rem 1.2rem; border-left: 3px solid var(--term-green); background: rgba(0, 20, 8, .45); }
+        .lead-role { font-family: var(--font-heading); font-size: 1.05rem; color: var(--term-green); margin-bottom: .3rem; overflow-wrap: anywhere; }
+        .lead-org { color: #fff; margin-bottom: .6rem; }
+        .lead p { margin: 0; color: #aaa; font-size: .9rem; line-height: 1.6; }
+
+        @media (max-width: 900px) { .ach-hero { grid-template-columns: 1fr; } }
+        @media (max-width: 480px) { .plat-main .num { font-size: 2.1rem; } .honor { flex-direction: column; } }
+        @media (prefers-reduced-motion: reduce) { .plat, .honor, .rank-tile { transition: none; } }
     </style>
+</head>
 
 <body class="crt">
 
@@ -116,7 +186,7 @@
         <!-- Header / Navigation -->
         <header class="hud-header" style="position: relative;">
             <a href="igi-intro.html" class="hud-logo" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
-                <img src="logo.png" alt="Logo" class="hud-logo-img">
+                <img src="logo.svg" alt="SYS_K emblem" class="hud-logo-img" width="44" height="44">
                 <span class="glitch" data-text="SYS_K">SYS_K</span>
             </a>
             <nav class="hud-nav">
@@ -134,221 +204,173 @@
 
             <!-- Achievements Section -->
             <section id="achievements" class="sector active">
-                <h2 class="sector-title">>> COMBAT RECORD & ACHIEVEMENTS</h2>
+                <h2 class="sector-title">>> COMBAT RECORD &amp; ACHIEVEMENTS</h2>
 
-                <!-- Total Stats Banner -->
-                <div class="terminal-box" style="margin-bottom: 3rem;">
-                    <div class="term-header">
-                        <span>> OPERATIVE_STATS.SH</span>
-                        <span class="status-indicator"></span>
-                    </div>
-                    <div class="term-body" style="text-align: center; padding: 2.5rem;">
-                        <h3 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--term-green);">1800+ PROBLEMS ELIMINATED</h3>
-                        <p style="font-size: 1.1rem; color: #aaa;">Across LeetCode, CodeChef, Codeforces and multiple combat zones</p>
+                <div class="ach-filters" role="group" aria-label="Filter records">
+                    <button type="button" class="ach-chip active" data-filter="all">[ALL RECORDS]</button>
+                    <button type="button" class="ach-chip" data-filter="coding">[CODING]</button>
+                    <button type="button" class="ach-chip" data-filter="honors">[MEDALS]</button>
+                    <button type="button" class="ach-chip" data-filter="lead">[LEADERSHIP]</button>
+                </div>
+
+                <!-- Total + ranks -->
+                <div class="ach-block" data-cat="coding">
+                    <div class="ach-hero">
+                        <div class="terminal-box ach-total">
+                            <div class="term-header">
+                                <span>> OPERATIVE_STATS.SH</span>
+                                <span class="status-indicator"></span>
+                            </div>
+                            <div class="term-body">
+                                <div class="big"><span class="count" data-to="1800">1,800</span><small>+</small></div>
+                                <div class="lbl">PROBLEMS ELIMINATED</div>
+                                <p class="sub">Across LeetCode, CodeChef, Codeforces and multiple combat zones</p>
+                            </div>
+                        </div>
+                        <div class="rank-tiles">
+                            <div class="rank-tile"><strong>KNIGHT</strong><span>LEETCODE BADGE</span></div>
+                            <div class="rank-tile"><strong>SPECIALIST</strong><span>CODEFORCES RANK</span></div>
+                            <div class="rank-tile"><strong>3&#9733;</strong><span>CODECHEF BADGE</span></div>
+                            <div class="rank-tile"><strong>5</strong><span>PLATFORMS ACTIVE</span></div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Coding Platforms Section -->
-                <h3 class="sub-sector-title">>> PLATFORM WARFARE STATS</h3>
-                
-                <div class="loadout-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 4rem;">
-                    
-                    <!-- LeetCode Card -->
-                    <div class="weapon-card" style="padding: 1.5rem;">
-                        <div class="w-header" style="font-size: 1.1rem; margin-bottom: 1.5rem; border-bottom: 1px solid #003b00; padding-bottom: 0.8rem;">
-                            LEETCODE
-                        </div>
-                        
-                        <div style="margin-bottom: 1.5rem;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
-                                <span style="color: #888; font-size: 0.85rem;">Rating</span>
-                                <span style="color: var(--term-green); font-size: 1.1rem; font-weight: bold;">1,841</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
-                                <span style="color: #888; font-size: 0.85rem;">Global Rank</span>
-                                <span style="color: var(--term-green); font-size: 1.1rem; font-weight: bold;">26,432</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
-                                <span style="color: #888; font-size: 0.85rem;">Badge</span>
-                                <span style="color: var(--term-green); font-size: 0.95rem; font-weight: bold;">KNIGHT</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
-                                <span style="color: #888; font-size: 0.85rem;">Problems Solved</span>
-                                <span style="color: var(--term-green); font-size: 1.1rem; font-weight: bold;">1020+</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <span style="color: #888; font-size: 0.85rem;">Max Streak</span>
-                                <span style="color: var(--term-green); font-size: 1.1rem; font-weight: bold;">144 days</span>
-                            </div>
-                        </div>
+                <!-- Platforms -->
+                <div class="ach-block" data-cat="coding">
+                    <h3 class="sub-sector-title">>> PLATFORM WARFARE STATS</h3>
+                    <div class="plat-grid">
 
-                        <a href="https://leetcode.com/u/Kkirtan321/" target="_blank" class="btn tactical-btn small-btn" style="width: 100%; text-align: center; display: block;">
-                            > VIEW_PROFILE
-                        </a>
+                        <article class="plat">
+                            <div class="plat-head">
+                                <div class="plat-mono">LC</div>
+                                <div class="plat-name">LEETCODE</div>
+                                <div class="plat-chip">KNIGHT</div>
+                            </div>
+                            <div class="plat-main">
+                                <div class="num"><span class="count" data-to="1841">1,841</span></div>
+                                <div class="cap">RATING</div>
+                            </div>
+                            <div class="plat-stats">
+                                <div class="plat-stat"><b><span class="count" data-to="26432">26,432</span></b><span>Global Rank</span></div>
+                                <div class="plat-stat"><b><span class="count" data-to="1020">1,020</span>+</b><span>Problems Solved</span></div>
+                                <div class="plat-stat"><b><span class="count" data-to="144">144</span> days</b><span>Max Streak</span></div>
+                            </div>
+                            <a href="https://leetcode.com/u/Kkirtan321/" target="_blank" class="btn tactical-btn small-btn">> VIEW_PROFILE</a>
+                        </article>
+
+                        <article class="plat">
+                            <div class="plat-head">
+                                <div class="plat-mono">CC</div>
+                                <div class="plat-name">CODECHEF</div>
+                                <div class="plat-chip">3&#9733; &middot; DIV 2</div>
+                            </div>
+                            <div class="plat-main">
+                                <div class="num"><span class="count" data-to="1799">1,799</span></div>
+                                <div class="cap">RATING</div>
+                            </div>
+                            <div class="plat-stats">
+                                <div class="plat-stat"><b><span class="count" data-to="443">443</span></b><span>Global Rank</span></div>
+                                <div class="plat-stat"><b><span class="count" data-to="5127">5,127</span></b><span>Global Items</span></div>
+                                <div class="plat-stat"><b>3&#9733;</b><span>Highest Badge</span></div>
+                            </div>
+                            <a href="https://www.codechef.com/users/k_logic" target="_blank" class="btn tactical-btn small-btn">> VIEW_PROFILE</a>
+                        </article>
+
+                        <article class="plat">
+                            <div class="plat-head">
+                                <div class="plat-mono">CF</div>
+                                <div class="plat-name">CODEFORCES</div>
+                                <div class="plat-chip">SPECIALIST</div>
+                            </div>
+                            <div class="plat-main">
+                                <div class="num"><span class="count" data-to="1308">1,308</span></div>
+                                <div class="cap">RATING</div>
+                            </div>
+                            <div class="plat-stats">
+                                <div class="plat-stat"><b><span class="count" data-to="1330">1,330</span></b><span>Max Rating</span></div>
+                                <div class="plat-stat"><b><span class="count" data-to="365">365</span>+</b><span>Problems Solved</span></div>
+                                <div class="plat-stat"><b>k.run007</b><span>Handle</span></div>
+                            </div>
+                            <a href="https://codeforces.com/profile/k.run007" target="_blank" class="btn tactical-btn small-btn">> VIEW_PROFILE</a>
+                        </article>
+
+                        <article class="plat">
+                            <div class="plat-head">
+                                <div class="plat-mono">CN</div>
+                                <div class="plat-name">CODING NINJAS</div>
+                                <div class="plat-chip">CODE360</div>
+                            </div>
+                            <div class="plat-main">
+                                <div class="num"><span class="count" data-to="94">94</span></div>
+                                <div class="cap">CODING PROBLEMS</div>
+                            </div>
+                            <div class="plat-stats">
+                                <div class="plat-stat"><b><span class="count" data-to="6">6</span></b><span>MCQ Solved</span></div>
+                                <div class="plat-stat"><b><span class="count" data-to="100">100</span></b><span>Total Submissions</span></div>
+                                <div class="plat-stat"><b>7 days</b><span>Max Streak</span></div>
+                            </div>
+                            <a href="https://www.naukri.com/code360/profile/76b52c39-fe9f-4188-bdf3-9d16317ca07e" target="_blank" class="btn tactical-btn small-btn">> VIEW_PROFILE</a>
+                        </article>
+
+                        <article class="plat">
+                            <div class="plat-head">
+                                <div class="plat-mono">GFG</div>
+                                <div class="plat-name">GEEKSFORGEEKS</div>
+                                <div class="plat-chip">PRACTICE</div>
+                            </div>
+                            <div class="plat-main">
+                                <div class="num"><span class="count" data-to="429">429</span></div>
+                                <div class="cap">CODING SCORE</div>
+                            </div>
+                            <div class="plat-stats">
+                                <div class="plat-stat"><b><span class="count" data-to="114">114</span></b><span>Problems Solved</span></div>
+                                <div class="plat-stat"><b>1 day</b><span>Longest Streak</span></div>
+                                <div class="plat-stat"><b>1</b><span>POTDs Solved</span></div>
+                            </div>
+                            <a href="https://www.geeksforgeeks.org/profile/karunpochv5" target="_blank" class="btn tactical-btn small-btn">> VIEW_PROFILE</a>
+                        </article>
+
                     </div>
-
-                    <!-- CodeChef Card -->
-                    <div class="weapon-card" style="padding: 1.5rem;">
-                        <div class="w-header" style="font-size: 1.1rem; margin-bottom: 1.5rem; border-bottom: 1px solid #003b00; padding-bottom: 0.8rem;">
-                            CODECHEF
-                        </div>
-
-                        <div style="margin-bottom: 1.5rem;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
-                                <span style="color: #888; font-size: 0.85rem;">Rating</span>
-                                <span style="color: var(--term-green); font-size: 1.1rem; font-weight: bold;">1,799</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
-                                <span style="color: #888; font-size: 0.85rem;">Division</span>
-                                <span style="color: var(--term-green); font-size: 1rem;">DIV 2</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
-                                <span style="color: #888; font-size: 0.85rem;">Global Rank</span>
-                                <span style="color: var(--term-green); font-size: 1.1rem; font-weight: bold;">443</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
-                                <span style="color: #888; font-size: 0.85rem;">Global Items</span>
-                                <span style="color: var(--term-green); font-size: 1.1rem; font-weight: bold;">5,127</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <span style="color: #888; font-size: 0.85rem;">Highest Badge</span>
-                                <span style="color: var(--term-green); font-size: 0.95rem;">3★</span>
-                            </div>
-                        </div>
-
-                        <a href="https://www.codechef.com/users/k_logic" target="_blank" class="btn tactical-btn small-btn" style="width: 100%; text-align: center; display: block;">
-                            > VIEW_PROFILE
-                        </a>
-                    </div>
-
-                    <!-- Codeforces Card -->
-                    <div class="weapon-card" style="padding: 1.5rem;">
-                        <div class="w-header" style="font-size: 1.1rem; margin-bottom: 1.5rem; border-bottom: 1px solid #003b00; padding-bottom: 0.8rem;">
-                            CODEFORCES
-                        </div>
-
-                        <div style="margin-bottom: 1.5rem;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
-                                <span style="color: #888; font-size: 0.85rem;">Rating</span>
-                                <span style="color: var(--term-green); font-size: 1.1rem; font-weight: bold;">1,308</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
-                                <span style="color: #888; font-size: 0.85rem;">Max Rating</span>
-                                <span style="color: var(--term-green); font-size: 1.1rem; font-weight: bold;">1,330</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
-                                <span style="color: #888; font-size: 0.85rem;">Rank</span>
-                                <span style="color: var(--term-green); font-size: 1.1rem; font-weight: bold;">PUPIL</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
-                                <span style="color: #888; font-size: 0.85rem;">Handle</span>
-                                <span style="color: var(--term-green); font-size: 0.95rem;">k.run007</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <span style="color: #888; font-size: 0.85rem;">Problems Solved</span>
-                                <span style="color: var(--term-green); font-size: 1.1rem; font-weight: bold;">365+</span>
-                            </div>
-                        </div>
-
-                        <a href="https://codeforces.com/profile/k.run007" target="_blank" class="btn tactical-btn small-btn" style="width: 100%; text-align: center; display: block;">
-                            > VIEW_PROFILE
-                        </a>
-                    </div>
-
-                    <!-- Coding Ninjas Card -->
-                    <div class="weapon-card" style="padding: 1.5rem;">
-                        <div class="w-header" style="font-size: 1.1rem; margin-bottom: 1.5rem; border-bottom: 1px solid #003b00; padding-bottom: 0.8rem;">
-                            CODING NINJAS
-                        </div>
-                        <div style="margin-bottom: 1.5rem;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
-                                <span style="color: #888; font-size: 0.85rem;">Coding Problems</span>
-                                <span style="color: var(--term-green); font-size: 1.1rem; font-weight: bold;">94</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
-                                <span style="color: #888; font-size: 0.85rem;">MCQ Solved</span>
-                                <span style="color: var(--term-green); font-size: 1.1rem; font-weight: bold;">6</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
-                                <span style="color: #888; font-size: 0.85rem;">Total Submissions</span>
-                                <span style="color: var(--term-green); font-size: 1.1rem; font-weight: bold;">100</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <span style="color: #888; font-size: 0.85rem;">Max Streak</span>
-                                <span style="color: var(--term-green); font-size: 1.1rem; font-weight: bold;">7 days</span>
-                            </div>
-                        </div>
-                        <a href="https://www.naukri.com/code360/profile/76b52c39-fe9f-4188-bdf3-9d16317ca07e" target="_blank" class="btn tactical-btn small-btn" style="width: 100%; text-align: center; display: block;">
-                            > VIEW_PROFILE
-                        </a>
-                    </div>
-
-                    <!-- GeeksforGeeks Card -->
-                    <div class="weapon-card" style="padding: 1.5rem;">
-                        <div class="w-header" style="font-size: 1.1rem; margin-bottom: 1.5rem; border-bottom: 1px solid #003b00; padding-bottom: 0.8rem;">
-                            GEEKSFORGEEKS
-                        </div>
-                        <div style="margin-bottom: 1.5rem;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
-                                <span style="color: #888; font-size: 0.85rem;">Coding Score</span>
-                                <span style="color: var(--term-green); font-size: 1.1rem; font-weight: bold;">429</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
-                                <span style="color: #888; font-size: 0.85rem;">Problems Solved</span>
-                                <span style="color: var(--term-green); font-size: 1.1rem; font-weight: bold;">114</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
-                                <span style="color: #888; font-size: 0.85rem;">Longest Streak</span>
-                                <span style="color: var(--term-green); font-size: 1.1rem; font-weight: bold;">1 day</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <span style="color: #888; font-size: 0.85rem;">POTDs Solved</span>
-                                <span style="color: var(--term-green); font-size: 1.1rem; font-weight: bold;">1</span>
-                            </div>
-                        </div>
-                        <a href="https://www.geeksforgeeks.org/profile/karunpochv5" target="_blank" class="btn tactical-btn small-btn" style="width: 100%; text-align: center; display: block;">
-                            > VIEW_PROFILE
-                        </a>
-                    </div>
-
                 </div>
 
-                <!-- Leadership Section -->
-                <h3 class="sub-sector-title">>> LEADERSHIP & COMMAND POSITIONS</h3>
-                
-                <div class="terminal-box" style="margin-bottom: 3rem;">
-                    <div class="term-body" style="padding: 2rem;">
-                        
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
-                            
-                            <!-- Arts Club Coordinator -->
-                            <div style="border-left: 3px solid var(--term-green); padding-left: 1.5rem;">
-                                <div style="font-size: 1.2rem; color: var(--term-green); margin-bottom: 0.5rem; font-weight: bold;">
-                                    COORDINATOR
-                                </div>
-                                <div style="font-size: 1rem; color: #fff; margin-bottom: 0.8rem;">
-                                    MNNIT Arts Club
-                                </div>
-                                <p style="font-size: 0.9rem; color: #aaa; line-height: 1.6;">
-                                    Managed 100+ students during college events. Led creative operations and coordinated large-scale artistic initiatives.
-                                </p>
+                <!-- Medals -->
+                <div class="ach-block" data-cat="honors">
+                    <h3 class="sub-sector-title">>> MEDALS &amp; COMMENDATIONS</h3>
+                    <div class="honor-grid">
+                        <div class="honor">
+                            <div class="medal">TOP 5</div>
+                            <div>
+                                <div class="when">2024</div>
+                                <h4>CODOTRON 2024</h4>
+                                <p>Placed among the top 5 teams in Codotron 2024, a technical event run by the CC club of MNNIT.</p>
                             </div>
-
-                            <!-- Electronics Society Design Team -->
-                            <div style="border-left: 3px solid var(--term-green); padding-left: 1.5rem;">
-                                <div style="font-size: 1.2rem; color: var(--term-green); margin-bottom: 0.5rem; font-weight: bold;">
-                                    DESIGN TEAM MEMBER
-                                </div>
-                                <div style="font-size: 1rem; color: #fff; margin-bottom: 0.8rem;">
-                                    Electronics Society
-                                </div>
-                                <p style="font-size: 0.9rem; color: #aaa; line-height: 1.6;">
-                                    Created high-quality artwork and visual content for technical events and society promotions.
-                                </p>
-                            </div>
-
                         </div>
+                        <div class="honor">
+                            <div class="medal">3RD</div>
+                            <div>
+                                <div class="when">2024</div>
+                                <h4>QUINTATHALON</h4>
+                                <p>Secured 3rd position in Quintathalon, the flagship technical event of Electromania, Avishkar 2024.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- Leadership -->
+                <div class="ach-block" data-cat="lead">
+                    <h3 class="sub-sector-title">>> LEADERSHIP &amp; COMMAND POSITIONS</h3>
+                    <div class="lead-grid">
+                        <div class="lead">
+                            <div class="lead-role">COORDINATOR</div>
+                            <div class="lead-org">MNNIT Arts Club</div>
+                            <p>Managed 100+ students during college events. Led creative operations and coordinated large-scale artistic initiatives.</p>
+                        </div>
+                        <div class="lead">
+                            <div class="lead-role">DESIGN TEAM MEMBER</div>
+                            <div class="lead-org">Electronics Society</div>
+                            <p>Created high-quality artwork and visual content for technical events and society promotions.</p>
+                        </div>
                     </div>
                 </div>
 
@@ -365,7 +387,7 @@
                     style="color:var(--term-green); text-decoration:none;">[LINKEDIN]</a>
                 <a href="https://www.instagram.com/me_kirtan_17/" target="_blank"
                     style="color:var(--term-green); text-decoration:none;">[INSTAGRAM]</a>
-                <a href="mailto:karunpoddar0@gmail.com"
+                <a href="mailto:karunpoddar881@gmail.com"
                     style="color:var(--term-green); text-decoration:none;">[EMAIL]</a>
             </div>
             <div style="display:flex; gap:1.5rem; align-items: center;">
@@ -382,8 +404,41 @@
     <audio id="sndHover" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
     <audio id="sndClick" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
 
-    <script src="script.js?v=update5" charset="utf-8"></script>
+    <script src="igi-audio.js?v=4"></script>
+    <script src="script.js?v=update8" charset="utf-8"></script>
+    <script src="igi-map.js?v=16"></script>
+    <script src="igi-ui.js?v=1"></script>
 
+    <script>
+    /* achievements page: filter chips + number count-up */
+    (function () {
+        var chips = Array.prototype.slice.call(document.querySelectorAll('.ach-chip'));
+        var blocks = Array.prototype.slice.call(document.querySelectorAll('.ach-block'));
+        chips.forEach(function (chip) {
+            chip.addEventListener('click', function () {
+                var f = chip.getAttribute('data-filter');
+                chips.forEach(function (c) { c.classList.toggle('active', c === chip); });
+                blocks.forEach(function (b) { b.hidden = !(f === 'all' || b.getAttribute('data-cat') === f); });
+            });
+        });
+
+        var counters = Array.prototype.slice.call(document.querySelectorAll('.count'));
+        var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduce || !('IntersectionObserver' in window)) return;
+        function run(el) {
+            var to = Number(el.getAttribute('data-to')), dur = 1400, t0 = performance.now();
+            (function frame(now) {
+                var p = Math.min((now - t0) / dur, 1);
+                el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))).toLocaleString('en-US');
+                if (p < 1) requestAnimationFrame(frame);
+            })(t0);
+        }
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) { if (e.isIntersecting) { io.unobserve(e.target); run(e.target); } });
+        }, { threshold: 0.3 });
+        counters.forEach(function (el) { el.textContent = '0'; io.observe(el); });
+    })();
+    </script>
 </body>
 
 </html>

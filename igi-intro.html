@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SYS_K - Tactical Ops</title>
-<link rel="icon" href="logo.png" type="image/png">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,18 +35,26 @@ body{
     background:#000a03;
 }
 
-/* BACKGROUND PHOTO */
-.bg-photo{
+/* BACKGROUND: only the soldier is cut out of the title-screen picture (the rest of that
+   picture is a mock menu, which used to show through as ghost text behind the real one) */
+.bg-soldier{
+    --H:min(46vh, 380px);
     position:fixed;
-    inset:0;
+    left:calc(50% - 540px);
+    top:3.4rem;
+    height:var(--H);
+    width:calc(var(--H) * 280 / 290);
     background-image:url('ChatGPT Image Mar 1, 2026, 11_41_24 PM.png');
-    background-size:cover;
-    background-position:center;
-    opacity:0.22;
-    filter:grayscale(1) sepia(0.25) hue-rotate(85deg) saturate(1.4);
+    background-repeat:no-repeat;
+    background-size:calc(var(--H) * 1536 / 290) auto;
+    background-position:calc(var(--H) * -310 / 290) calc(var(--H) * -55 / 290);
+    filter:brightness(1.15) saturate(1.25) contrast(1.05);
+    -webkit-mask-image:radial-gradient(ellipse at 50% 50%, #000 36%, transparent 68%);
+    mask-image:radial-gradient(ellipse at 50% 50%, #000 36%, transparent 68%);
     z-index:1;
     pointer-events:none;
 }
+@media (max-width:1299px){ .bg-soldier{ display:none; } }
 
 /* GRID */
 body::before{
@@ -490,17 +498,179 @@ body.night-vision .nv-overlay::before{
     .cursor-crosshair{display:none;}
     body{cursor:auto;}
 }
+
+/* crosshair only after a real mouse moves; never on touch screens */
+.cursor-crosshair{opacity:0;}
+body.has-mouse .cursor-crosshair{opacity:1;}
+@media (hover:none), (pointer:coarse){ .cursor-crosshair{display:none;} body{cursor:auto;} }
+
+/* the tool buttons share a row under the menu on small / short screens */
+.intro-tools{display:none;}
+
+/* ---- phones and short (landscape) screens: nothing fixed on top of the menu ---- */
+@media (max-width:700px), (max-height:640px){
+    body{overflow-y:auto; flex-direction:column; align-items:center; justify-content:flex-start; padding:4.2rem 0 1.5rem;}
+    .intro-wrap{gap:1.2rem; padding-bottom:.5rem;}
+    .tactical-radar{display:none;}
+    footer{position:static; transform:none; margin:1.2rem auto 0; padding:0 1rem; text-align:center; opacity:.6; animation:none;}
+    .intro-tools{display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;}
+    .intro-tools button{position:static !important; bottom:auto !important; right:auto !important; margin:0 !important; min-height:40px;}
+    .header h1{font-size:clamp(2.2rem, 12vw, 3.4rem); letter-spacing:.2rem;}
+    .menu-box{padding:1.2rem;}
+    .menu-item{font-size:1rem; padding:.8rem 1rem;}
+}
+
+/* =====================================================================
+   IGI HUD LAYER (title screen)
+   ===================================================================== */
+.hud-lattice{
+    position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.6;
+    background:
+        repeating-linear-gradient(32deg, rgba(0,255,102,.08) 0 1px, transparent 1px 96px),
+        repeating-linear-gradient(-32deg, rgba(0,255,102,.08) 0 1px, transparent 1px 96px);
+    -webkit-mask-image:radial-gradient(ellipse at center, transparent 28%, #000 100%);
+    mask-image:radial-gradient(ellipse at center, transparent 28%, #000 100%);
+}
+.hud-ruler{
+    position:fixed; left:0; right:0; bottom:0; height:14px; z-index:3; pointer-events:none; opacity:.75;
+    background:
+        repeating-linear-gradient(90deg, rgba(0,255,102,.9) 0 2px, transparent 2px 60px) bottom / 100% 14px no-repeat,
+        repeating-linear-gradient(90deg, rgba(0,255,102,.55) 0 1px, transparent 1px 12px) bottom / 100% 7px no-repeat;
+    -webkit-mask-image:linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    mask-image:linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+/* compass */
+.hud-compass{
+    position:fixed; top:20px; left:50%; transform:translateX(-50%);
+    width:min(520px, calc(100vw - 1000px)); height:46px; z-index:4; pointer-events:none; overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+    mask-image:linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+}
+.hud-compass .strip{ position:absolute; top:16px; left:0; display:flex; will-change:transform; }
+.hud-compass .cell{
+    flex:0 0 90px; width:90px; text-align:center; position:relative;
+    font:700 .85rem 'Orbitron',sans-serif; letter-spacing:.1em; color:#c8ffd8; text-shadow:0 0 8px rgba(0,255,102,.7);
+}
+.hud-compass .cell::before{ content:""; position:absolute; top:-12px; left:50%; width:2px; height:10px; background:var(--neon); }
+.hud-compass .cell::after{
+    content:""; position:absolute; top:-7px; left:0; right:0; height:5px;
+    background:repeating-linear-gradient(90deg, rgba(0,255,102,.7) 0 1px, transparent 1px 22.5px);
+}
+.hud-caret{
+    position:fixed; top:14px; left:50%; width:0; height:0; z-index:5; pointer-events:none;
+    border-left:6px solid transparent; border-right:6px solid transparent; border-top:8px solid #ffd23f;
+    transform:translateX(-50%); filter:drop-shadow(0 0 6px rgba(255,210,63,.8));
+}
+.hud-heading{
+    position:fixed; top:64px; left:50%; transform:translateX(-50%); z-index:4; pointer-events:none;
+    font-size:.72rem; letter-spacing:.2em; color:#ffd23f; text-shadow:0 0 8px rgba(255,210,63,.6);
+}
+
+/* telemetry */
+.hud-readout{
+    position:fixed; right:2.2vw; top:50%; transform:translateY(-50%); z-index:3; pointer-events:none;
+    font-size:.78rem; letter-spacing:.15em; line-height:1.9; text-align:right; opacity:.65;
+    border-right:2px solid rgba(0,255,102,.5); padding-right:.7rem;
+}
+.hud-readout b{ color:#c8ffd8; font-weight:400; }
+
+/* top-right cluster: map, night vision, clock */
+.intro-top{ position:fixed; top:20px; right:20px; z-index:6; display:flex; align-items:center; gap:.6rem; }
+.intro-top .tactical-clock{ position:static; }
+.intro-top .nv-toggle, .intro-top #igiMapBtn{
+    position:static !important; bottom:auto !important; right:auto !important; margin:0 !important; white-space:nowrap;
+}
+
+/* rotating reticle behind the title */
+.header{ position:relative; }
+.title-reticle{
+    position:absolute; left:50%; top:44%; width:min(300px,70vw); height:min(300px,70vw);
+    transform:translate(-50%,-50%); z-index:-1; pointer-events:none; opacity:.55;
+}
+.title-reticle .spin{ transform-origin:130px 130px; animation:reticleSpin 48s linear infinite; }
+@keyframes reticleSpin{ to{ transform:rotate(360deg); } }
+
+/* "turn on the sound" hint: the browser only allows audio after a click / key / tap */
+.audio-hint{
+    visibility:hidden; text-align:center; font-size:.78rem; letter-spacing:.18em; color:#ffd23f;
+    text-shadow:0 0 8px rgba(255,210,63,.6); animation:hintPulse 1.4s ease-in-out infinite;
+}
+.audio-hint.show{ visibility:visible; }
+@keyframes hintPulse{ 0%,100%{ opacity:1; } 50%{ opacity:.35; } }
+@media (prefers-reduced-motion:reduce){ .audio-hint{ animation:none; } }
+
+/* selected menu entry (keyboard or mouse), same look as hover */
+.menu-item.sel{
+    background:rgba(0,255,102,0.9); color:#001106; box-shadow:0 0 18px rgba(0,255,102,0.7); transform:translateX(6px);
+}
+
+/* objectives counter (bottom right) */
+.hud-bottom{
+    position:fixed; left:24px; right:24px; bottom:34px; z-index:4; pointer-events:none;
+    display:flex; justify-content:space-between; align-items:flex-end; gap:1rem;
+}
+.hud-label{
+    display:flex; justify-content:space-between; gap:1rem; margin-bottom:.35rem;
+    font:700 .68rem 'Orbitron',sans-serif; letter-spacing:.25em; color:#c8ffd8; text-shadow:0 0 6px rgba(0,255,102,.5);
+}
+.hud-label b{ font-weight:700; color:var(--neon); }
+.hud-ammo{ text-align:right; margin-left:auto; }
+.play-btn{
+    pointer-events:auto; align-self:flex-end; display:inline-flex; align-items:center; gap:.5rem; padding:.7rem 1.1rem;
+    font:700 .78rem 'Orbitron',sans-serif; letter-spacing:.14em; text-decoration:none; color:#ffd23f;
+    border:1px solid #ffd23f; background:rgba(60,45,0,.45); box-shadow:0 0 14px rgba(255,210,63,.25);
+    transition:background .2s, color .2s, box-shadow .2s;
+}
+.play-btn:hover, .play-btn:focus-visible{ background:#ffd23f; color:#201800; box-shadow:0 0 22px rgba(255,210,63,.7); }
+.hud-ammo .hud-label{ justify-content:flex-end; }
+.hud-count b{ font:900 1.9rem 'Orbitron',sans-serif; color:#fff; text-shadow:0 0 12px rgba(0,255,102,.7); }
+.hud-count span{ font-size:.95rem; opacity:.75; margin-left:.2rem; }
+
+@media (max-width:1199px){ .hud-compass, .hud-caret, .hud-heading{ display:none; } }
+@media (max-width:1100px){ .hud-readout{ display:none; } }
+
+/* ---- phones and short screens: the HUD joins the page flow instead of floating over the menu ---- */
+@media (max-width:700px), (max-height:640px){
+    .hud-ruler, .hud-readout, .hud-compass, .hud-caret, .hud-heading{ display:none; }
+    .intro-top{ top:10px; right:10px; }
+    .intro-top .tactical-clock{ font-size:.8rem; padding:6px 10px; }
+    .hud-bottom{
+        position:static; width:min(92vw,720px); margin:1rem auto 0; flex-wrap:wrap; justify-content:space-between;
+    }
+    .title-reticle{ width:min(220px,60vw); height:min(220px,60vw); }
+}
+@media (prefers-reduced-motion:reduce){ .title-reticle .spin{ animation:none; } }
 </style>
 </head>
 
 <body>
 
-<div class="bg-photo"></div>
+<div class="bg-soldier" aria-hidden="true"></div>
 <div class="scanline"></div>
 <div class="nv-overlay"></div>
 <div class="cursor-crosshair"></div>
-<div class="tactical-clock" id="tacticalClock">00:00:00 UTC</div>
-<button class="nv-toggle" id="nvToggle">[ NV MODE ]</button>
+<div class="hud-lattice"></div>
+<div class="hud-ruler"></div>
+
+<!-- compass strip: scrolls with the mouse like turning your head -->
+<div class="hud-compass" aria-hidden="true"><div class="strip" id="compassStrip"></div></div>
+<div class="hud-caret" aria-hidden="true"></div>
+<div class="hud-heading" id="hudHeading" aria-hidden="true">HDG 000&deg; N</div>
+
+<!-- telemetry read-outs (right edge) -->
+<div class="hud-readout" aria-hidden="true">
+    <div>RNG <b id="roRng">346</b></div>
+    <div>ALT <b id="roAlt">404</b></div>
+    <div>SPD <b id="roSpd">009</b>M</div>
+</div>
+
+<!-- top right: map / night-vision buttons and the clock -->
+<div class="intro-top">
+    <button class="nv-toggle" id="audioToggle" aria-label="Toggle music">[ AUDIO: OFF ]</button>
+    <button class="nv-toggle" id="nvToggle">[ NV MODE ]</button>
+    <div class="tactical-clock" id="tacticalClock">00:00:00 UTC</div>
+</div>
 
 <!-- Tactical Radar -->
 <div class="tactical-radar">
@@ -522,6 +692,16 @@ body.night-vision .nv-overlay::before{
 <div class="intro-wrap">
 
     <div class="header">
+        <svg class="title-reticle" viewBox="0 0 260 260" aria-hidden="true">
+            <g class="spin" fill="none" stroke="#00ff66">
+                <circle cx="130" cy="130" r="118" stroke-width="1.5" stroke-dasharray="3 9" opacity=".7"/>
+                <circle cx="130" cy="130" r="92" stroke-width="1" opacity=".45"/>
+                <path d="M130 4v22M130 234v22M4 130h22M234 130h22" stroke-width="2"/>
+            </g>
+            <g fill="none" stroke="#00ff66" opacity=".5" stroke-width="1">
+                <path d="M130 52v26M130 182v26M52 130h26M182 130h26"/>
+            </g>
+        </svg>
         <h1>SYS_K</h1>
         <h2>// TACTICAL OPS &lt;&lt;</h2>
         <p class="version">VERSION 1.0</p>
@@ -537,14 +717,26 @@ body.night-vision .nv-overlay::before{
         </div>
     </div>
 
+    <div class="audio-hint" id="audioHint" role="status">&#9654; CLICK OR PRESS ANY KEY TO TURN ON THE SOUND</div>
+
 </div>
 
 <footer>
     Inspired by Project I.G.I | Stealth Portfolio System
 </footer>
 
-<audio id="sndHover" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
-<audio id="sndClick" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
+<!-- IGI-style HUD: objectives counter (bottom right) -->
+<div class="hud-bottom">
+    <a class="play-btn" href="https://playigi.com/" target="_blank" rel="noopener noreferrer">&#9654; PLAY PROJECT I.G.I. <span aria-hidden="true">&#8599;</span></a>
+    <div class="hud-ammo" title="Objectives completed">
+        <div class="hud-label"><span>OBJECTIVES</span></div>
+        <div class="hud-count"><b id="ammoDone">00</b><span id="ammoTotal">/19</span></div>
+    </div>
+</div>
+
+<audio id="sndBgTrack" src="bgm.mp3" loop preload="auto"></audio>
+<script src="igi-audio.js?v=4"></script>
+<script src="igi-egg.js?v=1"></script>
 
 <script>
 const cursor=document.querySelector('.cursor-crosshair');
@@ -562,6 +754,7 @@ updateClock();
 setInterval(updateClock, 1000);
 
 document.addEventListener('mousemove',e=>{
+    document.body.classList.add('has-mouse');
     cursor.style.left=e.clientX+'px';
     cursor.style.top=e.clientY+'px';
 });
@@ -569,10 +762,7 @@ document.addEventListener('mousemove',e=>{
 // Hover sound and cursor effects
 document.querySelectorAll('.menu-item, .nv-toggle').forEach(item => {
     item.addEventListener('mouseenter', () => {
-        const hoverSound = document.getElementById('sndHover');
-        hoverSound.volume = 0.3;
-        hoverSound.currentTime = 0;
-        hoverSound.play().catch(() => {});
+        if (window.igiSound) igiSound.play('hover');
         document.body.classList.add('hover-target');
     });
     
@@ -581,10 +771,7 @@ document.querySelectorAll('.menu-item, .nv-toggle').forEach(item => {
     });
     
     item.addEventListener('click', () => {
-        const clickSound = document.getElementById('sndClick');
-        clickSound.volume = 0.3;
-        clickSound.currentTime = 0;
-        clickSound.play().catch(() => {});
+        if (window.igiSound) igiSound.play('click');
     });
 });
 
@@ -609,12 +796,148 @@ nvToggle.addEventListener('click', () => {
 
 // Toggle NV with 'N' key
 document.addEventListener('keydown', (e) => {
+    if(e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
+    if(e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
     if(e.key.toLowerCase() === 'n'){
         document.body.classList.toggle('night-vision');
         nvToggle.classList.toggle('active');
         localStorage.setItem('nightVisionMode', document.body.classList.contains('night-vision'));
     }
 });
+</script>
+
+<script src="igi-map.js?v=16"></script>
+<script>
+/* ---------- top-right cluster: map + NV next to the clock (or a row under the menu on small screens) ---------- */
+window.addEventListener('load', function () {
+    var wrap = document.querySelector('.intro-wrap');
+    var top = document.querySelector('.intro-top');
+    var clock = document.getElementById('tacticalClock');
+    var nv = document.getElementById('nvToggle');
+    var map = document.getElementById('igiMapBtn');
+    if (!wrap || !top) return;
+    var row = document.createElement('div');
+    row.className = 'intro-tools';
+    wrap.appendChild(row);
+    var mq = window.matchMedia('(max-width:700px), (max-height:640px)');
+    function place() {
+        if (mq.matches) {
+            if (map) row.appendChild(map);
+            if (nv) row.appendChild(nv);
+        } else {
+            if (map) top.insertBefore(map, clock);
+            if (nv) top.insertBefore(nv, clock);
+        }
+    }
+    place();
+    if (mq.addEventListener) mq.addEventListener('change', place); else mq.addListener(place);
+});
+
+/* ---------- IGI HUD behaviour ---------- */
+(function () {
+    var $ = function (id) { return document.getElementById(id); };
+
+    /* compass: heading follows the mouse across the screen (slow drift when there is no mouse) */
+    var DIRS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+    var strip = $('compassStrip'), headEl = $('hudHeading');
+    if (strip) {
+        for (var i = 0; i < 24; i++) {
+            var c = document.createElement('div');
+            c.className = 'cell';
+            c.textContent = DIRS[i % 8];
+            strip.appendChild(c);
+        }
+        var mouseX = null, deg = 0, last = performance.now();
+        document.addEventListener('mousemove', function (e) { mouseX = e.clientX; }, { passive: true });
+        (function frame(now) {
+            var target = mouseX === null ? (now / 1000 * 6) % 360 : (mouseX / window.innerWidth) * 360;
+            deg += (target - deg) * Math.min(1, (now - last) / 220);
+            last = now;
+            var d = ((deg % 360) + 360) % 360;
+            var half = strip.parentNode.clientWidth / 2;
+            strip.style.transform = 'translateX(' + (half - (720 + (d / 45) * 90 + 45)) + 'px)';
+            var n = Math.round(d / 45) % 8;
+            if (headEl) headEl.innerHTML = 'HDG ' + String(Math.round(d) % 360).padStart(3, '0') + '&deg; ' + DIRS[n];
+            requestAnimationFrame(frame);
+        })(performance.now());
+    }
+
+    /* telemetry numbers drift a little */
+    var ro = { rng: 346, alt: 404, spd: 9 };
+    setInterval(function () {
+        ro.rng = Math.max(120, ro.rng + Math.round((Math.random() - 0.5) * 12));
+        ro.alt = Math.max(300, ro.alt + Math.round((Math.random() - 0.5) * 6));
+        ro.spd = Math.max(0, Math.min(14, ro.spd + Math.round((Math.random() - 0.5) * 2)));
+        if ($('roRng')) $('roRng').textContent = String(ro.rng).padStart(3, '0');
+        if ($('roAlt')) $('roAlt').textContent = String(ro.alt).padStart(3, '0');
+        if ($('roSpd')) $('roSpd').textContent = String(ro.spd).padStart(3, '0');
+    }, 900);
+
+    /* objectives counter (written by igi-map.js) */
+    setInterval(function () {
+        if (typeof window.igiProgress !== 'function') return;
+        var p = window.igiProgress();
+        $('ammoDone').textContent = String(p[0]).padStart(2, '0');
+        $('ammoTotal').textContent = '/' + p[1];
+    }, 1000);
+
+    /* background music: starts on its own when the browser allows it, otherwise on the first
+       click / key press / tap (browsers do not count scrolling or moving the mouse) */
+    var bg = $('sndBgTrack'), abtn = $('audioToggle'), hint = $('audioHint');
+    var userOff = localStorage.getItem('tactical_audio_playing') === 'false';
+    var gestures = ['pointerdown', 'keydown', 'touchstart'];
+    bg.volume = 0.25;
+    function audioUi(on) {
+        abtn.textContent = on ? '[ AUDIO: ON ]' : '[ AUDIO: OFF ]';
+        abtn.classList.toggle('active', on);
+    }
+    function disarm() { gestures.forEach(function (t) { document.removeEventListener(t, onGesture, true); }); }
+    function startMusic() {
+        return bg.play().then(function () {
+            audioUi(true); hint.classList.remove('show'); disarm();
+            localStorage.setItem('tactical_audio_playing', 'true');
+        });
+    }
+    function onGesture(e) {
+        if (userOff || abtn.contains(e.target)) return;
+        startMusic().catch(function () {});
+    }
+    abtn.addEventListener('click', function () {
+        if (bg.paused) { userOff = false; startMusic().catch(function () {}); }
+        else { userOff = true; bg.pause(); audioUi(false); disarm(); localStorage.setItem('tactical_audio_playing', 'false'); }
+    });
+    audioUi(false);
+    if (!userOff) {
+        startMusic().catch(function () {
+            hint.classList.add('show');
+            gestures.forEach(function (t) { document.addEventListener(t, onGesture, true); });
+        });
+    }
+
+    /* menu: arrow keys + Enter, like the game */
+    var items = Array.prototype.slice.call(document.querySelectorAll('.menu-item'));
+    var idx = 0;
+    function play(kind) { if (window.igiSound) igiSound.play(kind); }
+    function select(i, quiet) {
+        idx = (i + items.length) % items.length;
+        items.forEach(function (it, j) { it.classList.toggle('sel', j === idx); });
+        if (!quiet) play('hover');
+    }
+    items.forEach(function (it, j) {
+        it.addEventListener('mouseenter', function () { select(j, true); });
+        it.addEventListener('focus', function () { select(j, true); });
+    });
+    select(0, true);
+    document.addEventListener('keydown', function (e) {
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+        if (e.key === 'ArrowDown') { e.preventDefault(); select(idx + 1); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); select(idx - 1); }
+        else if (e.key === 'Enter' && document.activeElement && document.activeElement.classList.contains('menu-item') === false) {
+            e.preventDefault();
+            items[idx].click();
+        }
+    });
+})();
 </script>
 
 </body>

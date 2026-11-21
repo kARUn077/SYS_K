@@ -4,68 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kirtan | SECURE COMMS</title>
+    <title>Karun | SECURE COMMS</title>
     <meta name="description" content="Secure Communication Channel">
-    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="icon" href="logo.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Orbitron:wght@400;700;900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=TacticalUpdate2" charset="utf-8">
+    <link rel="stylesheet" href="styles.css?v=TacticalUpdate3" charset="utf-8">
+    <link rel="stylesheet" href="igi-ui.css?v=3">
     
     <style>
-        /* Enhanced Contact Cards */
-        .contact-card {
-            border: 2px solid var(--hud-border);
-            background: rgba(0, 20, 0, 0.6);
-            padding: 1.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .contact-card:hover {
-            border-color: var(--term-green);
-            background: rgba(0, 30, 0, 0.9);
-            box-shadow: 0 0 25px rgba(0, 255, 65, 0.4);
-            transform: translateY(-5px);
-        }
-        
-        .contact-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            display: inline-block;
-            filter: drop-shadow(0 0 10px rgba(0, 255, 65, 0.5));
-            transition: all 0.3s ease;
-        }
-        
-        .contact-card:hover .contact-icon {
-            filter: drop-shadow(0 0 20px rgba(0, 255, 65, 0.8));
-            transform: scale(1.15) rotate(5deg);
-        }
-        
-        .contact-label {
-            color: var(--term-dark-green);
-            font-size: 0.85rem;
-            margin-bottom: 0.8rem;
-            font-family: var(--font-pixel);
-            letter-spacing: 1px;
-        }
-        
-        .contact-link {
-            color: var(--term-green);
-            text-decoration: none;
-            word-break: break-all;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-        
-        .contact-card:hover .contact-link {
-            text-shadow: 0 0 10px rgba(0, 255, 65, 0.8);
-        }
-
         /* NIGHT VISION OVERLAY */
         .nv-overlay{
             position:fixed;
@@ -121,6 +71,57 @@
             box-shadow:0 0 15px rgba(0,255,102,0.6);
             border-color:var(--term-green);
         }
+
+        /* =================== Comms console =================== */
+        .comms-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 2rem; align-items: start; }
+        .comms-side { display: flex; flex-direction: column; gap: 1.5rem; min-width: 0; }
+        .freq-box, .comms-terminal { margin: 0; }
+        .freq-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .7rem; }
+        .freq {
+            display: grid; grid-template-columns: 3.4rem 1fr auto; align-items: center; gap: .9rem; min-width: 0;
+            padding: .75rem .9rem; text-decoration: none; color: inherit; border: 1px solid var(--hud-border); background: rgba(0, 20, 8, .55);
+            transition: border-color .2s, background .2s, transform .2s, box-shadow .2s;
+        }
+        .freq:hover, .freq:focus-visible { border-color: var(--term-green); background: rgba(0, 255, 65, .1); transform: translateX(5px); box-shadow: 0 0 16px rgba(0, 255, 65, .2); }
+        .freq .ch { font-family: var(--font-heading); font-size: .7rem; letter-spacing: .12em; color: #ffd23f; }
+        .fmain { display: flex; flex-direction: column; min-width: 0; }
+        .fmain b { font-family: var(--font-heading); font-size: .9rem; letter-spacing: .08em; color: #fff; }
+        .fmain em { font-style: normal; font-size: .8rem; color: #9fbfa8; overflow-wrap: anywhere; }
+        .bars { display: flex; align-items: flex-end; gap: 2px; height: 16px; }
+        .bars i { display: block; width: 4px; background: var(--term-green); opacity: .9; }
+        .bars i:nth-child(1) { height: 25%; } .bars i:nth-child(2) { height: 50%; } .bars i:nth-child(3) { height: 75%; } .bars i:nth-child(4) { height: 100%; }
+        .freq:hover .bars i { animation: sigBlink .9s ease-in-out infinite; }
+        .freq:hover .bars i:nth-child(2) { animation-delay: .1s; } .freq:hover .bars i:nth-child(3) { animation-delay: .2s; } .freq:hover .bars i:nth-child(4) { animation-delay: .3s; }
+        @keyframes sigBlink { 50% { opacity: .25; } }
+
+        .resp-box { display: flex; align-items: center; gap: 1.1rem; padding: 1.1rem 1.3rem; border: 1px solid var(--term-green); background: linear-gradient(90deg, rgba(0, 40, 12, .7), rgba(0, 12, 4, .85)); box-shadow: 0 0 20px rgba(0, 255, 65, .15); }
+        .resp-pulse { position: relative; flex: 0 0 auto; width: 44px; height: 44px; }
+        .resp-pulse span { position: absolute; inset: 14px; border-radius: 50%; background: var(--term-green); box-shadow: 0 0 12px var(--term-green); }
+        .resp-pulse::before, .resp-pulse::after { content: ""; position: absolute; inset: 0; border: 2px solid var(--term-green); border-radius: 50%; animation: respPing 2.2s ease-out infinite; }
+        .resp-pulse::after { animation-delay: 1.1s; }
+        @keyframes respPing { from { transform: scale(.35); opacity: 1; } to { transform: scale(1); opacity: 0; } }
+        .rlabel { font-size: .7rem; letter-spacing: .2em; color: var(--term-green); }
+        .rval { font-family: var(--font-heading); font-size: 1.3rem; color: #fff; text-shadow: 0 0 12px rgba(0, 255, 65, .5); }
+
+        .comms-terminal .input-group input, .comms-terminal .input-group textarea { width: 100%; }
+        .comms-terminal .input-group input:valid:not(:placeholder-shown), .comms-terminal .input-group textarea:valid:not(:placeholder-shown) { border-color: rgba(0, 255, 65, .6); }
+        .comms-terminal textarea { resize: vertical; min-height: 120px; }
+        .msg-count { align-self: flex-end; margin-top: .35rem; font-size: .72rem; letter-spacing: .1em; color: #7fa38a; }
+        #submitBtn { width: 100%; text-align: center; }
+        #submitBtn:disabled { opacity: .6; }
+
+        .lock-meter { margin-top: 1.3rem; }
+        .lock-top { display: flex; justify-content: space-between; align-items: baseline; font-size: .72rem; letter-spacing: .18em; color: var(--term-green); margin-bottom: .4rem; }
+        .lock-top b { font-family: var(--font-heading); font-size: .9rem; color: #fff; }
+        .lock-bar { height: 10px; padding: 1px; border: 1px solid rgba(0, 255, 65, .6); background: rgba(0, 20, 8, .6); }
+        .lock-bar i { display: block; height: 100%; width: 0; background: repeating-linear-gradient(90deg, var(--term-green) 0 6px, transparent 6px 8px); box-shadow: 0 0 8px var(--term-green); transition: width .35s ease; }
+        .lock-meter.ready .lock-bar { border-color: var(--term-green); box-shadow: 0 0 14px rgba(0, 255, 65, .45); }
+        .lock-hint { margin-top: .4rem; font-size: .75rem; color: #7fa38a; }
+        .lock-meter.ready .lock-hint { color: var(--term-green); }
+
+        @media (max-width: 900px) { .comms-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 480px) { .freq { grid-template-columns: 3.2rem 1fr; } .freq .bars { display: none; } }
+        @media (prefers-reduced-motion: reduce) { .freq, .lock-bar i { transition: none; } .resp-pulse::before, .resp-pulse::after, .freq:hover .bars i { animation: none; } }
     </style>
 </head>
 
@@ -133,7 +134,7 @@
     <div class="hud-wrapper">
         <header class="hud-header" style="position: relative;">
             <a href="igi-intro.html" class="hud-logo" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
-                <img src="logo.png" alt="Logo" class="hud-logo-img">
+                <img src="logo.svg" alt="SYS_K emblem" class="hud-logo-img" width="44" height="44">
                 <span class="glitch" data-text="SYS_K">SYS_K</span>
             </a>
             <nav class="hud-nav">
@@ -146,68 +147,110 @@
             <a href="comms.html" class="contact-cta text-green">[CONTACT]</a>
         </header>
 
-        <main class="hud-main" style="display:flex; align-items:center; justify-content:center; flex-grow:1;">
+        <main class="hud-main">
             <!-- Contact Section -->
-            <section id="comms" class="sector active" style="width:100%; max-width:800px; margin:0;">
+            <section id="comms" class="sector active">
                 <h2 class="sector-title">> ESTABLISH UPLINK <span class="blink">_</span></h2>
-                
-                <!-- Contact Info Cards -->
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
-                    <!-- Email Card -->
-                    <div class="contact-card">
-                        <div class="contact-icon">📧</div>
-                        <p class="contact-label">PRIMARY_FREQ</p>
-                        <a href="mailto:karunpoddar0@gmail.com" class="contact-link">
-                            karunpoddar0@gmail.com
-                        </a>
-                    </div>
-                    
-                    <!-- WhatsApp Card -->
-                    <div class="contact-card">
-                        <div class="contact-icon">💬</div>
-                        <p class="contact-label">INSTANT_MSG</p>
-                        <a href="https://wa.me/919667176881" target="_blank" class="contact-link">
-                            WhatsApp Connect
-                        </a>
-                    </div>
-                    
-                    <!-- Response Time -->
-                    <div class="contact-card">
-                        <div class="contact-icon">⚡</div>
-                        <p class="contact-label">RESPONSE_TIME</p>
-                        <p class="contact-link" style="margin: 0;">24 Hours Max</p>
-                    </div>
-                </div>
 
-                <div class="comms-terminal terminal-box">
-                    <div class="term-header"><span>TRANSMISSION_UPLINK</span></div>
-                    <div class="term-body">
-                        <!-- FormSubmit Email API -->
-                        <form id="intelForm" action="https://formsubmit.co/karunpoddar0@gmail.com" method="POST">
-                            <!-- Hidden config for formsubmit -->
-                            <input type="hidden" name="_captcha" value="false">
-                            <input type="hidden" name="_subject" value="New Transmission from Portfolio!">
-                            <input type="hidden" id="nextRedirect" name="_next" value="">
+                <div class="comms-grid">
 
-                            <div class="input-group">
-                                <label>> IDENTIFIER:</label>
-                                <input type="text" name="name" placeholder="Enter Callsign..." required>
+                    <!-- Frequencies -->
+                    <aside class="comms-side">
+                        <div class="terminal-box freq-box">
+                            <div class="term-header">
+                                <span>FREQUENCIES</span>
+                                <span class="status-indicator"></span>
                             </div>
-                            <div class="input-group">
-                                <label>> SECURE FREQUENCY (EMAIL):</label>
-                                <input type="email" name="email" placeholder="Enter Address..." required>
+                            <div class="term-body">
+                                <ul class="freq-list">
+                                    <li>
+                                        <a class="freq" href="mailto:karunpoddar881@gmail.com">
+                                            <span class="ch">CH-01</span>
+                                            <span class="fmain"><b>EMAIL</b><em>karunpoddar881@gmail.com</em></span>
+                                            <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="freq" href="https://wa.me/919667176881" target="_blank">
+                                            <span class="ch">CH-02</span>
+                                            <span class="fmain"><b>WHATSAPP</b><em>WhatsApp Connect</em></span>
+                                            <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="freq" href="https://www.linkedin.com/in/karun-poddar-515b23264/" target="_blank">
+                                            <span class="ch">CH-03</span>
+                                            <span class="fmain"><b>LINKEDIN</b><em>karun-poddar-515b23264</em></span>
+                                            <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="freq" href="https://github.com/kARUn077" target="_blank">
+                                            <span class="ch">CH-04</span>
+                                            <span class="fmain"><b>GITHUB</b><em>kARUn077</em></span>
+                                            <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="freq" href="https://www.instagram.com/me_kirtan_17/" target="_blank">
+                                            <span class="ch">CH-05</span>
+                                            <span class="fmain"><b>INSTAGRAM</b><em>me_kirtan_17</em></span>
+                                            <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
-                            <div class="input-group">
-                                <label>> ENCRYPTED MESSAGE:</label>
-                                <textarea name="message" rows="4" placeholder="Input target intel..."
-                                    required></textarea>
+                        </div>
+
+                        <div class="resp-box">
+                            <div class="resp-pulse" aria-hidden="true"><span></span></div>
+                            <div>
+                                <div class="rlabel">RESPONSE_TIME</div>
+                                <div class="rval">24 Hours Max</div>
                             </div>
-                            <button type="submit" class="btn tactical-btn" id="submitBtn">> TRANSMIT</button>
-                            
-                            <!-- Status Messages -->
-                            <div id="statusMessage" style="margin-top: 1rem; padding: 0.8rem; border: 1px dashed var(--hud-border); display: none; text-align: center; font-weight: bold;"></div>
-                        </form>
+                        </div>
+                    </aside>
+
+                    <!-- Transmission form -->
+                    <div class="comms-terminal terminal-box">
+                        <div class="term-header"><span>TRANSMISSION_UPLINK</span></div>
+                        <div class="term-body">
+                            <!-- FormSubmit Email API -->
+                            <form id="intelForm" action="https://formsubmit.co/karunpoddar881@gmail.com" method="POST">
+                                <!-- Hidden config for formsubmit -->
+                                <input type="hidden" name="_captcha" value="false">
+                                <input type="hidden" name="_subject" value="New Transmission from Portfolio!">
+                                <input type="hidden" id="nextRedirect" name="_next" value="">
+
+                                <div class="input-group">
+                                    <label for="fName">> IDENTIFIER:</label>
+                                    <input type="text" id="fName" name="name" placeholder="Enter Callsign..." autocomplete="name" required>
+                                </div>
+                                <div class="input-group">
+                                    <label for="fEmail">> SECURE FREQUENCY (EMAIL):</label>
+                                    <input type="email" id="fEmail" name="email" placeholder="Enter Address..." autocomplete="email" required>
+                                </div>
+                                <div class="input-group">
+                                    <label for="fMsg">> ENCRYPTED MESSAGE:</label>
+                                    <textarea id="fMsg" name="message" rows="5" maxlength="1500" placeholder="Input target intel..." required></textarea>
+                                    <div class="msg-count"><span id="msgCount">0</span> / 1500</div>
+                                </div>
+
+                                <button type="submit" class="btn tactical-btn" id="submitBtn">> TRANSMIT</button>
+
+                                <!-- Signal lock: fills as the form gets ready to send -->
+                                <div class="lock-meter" aria-live="polite">
+                                    <div class="lock-top"><span>SIGNAL LOCK</span><b id="lockPct">0%</b></div>
+                                    <div class="lock-bar"><i id="lockFill"></i></div>
+                                    <div class="lock-hint" id="lockHint">Fill in the fields to lock the signal.</div>
+                                </div>
+
+                                <!-- Status Messages -->
+                                <div id="statusMessage" style="margin-top: 1rem; padding: 0.8rem; border: 1px dashed var(--hud-border); display: none; text-align: center; font-weight: bold;"></div>
+                            </form>
+                        </div>
                     </div>
+
                 </div>
             </section>
         </main>
@@ -220,7 +263,7 @@
                     style="color:var(--term-green); text-decoration:none;">[LINKEDIN]</a>
                 <a href="https://www.instagram.com/me_kirtan_17/" target="_blank"
                     style="color:var(--term-green); text-decoration:none;">[INSTAGRAM]</a>
-                <a href="mailto:karunpoddar0@gmail.com"
+                <a href="mailto:karunpoddar881@gmail.com"
                     style="color:var(--term-green); text-decoration:none;">[EMAIL]</a>
             </div>
             <div style="display:flex; gap:1.5rem; align-items: center;">
@@ -238,7 +281,10 @@
     <audio id="sndHover" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
     <audio id="sndClick" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
 
-    <script src="script.js?v=update5" charset="utf-8"></script>
+    <script src="igi-audio.js?v=4"></script>
+    <script src="script.js?v=update8" charset="utf-8"></script>
+    <script src="igi-map.js?v=16"></script>
+    <script src="igi-ui.js?v=1"></script>
     
     <!-- Contact Cards Hover Sound -->
     <script>
@@ -333,6 +379,39 @@
                 statusMsg.style.borderColor = 'var(--term-green)';
             }
         }
+    </script>
+    <script>
+    /* comms: live character counter + "signal lock" readiness meter (does not touch the form's submit behaviour) */
+    (function () {
+        var form = document.getElementById('intelForm');
+        if (!form) return;
+        var name = form.querySelector('input[name="name"]');
+        var email = form.querySelector('input[name="email"]');
+        var msg = form.querySelector('textarea[name="message"]');
+        var count = document.getElementById('msgCount');
+        var pct = document.getElementById('lockPct');
+        var fill = document.getElementById('lockFill');
+        var hint = document.getElementById('lockHint');
+        var meter = document.querySelector('.lock-meter');
+
+        function emailOk(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
+        function update() {
+            count.textContent = msg.value.length;
+            var steps = [name.value.trim().length > 0, emailOk(email.value), msg.value.trim().length >= 5];
+            var done = steps.filter(Boolean).length;
+            var p = Math.round(done / steps.length * 100);
+            pct.textContent = p + '%';
+            fill.style.width = p + '%';
+            meter.classList.toggle('ready', p === 100);
+            hint.textContent = p === 100 ? 'Signal locked. Ready to transmit.'
+                : !steps[0] ? 'Enter your callsign (name).'
+                : !steps[1] ? 'Enter a valid email address.'
+                : 'Write a message (at least 5 characters).';
+        }
+        [name, email, msg].forEach(function (el) { el.addEventListener('input', update); });
+        form.addEventListener('reset', function () { setTimeout(update, 0); });
+        update();
+    })();
     </script>
 </body>
 
