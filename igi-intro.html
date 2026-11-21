@@ -735,7 +735,7 @@ body.has-mouse .cursor-crosshair{opacity:1;}
 </div>
 
 <audio id="sndBgTrack" src="bgm.mp3" loop preload="auto"></audio>
-<script src="igi-audio.js?v=4"></script>
+<script src="igi-audio.js?v=8"></script>
 <script src="igi-egg.js?v=1"></script>
 
 <script>
@@ -762,7 +762,6 @@ document.addEventListener('mousemove',e=>{
 // Hover sound and cursor effects
 document.querySelectorAll('.menu-item, .nv-toggle').forEach(item => {
     item.addEventListener('mouseenter', () => {
-        if (window.igiSound) igiSound.play('hover');
         document.body.classList.add('hover-target');
     });
     
@@ -770,9 +769,6 @@ document.querySelectorAll('.menu-item, .nv-toggle').forEach(item => {
         document.body.classList.remove('hover-target');
     });
     
-    item.addEventListener('click', () => {
-        if (window.igiSound) igiSound.play('click');
-    });
 });
 
 function quitMission(){
@@ -806,7 +802,7 @@ document.addEventListener('keydown', (e) => {
 });
 </script>
 
-<script src="igi-map.js?v=16"></script>
+<script src="igi-map.js?v=17"></script>
 <script>
 /* ---------- top-right cluster: map + NV next to the clock (or a row under the menu on small screens) ---------- */
 window.addEventListener('load', function () {

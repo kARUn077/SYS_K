@@ -470,12 +470,10 @@
 
     <!-- Interface Audio -->
     <audio id="sndBgTrack" src="bgm.mp3" loop preload="auto"></audio>
-    <audio id="sndHover" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
-    <audio id="sndClick" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
 
-    <script src="igi-audio.js?v=4"></script>
-    <script src="script.js?v=update8" charset="utf-8"></script>
-    <script src="igi-map.js?v=16"></script>
+    <script src="igi-audio.js?v=8"></script>
+    <script src="script.js?v=update10" charset="utf-8"></script>
+    <script src="igi-map.js?v=17"></script>
     <script src="igi-ui.js?v=1"></script>
     
     <!-- Artworks Gallery Loader -->
@@ -514,14 +512,6 @@
             artworkCards.forEach(card => {
                 card.addEventListener('mouseenter', () => {
                     document.body.classList.add('hover-target');
-                    const hoverSound = document.getElementById('sndHover');
-                    if (hoverSound) {
-                        hoverSound.currentTime = 0;
-                        hoverSound.volume = 0.2;
-                        hoverSound.play().catch(e => {
-                            console.log('Sound play error:', e);
-                        });
-                    }
                 });
                 
                 card.addEventListener('mouseleave', () => {
@@ -584,13 +574,6 @@
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
 
-            // Play scope sound
-            const clickSound = document.getElementById('sndClick');
-            if (clickSound) {
-                clickSound.currentTime = 0;
-                clickSound.volume = 0.4;
-                clickSound.play().catch(e => {});
-            }
         }
 
         function zoomIn() {
@@ -618,12 +601,7 @@
         }
 
         function playZoomSound() {
-            const hoverSound = document.getElementById('sndHover');
-            if (hoverSound) {
-                hoverSound.currentTime = 0;
-                hoverSound.volume = 0.3;
-                hoverSound.play().catch(e => {});
-            }
+            if (window.igiSound) igiSound.play('hover');
         }
 
         function toggleFullView() {

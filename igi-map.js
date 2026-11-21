@@ -106,8 +106,9 @@
        Nothing is generated here.
        ============================================================ */
     const sfx = {};
+    const CLICKY = { open: 1, close: 1, select: 1, deploy: 1, complete: 1, mission: 1 };
     ['open', 'close', 'hover', 'select', 'deploy', 'zoom', 'complete', 'mission'].forEach(name => {
-        sfx[name] = function () { if (sfxOn && window.igiSound) igiSound.play('hover'); };
+        sfx[name] = function () { if (sfxOn && window.igiSound) igiSound.play(CLICKY[name] ? 'click' : 'hover'); };
     });
     sfx.ping = function () {};   /* the repeating sonar ping was removed */
 

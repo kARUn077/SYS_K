@@ -152,13 +152,9 @@ function attachInteractableHoverSound() {
         el._hoverSoundAttached = true;
         el.addEventListener('mouseenter', () => {
             document.body.classList.add('hover-target');
-            if (window.igiSound) igiSound.play('hover');
         });
         el.addEventListener('mouseleave', () => {
             document.body.classList.remove('hover-target');
-        });
-        el.addEventListener('click', () => {
-            if (window.igiSound) igiSound.play('click');
         });
     });
 }
@@ -252,7 +248,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 function loadLevel(targetUrl) {
-    if (window.igiSound) igiSound.play('click');
 
     // Redirect through the fake loading screen
     setTimeout(() => {
